@@ -4,11 +4,21 @@ export default defineNuxtConfig({
         '@nuxt/content',
         'nuxt-windicss',
         'nuxt-icon',
+        '@nuxt/image-edge',
       ],
       css: [
         '@/resources/main.css',
         '@/resources/scrollbars.css',
       ],
+      image: {
+        cloudinary: {
+          baseURL: 'https://res.cloudinary.com/dpub6gcei/image/upload/v1678918300/GBstreams',
+          modifiers: {
+            quality: 'auto:best',
+            dpr: 'auto',
+          },
+        }
+      },
       content: {
         // https://content.nuxtjs.org/api/configuration
       }

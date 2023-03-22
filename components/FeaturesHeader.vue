@@ -4,7 +4,7 @@
             <div class="flex justify-between items-center w-full">
                 <div class="xl:w-1/3">
                     <NuxtLink class="block max-w-max">
-                        <img class="h-9" src="~/assets/img/banner-light.png" alt="GBstreams logo">
+                        <NuxtImg provider="cloudinary" src="/branding/banner-light_xgac6g.png" alt="GBstreams logo" class="h-9" />
                     </NuxtLink>
                 </div>
                 <div class="hidden md:block xl:w-1/3">
