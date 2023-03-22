@@ -5,7 +5,7 @@ export default defineNuxtConfig({
         'nuxt-windicss',
       ],
       css: [
-        '@/resources/main.scss',
+        '@/resources/main.css',
         '@/resources/scrollbars.css',
       ],
       content: {
