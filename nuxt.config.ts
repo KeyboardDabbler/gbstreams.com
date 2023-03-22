@@ -3,6 +3,7 @@ export default defineNuxtConfig({
     modules: [
         '@nuxt/content',
         'nuxt-windicss',
+        'nuxt-icon',
       ],
       css: [
         '@/resources/main.css',
