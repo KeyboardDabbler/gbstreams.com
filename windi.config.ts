@@ -23,13 +23,14 @@ export default defineConfig({
         forg: '#202938',
         yellow: '#f4cf44',
         yellowf: '#897931',
+        blueBorder: '#2E5597',
         bluer: '#007aff',
       },
       fontFamily: {
         sans: ['Nunito', ...defaultTheme.fontFamily.sans],
       },
       backgroundImage: {
-        'login-pattern': "url('')",
+        'login-pattern': "url('./assets/AuthBG.png')",
       },
     },
   },
