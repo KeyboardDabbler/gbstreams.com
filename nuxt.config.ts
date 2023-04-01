@@ -3,6 +3,7 @@ export default defineNuxtConfig({
     modules: [
         '@nuxt/content',
         'nuxt-windicss',
+        'nuxt-headlessui',
         'nuxt-icon',
         '@nuxt/image-edge',
       ],
@@ -19,8 +20,28 @@ export default defineNuxtConfig({
           },
         }
       },
+      headlessui: {
+        prefix: 'Headless',
+      },
       content: {
-        // https://content.nuxtjs.org/api/configuration
-      }
-
+        navigation: {
+          fields: ['icon'],
+        },
+        highlight: {
+          preload: [
+            'c',
+            'cpp',
+            'java',
+          ],
+          // Theme used in all color schemes.
+          theme: 'github-dark',
+        },
+        // documentDriven: true,
+        markdown: {
+          toc: {
+            depth: 4,
+            searchDepth: 4,
+          },
+        },
+      },
 })

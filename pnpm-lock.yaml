@@ -4,6 +4,7 @@ specifiers:
   '@nuxt/content': ^2.5.2
   '@nuxt/image-edge': 1.0.0-27990059.c3f31ce
   nuxt: ^3.3.1
+  nuxt-headlessui: ^1.1.1
   nuxt-icon: ^0.3.3
   nuxt-windicss: ^2.6.0
 
@@ -11,6 +12,7 @@ devDependencies:
   '@nuxt/content': 2.5.2
   '@nuxt/image-edge': 1.0.0-27990059.c3f31ce
   nuxt: 3.3.1
+  nuxt-headlessui: 1.1.1
   nuxt-icon: 0.3.3
   nuxt-windicss: 2.6.0
 
@@ -730,6 +732,13 @@ packages:
     requiresBuild: true
     dev: true
     optional: true
+
+  /@headlessui/vue/1.7.12:
+    resolution: {integrity: sha512-IV0k1I2I8Bj37HljFF231Y9cpldfiucf+inMCxA/VPoQT6UTxo0N/rb78CrogBxXNfsPxKmz3y/nlv+eRz6zvg==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      vue: ^3.2.0
+    dev: true
 
   /@iconify/types/2.0.0:
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -4497,6 +4506,18 @@ packages:
     transitivePeerDependencies:
       - rollup
       - supports-color
+    dev: true
+
+  /nuxt-headlessui/1.1.1:
+    resolution: {integrity: sha512-sf8qZQvGDaI+uNnKuynFGY+VXScDNEj3W0LMjv2XH4jO4ksQzbliCB9Hl5cdd/VIFPVmnZm+dnneURSI4/1fXw==}
+    dependencies:
+      '@headlessui/vue': 1.7.12
+      '@nuxt/kit': 3.3.1
+      pathe: 1.1.0
+    transitivePeerDependencies:
+      - rollup
+      - supports-color
+      - vue
     dev: true
 
   /nuxt-icon/0.3.3:
