@@ -1,7 +1,7 @@
 <template>
     <section class="p-6">
-      <div class="container px-4 mx-auto">
-        <div class="md:max-w-4xl mb-12 mx-auto text-center">
+      <div class="container px-2 mx-auto">
+        <div class="md:max-w-4xl mb-4 mx-auto text-center">
           <span
             class="inline-block py-px px-2 mb-4 text-xs leading-5 text-yellow bg-forg font-medium uppercase rounded-full shadow-sm">Features</span>
           <h1 class="mb-4 text-gray-200 text-3xl md:text-4xl leading-tight font-bold tracking-tighter">What We Do</h1>
