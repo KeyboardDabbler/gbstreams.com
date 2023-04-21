@@ -16,7 +16,6 @@ export default {
                     bulletPoints: [
                         "Request any available Movie or TV Show",
                         "Report issues with content, such as playback problems.",
-                        "Requested media will be automatically downloaded and added to the GBstreams library.",
                         "If enabled, recieve notification once ready to watch."
                     ],
                     link: "https://request.gbstreams.com",
