@@ -2,7 +2,7 @@
   <div>
     <div class="flex flex-col min-h-screen">
       <slot name="header">
-        <DashboardHeader />
+        <NavDashboardHeader />
       </slot>
       <div class="flex-1 w-full flex flex-col">
         <div
@@ -12,7 +12,7 @@
         </div>
       </div>
       <slot name="footer">
-        <TheFooter />
+        <NavTheFooter />
       </slot>
     </div>
   </div>

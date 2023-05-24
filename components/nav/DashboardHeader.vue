@@ -4,12 +4,24 @@
             <div class="flex justify-between items-center w-full">
                 <div class="xl:w-1/3">
                     <NuxtLink class="block max-w-max">
-                        <NuxtImg provider="cloudinary" src="/branding/banner-light_xgac6g.png" alt="GBstreams logo" class="h-9" />
+                        <NuxtImg provider="cloudinary" src="/branding/banner-light_xgac6g.png" alt="GBstreams logo"
+                            class="h-9" />
                     </NuxtLink>
                 </div>
-                <button class="self-center md:hidden">
-                    <Icon name="ic:baseline-menu" size="35px" />
-                </button>
+                <div class="self-center md:hidden">
+                    <HeadlessDisclosure>
+                        <HeadlessDisclosureButton class="p-2 -translate-x-2">
+                            <Icon size="35px" name="mdi:menu" />
+                        </HeadlessDisclosureButton>
+                        <HeadlessDisclosurePanel class="text-gray-500">
+                            <NavDashboardDropdown>
+                                <HeadlessDisclosureButton href="/home">
+                                    <Icon class="mt-4 mb-2 text-2xl text-zinc-300" name="mdi:close" />
+                                </HeadlessDisclosureButton>
+                            </NavDashboardDropdown>
+                        </HeadlessDisclosurePanel>
+                    </HeadlessDisclosure>
+                </div>
                 <div class="hidden md:block">
                     <div class="flex items-center justify-end">
                         <NuxtLink to="/dashboard/clients"
@@ -36,6 +48,10 @@
                         <NuxtLink to="/dashboard/profile"
                             class="inline-block py-2 px-4 leading-5 text-base text-black font-medium text-center bg-yellow hover:bg-yellowf focus:ring-2 focus:ring-bluer focus:ring-opacity-50 rounded-md shadow-sm">
                             Dashboard
+                        </NuxtLink>
+
+                        <NuxtLink to="#" class="inline-block py-2 px-4 leading-5">
+                            <Icon name="mdi:logout" size="25px" />
                         </NuxtLink>
                     </div>
                 </div>
