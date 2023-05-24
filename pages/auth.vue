@@ -7,7 +7,7 @@ definePageMeta({
 <template>
     <NuxtLayout>
         <section>
-            <LoginCard />
+            <AuthCard />
         </section>
     </NuxtLayout>
 </template>

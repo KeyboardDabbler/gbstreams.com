@@ -5,6 +5,8 @@ const email = ref('')
 const password = ref('')
 const isSignUp = ref(false)
 
+// const { signIn } = useAuth()
+
 </script>
 
 <template>
@@ -21,24 +23,24 @@ const isSignUp = ref(false)
         <p class="text-lg text-coolGray-500 font-medium">Start your demo version</p>
       </div>
     </div>
-    <form action="" data-bitwarden-watching="1">
+    <form @submit.prevent="() => (isSignUp ? signUp() : signIn())" action="" data-bitwarden-watching="1">
       <div v-if="isSignUp" class="mb-4">
         <label class="block mb-2 text-coolGray-800 font-medium" for="">Invite Code</label>
         <input
           class="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-bluer focus:ring-opacity-50"
-          type="email" placeholder="HGB34">
+          type="inviteCode" placeholder="HGB34">
       </div>
       <div v-if="isSignUp" class="mb-4">
         <label class="block mb-2 text-coolGray-800 font-medium" for="">Username</label>
         <input
           class="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-bluer focus:ring-opacity-50"
-          type="email" placeholder="GBstreams">
+          type="username" placeholder="GBstreams">
       </div>
       <div class="mb-4">
         <label class="block mb-2 text-coolGray-800 font-medium" for="">Email</label>
         <input
           class="appearance-none block w-full p-3 leading-5 text-coolGray-900 border border-coolGray-200 rounded-lg shadow-md placeholder-coolGray-400 focus:outline-none focus:ring-2 focus:ring-bluer focus:ring-opacity-50"
-          type="email" placeholder="name@email.com">
+          type="username" placeholder="name@email.com">
       </div>
       <div class="mb-4">
         <label class="block mb-2 text-coolGray-800 font-medium" for="">Password</label>
