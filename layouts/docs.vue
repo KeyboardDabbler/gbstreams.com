@@ -3,7 +3,7 @@
 <template>
   <div class="flex flex-col min-h-screen">
     <slot name="header">
-      <DashboardHeader />
+      <NavDashboardHeader />
     </slot>
     <div class="flex-1 flex flex-col sm:flex-row">
       <main class="flex-1 p-4">
@@ -40,7 +40,7 @@
           <slot />
         </div>
       </main>
-      <nav class="order-first min-w-auto max-w-[220px]">
+      <nav class="order-first pl-5 min-w-auto max-w-[220px]">
         <div class="hidden md:block sticky top-8">
           <DocsAside class="" />
         </div>
@@ -52,7 +52,7 @@
       </aside>
     </div>
     <slot name="footer">
-      <TheFooter />
+      <NavTheFooter />
     </slot>
   </div>
 </template>

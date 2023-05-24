@@ -7,18 +7,6 @@ if (page.value) {
       { name: 'keywords', content: page.value.keywords },
     ],
   })
-  useSeoMeta({
-    title: () => `${page.value?.title} | Hui Beom`,
-    ogTitle: () => `${page.value?.title} | Hui Beom`,
-    description: () => page.value?.description,
-    ogDescription: () => page.value?.description,
-  })
-  // defineOgImageStatic({
-  //   component: 'MyOgImage',
-  //   title: 'Documents',
-  //   description: '',
-  //   background: '#27272a',
-  // })
 }
 </script>
 
