@@ -1,6 +1,7 @@
 import { defineConfig } from 'windicss/helpers'
 // themes
 import defaultTheme from 'windicss/defaultTheme'
+import FormKitVariants from '@formkit/themes/windicss'
 
 export default defineConfig({
   attributify: false,
@@ -34,4 +35,9 @@ export default defineConfig({
       },
     },
   },
+  content: [
+    ...
+    './formkit.theme.ts',
+  ],
+  plugins: [FormKitVariants],
 })

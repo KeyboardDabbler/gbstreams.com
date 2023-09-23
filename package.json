@@ -14,5 +14,10 @@
     "nuxt-headlessui": "^1.1.1",
     "nuxt-icon": "^0.3.3",
     "nuxt-windicss": "^2.6.0"
+  },
+  "dependencies": {
+    "@formkit/icons": "^1.1.0",
+    "@formkit/nuxt": "^1.1.0",
+    "@formkit/themes": "^1.1.0"
   }
 }

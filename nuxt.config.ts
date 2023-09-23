@@ -6,6 +6,7 @@ export default defineNuxtConfig({
         'nuxt-headlessui',
         'nuxt-icon',
         '@nuxt/image-edge',
+        '@formkit/nuxt',
       ],
       css: [
         '@/resources/main.css',
