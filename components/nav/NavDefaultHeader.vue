@@ -9,9 +9,9 @@
                 </div>
                 <div class="block xl:w-1/3">
                     <div class="flex items-center justify-end">
-                        <NuxtLink to="/auth"
+                        <NuxtLink :to="$attrs.buttonLink"
                             class="inline-block py-2 px-4 leading-5 decoration-yellow decoration-2 underline-offset-8 hover:underline bg-transparent font-medium rounded-md">
-                            Login Page
+                            {{ $attrs.button }}
                         </NuxtLink>
                     </div>
                 </div>

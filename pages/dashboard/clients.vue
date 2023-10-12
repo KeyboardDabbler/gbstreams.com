@@ -15,7 +15,7 @@ definePageMeta({
                 <p class="text-lg md:text-xl font-medium">Follow the simple instructions and you'll be able to start
                     watching on <span class="text-yellow font-bold">GBstreams</span></p>
             </div>
-            <ClientList />
+            <SectionClientList />
         </section>
     </NuxtLayout>
 </template>

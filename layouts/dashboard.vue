@@ -12,7 +12,7 @@
         </div>
       </div>
       <slot name="footer">
-        <NavTheFooter />
+        <NavFooter />
       </slot>
     </div>
   </div>
