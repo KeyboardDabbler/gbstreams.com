@@ -10,6 +10,12 @@ export default defineNuxtConfig({
     '@formkit/nuxt',
     "@nuxt/image"
   ],
+  auth: {
+    isEnabled: false,
+    globalAppMiddleware: {
+      isEnabled: true
+    }
+  },
   css: [
     '@/resources/main.css',
     '@/resources/scrollbars.css',

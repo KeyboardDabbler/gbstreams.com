@@ -1,3 +1,9 @@
+<script lang="ts" setup>
+definePageMeta({ 
+    auth: false 
+    })
+</script>
+
 <template>
     <div class="flex flex-col min-h-screen">
         <NavDefaultHeader :button="'Login Page'" :buttonLink="'/auth/login'" />

@@ -1,6 +1,10 @@
 <script>
 definePageMeta({
   layout: "card",
+  auth: {
+    unauthenticatedOnly: true,
+    navigateAuthenticatedTo: "/dashboard/profile",
+  },
 });
 </script>
 
