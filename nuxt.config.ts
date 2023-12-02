@@ -1,13 +1,14 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
     modules: [
-        '@nuxt/content',
-        'nuxt-windicss',
-        'nuxt-headlessui',
-        'nuxt-icon',
-        '@nuxt/image-edge',
-        '@formkit/nuxt',
-      ],
+      '@nuxt/content',
+      'nuxt-windicss',
+      'nuxt-headlessui',
+      'nuxt-icon',
+      '@nuxt/image-edge',
+      '@formkit/nuxt',
+      "@nuxt/image"
+    ],
       css: [
         '@/resources/main.css',
         '@/resources/scrollbars.css',
