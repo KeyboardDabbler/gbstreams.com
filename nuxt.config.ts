@@ -10,8 +10,30 @@ export default defineNuxtConfig({
     '@formkit/nuxt',
     "@nuxt/image"
   ],
+  build: {
+    transpile: ['jsonwebtoken']
+  },
   auth: {
-    isEnabled: false,
+    isEnabled: true,
+    provider: {
+      type: 'refresh',
+      // refreshOnlyToken: true,
+      endpoints: {
+        getSession: { path: '/user' },
+        refresh: { path: '/refresh', method: 'post' }
+      },
+      pages: {
+        login: '/auth/login'
+      },
+      token: {
+        signInResponseTokenPointer: '/token/accessToken',
+        maxAgeInSeconds: 60 * 5, // 5 min
+        sameSiteAttribute: 'lax'
+      },
+      refreshToken: {
+        signInResponseRefreshTokenPointer: '/token/refreshToken'
+      }
+    },
     globalAppMiddleware: {
       isEnabled: true
     }

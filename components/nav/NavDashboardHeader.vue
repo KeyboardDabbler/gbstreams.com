@@ -1,3 +1,7 @@
+<script lang="ts" setup>
+const { signOut } = useAuth()
+</script>
+
 <template>
     <section>
         <nav class="flex justify-between p-2 px-4 xl:px-20 border-b-1 border-gray-400 border-opacity-40">
@@ -50,9 +54,9 @@
                             Dashboard
                         </NuxtLink>
 
-                        <NuxtLink to="#" class="inline-block py-2 px-4 leading-5">
+                        <button @click="signOut({ callbackUrl: '/' })" class="inline-block py-2 px-4 leading-5">
                             <Icon name="mdi:logout" size="25px" />
-                        </NuxtLink>
+                        </button>
                     </div>
                 </div>
             </div>
