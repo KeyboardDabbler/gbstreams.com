@@ -7,7 +7,7 @@
                         <NuxtImg provider="cloudinary" src="/branding/banner-light_xgac6g.png" alt="GBstreams logo" class="h-9" />
                     </NuxtLink>
                 </div>
-                <div class="block xl:w-1/3">
+                <div class="block xl:w-1/3" v-if="$route.path !== '/dashboard/wizard'">
                     <div class="flex items-center justify-end">
                         <NuxtLink :to="$attrs.buttonLink"
                             class="inline-block py-2 px-4 leading-5 decoration-yellow decoration-2 underline-offset-8 hover:underline bg-transparent font-medium rounded-md">

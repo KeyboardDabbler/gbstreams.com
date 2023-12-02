@@ -36,7 +36,7 @@
             <div v-if="$route.path !== '/auth/login'"
                 class="relative flex flex-col items-center justify-center text-center my-6">
                 <div class="flex flex-col space-y-2 sm:flex-row sm:justify-center sm:space-y-0 sm:space-x-3">
-                    <NuxtLink to="/auth/login">
+                    <NuxtLink :to="$route.path === '/dashboard/wizard' ? '/docs/introduction' : '/auth/login'">
                         <button
                             class="flex items-center px-4 py-2 text-sm rounded-md border leading-5 focus:outline-none transition ease-in-out duration-150 cursor-pointer disabled:opacity-50 whitespace-nowrap text-white bg-transparent border-gray-600 hover:border-gray-200 focus:border-gray-100 active:border-gray-100">Back</Button>
                     </NuxtLink>

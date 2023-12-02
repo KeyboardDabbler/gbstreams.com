@@ -44,38 +44,42 @@ export default {
 </script>
 
 <template>
-    <div class="mb-2 text-center">
-        <a class="inline-block mb-2" href="#">
-            <NuxtImg provider="cloudinary" src="/branding/banner-light_xgac6g.png" alt="GBstreams logo" class="h-16" />
-        </a>
-    </div>
-    <div class="">
-        <h2 class="mb-4 text-gray-200 text-2xl md:text-3xl font-bold">{{ steps[currentStep - 1].title }}</h2>
-        <p class="text-coolGray-500 ">{{ steps[currentStep - 1].instructions }}</p>
-        <div v-if="currentStep === 3">
-            <h2 class="my-4 text-gray-200 text-2xl md:text-3xl font-bold">{{ steps[currentStep - 1].subTitle }}</h2>
-            <p class="text-coolGray-500 ">{{ steps[currentStep - 1].subInstructions }}</p>
-        </div>
-        <div class="">
-            <ul class="mt-2 space-y-4 text-left text-gray-500 dark:text-gray-400" v-if="currentStep === 2">
-                <li class="flex items-center space-x-3" v-for="bullet in steps[currentStep - 1].bulletPoints"><Icon class="mr-1 text-green-400" name="mdi:check" />  {{ bullet }}</li>
-            </ul>
-        </div>
-        <div class="flex justify-center">
-            <a class="py-2 px-4 my-4 text-base text-black font-medium text-center leading-6 bg-yellow focus:ring-2 focus:ring-bluer focus:ring-opacity-50 rounded-md shadow-sm"
-                :href="steps[currentStep - 1].link" target="_blank">{{ steps[currentStep - 1].linkText }}
-                <Icon class="ml-1" v-if="currentStep === 1" name="material-symbols:download" />
-                <Icon class="ml-1" v-if="currentStep === 2" name="material-symbols:open-in-new" />
-                <Icon class="ml-1" v-if="currentStep === 3" name="material-symbols:open-in-new" />
+    <section class="p-6 sm:p-8">
+        <div class="mb-2 text-center">
+            <a class="inline-block mb-2" href="#">
+                <NuxtImg provider="cloudinary" src="/branding/banner-light_xgac6g.png" alt="GBstreams logo" class="h-16" />
             </a>
         </div>
-        <div class="flex justify-between">
-            <button
-                class="py-2 px-4 mb-1 text-base font-medium text-center leading-6 ring-1 ring-yellow ring-opacity-50 rounded-md shadow-sm"
-                v-if="currentStep > 1" @click="prevStep()">Prev</button>
-            <button
-                class="py-2 px-4 mb-1 text-base font-medium text-center leading-6 ring-1 ring-yellow ring-opacity-50 rounded-md shadow-sm"
-            v-if="currentStep < steps.length" @click="nextStep()">Next</button>
-    </div>
-</div>
+        <div class="">
+            <h2 class="mb-4 text-gray-200 text-2xl md:text-3xl font-bold">{{ steps[currentStep - 1].title }}</h2>
+            <p class="text-coolGray-500 ">{{ steps[currentStep - 1].instructions }}</p>
+            <div v-if="currentStep === 3">
+                <h2 class="my-4 text-gray-200 text-2xl md:text-3xl font-bold">{{ steps[currentStep - 1].subTitle }}</h2>
+                <p class="text-coolGray-500 ">{{ steps[currentStep - 1].subInstructions }}</p>
+            </div>
+            <div class="">
+                <ul class="mt-2 space-y-4 text-left text-gray-500 dark:text-gray-400" v-if="currentStep === 2">
+                    <li class="flex items-center space-x-3" v-for="bullet in steps[currentStep - 1].bulletPoints">
+                        <Icon class="mr-1 text-green-400" name="mdi:check" /> {{ bullet }}
+                    </li>
+                </ul>
+            </div>
+            <div class="flex justify-center">
+                <a class="py-2 px-4 my-4 text-base text-black font-medium text-center leading-6 bg-yellow focus:ring-2 focus:ring-bluer focus:ring-opacity-50 rounded-md shadow-sm"
+                    :href="steps[currentStep - 1].link" target="_blank">{{ steps[currentStep - 1].linkText }}
+                    <Icon class="ml-1" v-if="currentStep === 1" name="material-symbols:download" />
+                    <Icon class="ml-1" v-if="currentStep === 2" name="material-symbols:open-in-new" />
+                    <Icon class="ml-1" v-if="currentStep === 3" name="material-symbols:open-in-new" />
+                </a>
+            </div>
+            <div class="flex justify-between">
+                <button
+                    class="inline-flex items-center justify-center border leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer disabled:opacity-50 whitespace-nowrap text-white bg-transparent border-gray-600 hover:border-gray-200 focus:border-gray-100 active:border-gray-100 px-4 py-2 text-sm button-md"
+                    v-if="currentStep > 1" @click="prevStep()">Prev</button>
+                <button
+                    class="inline-flex items-center justify-center border leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer disabled:opacity-50 whitespace-nowrap text-white border border-indigo-500 bg-indigo-600 bg-opacity-80 hover:bg-opacity-100 hover:border-indigo-500 focus:border-indigo-700 focus:ring-indigo active:bg-opacity-100 active:border-indigo-700 px-4 py-2 text-sm button-md"
+                    v-if="currentStep < steps.length" @click="nextStep()">Next</button>
+            </div>
+        </div>
+    </section>
 </template>
