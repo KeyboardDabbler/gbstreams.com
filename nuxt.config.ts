@@ -16,23 +16,24 @@ export default defineNuxtConfig({
   auth: {
     isEnabled: true,
     provider: {
-      type: 'refresh',
-      // refreshOnlyToken: true,
+      type: 'local',
       endpoints: {
-        getSession: { path: '/user' },
-        refresh: { path: '/refresh', method: 'post' }
+        getSession: { path: '/user' }
       },
       pages: {
         login: '/auth/login'
       },
       token: {
-        signInResponseTokenPointer: '/token/accessToken',
-        maxAgeInSeconds: 60 * 5, // 5 min
-        sameSiteAttribute: 'lax'
+        signInResponseTokenPointer: '/token/accessToken'
       },
-      refreshToken: {
-        signInResponseRefreshTokenPointer: '/token/refreshToken'
-      }
+      sessionDataType: { id: 'string', email: 'string', name: 'string', role: 'admin | guest | account', subscriptions: "{ id: number, status: 'ACTIVE' | 'INACTIVE' }[]" }
+    },
+    session: {
+      // Whether to refresh the session every time the browser window is refocused.
+      enableRefreshOnWindowFocus: false,
+
+      // Whether to refresh the session every `X` milliseconds. Set this to `false` to turn it off. The session will only be refreshed if a session already exists.
+      enableRefreshPeriodically: false,
     },
     globalAppMiddleware: {
       isEnabled: true

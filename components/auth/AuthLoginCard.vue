@@ -1,19 +1,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
-const {
-  signIn,
-  refresh,
-  signOut,
-  getSession
-} = useAuth()
+const { signIn } = useAuth()
 
-const username = ref('hunter')
-const password = ref('hunter2')
+const username = ref('')
+const password = ref('')
 </script>
 
 <template>
     <section class="p-6 sm:p-8">
-        <FormKit type="form" :actions="false" @submit.prevent="signIn({ username, password })">
+        <FormKit type="form" :actions="false" @submit="signIn({ username, password }, { callbackUrl: '/dashboard/profile' })">
             <FormKit type="text" v-model="username" label="Username" name="username" placeholder="username"
                 validation="required:trim|alphanumeric|lowercase" required autocomplete="off" />
             <FormKit type="password" v-model="password" label="Password" name="password" placeholder="••••••••"
@@ -27,7 +22,7 @@ const password = ref('hunter2')
                         </a>
                     </span>
                     <span class="inline-flex rounded-md shadow-sm">
-                        <button @click="signIn({ username, password }, { callbackUrl: '/dashboard/profile' })"
+                        <button type="submit"
                             class="inline-flex items-center justify-center border leading-5 font-medium rounded-md focus:outline-none transition ease-in-out duration-150 cursor-pointer disabled:opacity-50 whitespace-nowrap text-white border border-indigo-500 bg-indigo-600 bg-opacity-80 hover:bg-opacity-100 hover:border-indigo-500 focus:border-indigo-700 focus:ring-indigo active:bg-opacity-100 active:border-indigo-700 px-4 py-2 text-sm button-md ">
                             <span class="flex items-center">Sign In</span>
                         </button>
