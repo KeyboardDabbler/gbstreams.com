@@ -19,12 +19,9 @@
     "@nuxt/image-edge": "1.1.0-28396365.97249ca",
     "nuxt": "3.9.0",
     "nuxt-headlessui": "1.1.5",
-    "nuxt-icon": "0.6.6",
-    "nuxt-windicss": "2.6.1"
+    "nuxt-icon": "0.6.6"
   },
   "dependencies": {
-    "@formkit/icons": "1.3.2",
-    "@formkit/nuxt": "1.3.2",
-    "@formkit/themes": "1.3.2"
+    "@nuxt/ui": "^2.11.1"
   }
 }
