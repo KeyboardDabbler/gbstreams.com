@@ -1,5 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  extends: [
+    '@nuxt/ui-pro'
+  ],
   modules: [
     '@nuxt/content',
     '@nuxt/ui',
@@ -12,9 +15,24 @@ export default defineNuxtConfig({
     '@/resources/main.css',
     '@/resources/scrollbars.css',
   ],
+  app: {
+    layoutTransition: { name: 'layout', mode: 'out-in' }
+  },
   ui: {
-    primary: 'yellow',
-    gray: 'slate',
+    icons: ['heroicons'],
+  },
+  colorMode: {
+    preference: 'dark'
+  },
+  googleFonts: {
+    display: 'swap',
+    download: true,
+    families: {
+      'DM+Sans': [400, 500, 600, 700]
+    }
+  },
+  fontMetrics: {
+    fonts: ['DM Sans']
   },
   image: {
     cloudinary: {

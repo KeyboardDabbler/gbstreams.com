@@ -18,8 +18,8 @@ export default <Partial<Config>>{
       colors: {
         backg: '#111828',
         forg: '#202938',
-        yellow: '#f4cf44',
-        yellowf: '#897931',
+        yellowbg: '#f4cf44',
+        yellowfg: '#897931',
         blueBorder: '#2E5597',
         bluer: '#007aff',
       },

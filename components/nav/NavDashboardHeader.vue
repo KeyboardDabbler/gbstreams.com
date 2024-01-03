@@ -1,67 +1,81 @@
+<script setup lang="ts">
+const links = [{
+    label: 'Clients',
+    icon: 'i-heroicons-book-open',
+    to: '/dashboard/clients'
+}, {
+    label: 'Documentation',
+    icon: 'i-heroicons-square-3-stack-3d',
+    to: '/docs/introduction'
+}, {
+    label: 'Request',
+    icon: 'i-heroicons-rocket-launch',
+    to: 'https://request.gbstreams.com',
+    target: '_blank',
+}, {
+    label: 'Web App',
+    icon: 'i-heroicons-rocket-launch',
+    to: 'https://play.gbstreams.com',
+    target: '_blank',
+}]
+
+const items = [
+    [{
+        label: 'ben@example.com',
+        slot: 'account',
+        disabled: true
+    }], [{
+        label: 'Settings',
+        icon: 'i-heroicons-cog-8-tooth'
+    }], [{
+        label: 'Documentation',
+        icon: 'i-heroicons-book-open'
+    }, {
+        label: 'Changelog',
+        icon: 'i-heroicons-megaphone'
+    }, {
+        label: 'Status',
+        icon: 'i-heroicons-signal'
+    }], [{
+        label: 'Sign out',
+        icon: 'i-heroicons-arrow-left-on-rectangle'
+    }]
+]
+</script>
+
 <template>
-    <section>
-        <nav class="flex justify-between p-2 px-4 xl:px-20 border-b-1 border-gray-400 border-opacity-40">
-            <div class="flex justify-between items-center w-full">
-                <div class="xl:w-1/3">
-                    <NuxtLink class="block max-w-max">
-                        <NuxtImg provider="cloudinary" src="/branding/banner-light_xgac6g.png" alt="GBstreams logo"
-                            class="h-9" />
-                    </NuxtLink>
-                </div>
-                <div class="self-center md:hidden">
-                    <HeadlessDisclosure>
-                        <HeadlessDisclosureButton class="p-2 -translate-x-2">
-                            <Icon size="35px" name="mdi:menu" />
-                        </HeadlessDisclosureButton>
-                        <HeadlessDisclosurePanel class="text-gray-500">
-                            <NavDashboardDropdown>
-                                <HeadlessDisclosureButton href="/home">
-                                    <Icon class="mt-4 mb-2 text-2xl text-zinc-300" name="mdi:close" />
-                                </HeadlessDisclosureButton>
-                            </NavDashboardDropdown>
-                        </HeadlessDisclosurePanel>
-                    </HeadlessDisclosure>
-                </div>
-                <div class="hidden md:block">
-                    <div class="flex items-center justify-end">
-                        <NuxtLink to="/dashboard/clients"
-                            class="inline-block py-2 px-4 leading-5 decoration-yellow decoration-2 underline-offset-8 hover:underline bg-transparent font-medium rounded-md">
-                            Clients
-                        </NuxtLink>
-                        <NuxtLink to="/docs/introduction"
-                            class="inline-block py-2 px-4 leading-5 decoration-yellow decoration-2 underline-offset-8 hover:underline bg-transparent font-medium rounded-md">
-                            Documentation
-                        </NuxtLink>
+    <UHeader :links="links">
+        <template #logo>
+            <NavLogo image-class="h-9 w-auto" />
+        </template>
 
-                        <NuxtLink to="https://request.gbstreams.com"
-                            class="inline-block py-2 px-4 leading-5 decoration-yellow decoration-2 underline-offset-8 hover:underline bg-transparent font-medium rounded-md">
-                            Request
-                            <Icon name="ic:baseline-open-in-new" size="15px" />
-                        </NuxtLink>
+        <template #right>
+            <UDocsSearchButton label="" />
+            <UDropdown :items="items" :ui="{ item: { disabled: 'cursor-text select-text' } }"
+                :popper="{ placement: 'bottom-start' }">
+                <UAvatar src="https://avatars.githubusercontent.com/u/739984?v=4" />
 
-                        <NuxtLink to="https://play.gbstreams.com"
-                            class="inline-block py-2 px-4 leading-5 decoration-yellow decoration-2 underline-offset-8 hover:underline bg-transparent font-medium rounded-md">
-                            Web App
-                            <Icon name="ic:baseline-open-in-new" size="15px" />
-                        </NuxtLink>
-
-                        <NuxtLink to="/dashboard/profile"
-                            class="inline-block py-2 px-4 leading-5 text-base text-black font-medium text-center bg-yellow hover:bg-yellowf focus:ring-2 focus:ring-bluer focus:ring-opacity-50 rounded-md shadow-sm">
-                            Dashboard
-                        </NuxtLink>
-
-                        <NuxtLink to="#" class="inline-block py-2 px-4 leading-5">
-                            <Icon name="mdi:logout" size="25px" />
-                        </NuxtLink>
+                <template #account="{ item }">
+                    <div class="text-left">
+                        <p>
+                            Signed in as
+                        </p>
+                        <p class="truncate font-medium text-gray-900 dark:text-white">
+                            {{ item.label }}
+                        </p>
                     </div>
-                </div>
-            </div>
-        </nav>
-    </section>
-</template>
+                </template>
 
-<style scoped>
-.router-link-exact-active {
-    @apply decoration-yellow decoration-2 underline-offset-8 underline;
-}
-</style>
+                <template #item="{ item }">
+                    <span class="truncate">{{ item.label }}</span>
+
+                    <UIcon :name="item.icon" class="flex-shrink-0 h-4 w-4 text-gray-400 dark:text-gray-500 ms-auto" />
+                </template>
+            </UDropdown>
+        </template>
+
+        <template #panel>
+            <UNavigationTree :links="links" />
+        </template>
+    </UHeader>
+</template>

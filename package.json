@@ -22,6 +22,8 @@
     "nuxt-icon": "0.6.6"
   },
   "dependencies": {
-    "@nuxt/ui": "^2.11.1"
+    "@iconify/json": "^2.2.164",
+    "@nuxt/ui": "^2.11.1",
+    "@nuxt/ui-pro": "^0.6.1"
   }
 }

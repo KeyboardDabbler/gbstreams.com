@@ -44,7 +44,10 @@ export default {
 </script>
 
 <template>
-    <section class="p-6 sm:p-8">
+    <UCard class="max-w-auto w-full">
+
+    
+    <section class="">
         <div class="mb-2 text-center">
             <a class="inline-block mb-2" href="#">
                 <NuxtImg provider="cloudinary" src="/branding/banner-light_xgac6g.png" alt="GBstreams logo" class="h-16" />
@@ -82,4 +85,5 @@ export default {
             </div>
         </div>
     </section>
+</UCard>
 </template>
