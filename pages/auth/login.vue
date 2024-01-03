@@ -5,9 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-    <NuxtLayout pageMessgae="Login with your account">
-        <section>
-            <AuthLoginCard />
-        </section>
-    </NuxtLayout>
+    <section>
+        <AuthLoginCard />
+    </section>
 </template>

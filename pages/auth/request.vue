@@ -5,9 +5,7 @@ definePageMeta({
 </script>
 
 <template>
-    <NuxtLayout pageMessgae="Request to join GBstreams">
-        <section>
-            <AuthRequestCard />
-        </section>
-    </NuxtLayout>
+  <section>
+    <AuthRequestCard />
+  </section>
 </template>

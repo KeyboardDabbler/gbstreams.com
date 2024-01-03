@@ -1,13 +1,11 @@
 <script>
 definePageMeta({
-  layout: "card",
+    layout: "card",
 });
 </script>
 
 <template>
-    <NuxtLayout>
-        <section>
-            <SectionWizardCard />
-        </section>
-    </NuxtLayout>
+    <section>
+        <SectionWizardCard />
+    </section>
 </template>

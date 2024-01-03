@@ -1,13 +1,11 @@
 <script>
 definePageMeta({
-  layout: "card",
+    layout: "card",
 });
 </script>
 
 <template>
-    <NuxtLayout pageMessgae="Join the GBstreams Server">
-        <section>
-            <AuthSignupCard />
-        </section>
-    </NuxtLayout>
+    <section>
+        <AuthSignupCard />
+    </section>
 </template>
