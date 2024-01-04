@@ -19,7 +19,8 @@
     "@nuxt/image-edge": "1.1.0-28396365.97249ca",
     "nuxt": "3.9.0",
     "nuxt-headlessui": "1.1.5",
-    "nuxt-icon": "0.6.6"
+    "nuxt-icon": "0.6.6",
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "@iconify/json": "^2.2.164",
