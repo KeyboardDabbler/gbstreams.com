@@ -5,15 +5,13 @@ definePageMeta({
 </script>
 
 <template>
-    <section class="container p-6 mx-auto md:max-w-4xl">
-        <div class="px-4 py-2 md:max-w-4xl mb-4 mx-auto text-center">
-            <span
-                class="inline-block py-px px-2 mb-4 text-xs leading-5 text-yellow bg-forg font-medium uppercase rounded-full shadow-sm">Apps</span>
-            <h1 class="mb-4 text-gray-200 text-3xl md:text-4xl leading-tight font-bold tracking-tighter">Client Apps
-            </h1>
+    <UContainer class="p-6">
+        <div class="md:max-w-4xl mb-10 mx-auto text-center">
+            <UBadge label="Apps" variant="soft" :ui="{ rounded: 'rounded-full', font: 'uppercase' }" />
+            <h1 class="my-3 text-gray-200 text-3xl md:text-4xl leading-tight font-bold tracking-tighter">Client Apps</h1>
             <p class="text-lg md:text-xl font-medium">Follow the simple instructions and you'll be able to start
-                watching on <span class="text-yellow font-bold">GBstreams</span></p>
+                watching on <span class="text-primary font-bold">GBstreams</span></p>
         </div>
         <SectionClientList />
-    </section>
+    </UContainer>
 </template>

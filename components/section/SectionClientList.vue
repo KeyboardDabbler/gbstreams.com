@@ -226,135 +226,107 @@ export default {
         setPlatformFilter(platformType) {
             this.platformFilter = platformType;
         },
-        tagClass(tag) {
-            if (tag === 'Official GBstreams') {
-                return 'official-tag';
-            } else if (tag === 'Official Jellyfin') {
-                return 'jellyfin-tag';
-            } else if (tag === 'Third Party') {
-                return 'thirdParty-tag';
-            } else if (tag === 'Official GBstreams Beta') {
-                return 'beta-tag';
-            } else {
-                return 'Open Source';
-            }
+        getTagColor(tag) {
+            const colorMap = {
+                'Official GBstreams': 'yellow',
+                'Official Jellyfin': 'blue',
+                'Third Party': 'green',
+                'Official GBstreams Beta': 'amber',
+            };
+            return colorMap[tag] || 'primary';
+        },
+        getTagVariant(tag) {
+            return 'solid';
         },
     }
 }
 </script>
 
 <template>
-    <section>
-      <div class="mb-4 ring-1 ring-blueBorder ring-opacity-50 text-gray-200 font-bold">
-                <div class="flex flex-row flex-wrap py-2 ">
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': recommendedFilter === 'recommended' }"
-                        @click="setSelectedFilter('recommended')">Recommended</div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': recommendedFilter === 'false' }"
-                        @click="setSelectedFilter('false')">
-                        All</div>
+    <UCard class="mb-5 font-bold" :ui="{ background: 'dark:bg-gray-800' }">
+        <div class="flex flex-row flex-wrap py-2 ">
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': recommendedFilter === 'recommended' }"
+                @click="setSelectedFilter('recommended')">Recommended</div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': recommendedFilter === 'false' }"
+                @click="setSelectedFilter('false')">
+                All</div>
+        </div>
+        <div class="flex flex-row flex-wrap py-2">
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': deviceTypeFilter === 'all' }"
+                @click="setDeviceTypeFilter('all')">
+                All Device Types</div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': deviceTypeFilter === 'Desktop' }"
+                @click="setDeviceTypeFilter('Desktop')">Desktop</div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': deviceTypeFilter === 'Mobile' }"
+                @click="setDeviceTypeFilter('Mobile')">Mobile</div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': deviceTypeFilter === 'TV' }"
+                @click="setDeviceTypeFilter('TV')">TV
+            </div>
+        </div>
+        <div class="flex flex-row flex-wrap py-2">
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': platformFilter === 'all' }"
+                @click="setPlatformFilter('all')">All
+                Platforms</div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': platformFilter === 'Android' }"
+                @click="setPlatformFilter('Android')">Android</div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': platformFilter === 'Android TV' }"
+                @click="setPlatformFilter('Android TV')">Android TV</div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': platformFilter === 'Desktop' }"
+                @click="setPlatformFilter('Desktop')">Desktop</div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': platformFilter === 'Fire TV' }"
+                @click="setPlatformFilter('Fire TV')">Fire TV</div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': platformFilter === 'IOS' }"
+                @click="setPlatformFilter('IOS')">iOS
+            </div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': platformFilter === 'Kodi' }"
+                @click="setPlatformFilter('Kodi')">Kodi
+            </div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': platformFilter === 'Roku' }"
+                @click="setPlatformFilter('Roku')">Roku
+            </div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': platformFilter === 'tvOS' }"
+                @click="setPlatformFilter('tvOS')">tvOS
+            </div>
+            <div class="px-4 cursor-pointer" :class="{ 'text-primary': platformFilter === 'webos' }"
+                @click="setPlatformFilter('webos')">
+                webOS</div>
+        </div>
+    </UCard>
+
+
+    <div v-for="client in filteredClients" :key="client.name">
+        <UCard class="p-4 mb-4 text-gray-200">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center">
+                    <h2 class="text-xl font-bold mr-2">{{ client.name }}</h2>
+                    <UBadge :label="client.tag" :color="getTagColor(client.tag)" variant="solid"
+                        :ui="{ font: 'font-semibold' }" />
                 </div>
-                <div class="flex flex-row flex-wrap py-2">
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': deviceTypeFilter === 'all' }"
-                        @click="setDeviceTypeFilter('all')">
-                        All Device Types</div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': deviceTypeFilter === 'Desktop' }"
-                        @click="setDeviceTypeFilter('Desktop')">Desktop</div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': deviceTypeFilter === 'Mobile' }"
-                        @click="setDeviceTypeFilter('Mobile')">Mobile</div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': deviceTypeFilter === 'TV' }"
-                        @click="setDeviceTypeFilter('TV')">TV
-                    </div>
-                </div>
-                <div class="flex flex-row flex-wrap py-2">
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': platformFilter === 'all' }"
-                        @click="setPlatformFilter('all')">All
-                        Platforms</div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': platformFilter === 'Android' }"
-                        @click="setPlatformFilter('Android')">Android</div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': platformFilter === 'Android TV' }"
-                        @click="setPlatformFilter('Android TV')">Android TV</div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': platformFilter === 'Desktop' }"
-                        @click="setPlatformFilter('Desktop')">Desktop</div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': platformFilter === 'Fire TV' }"
-                        @click="setPlatformFilter('Fire TV')">Fire TV</div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': platformFilter === 'IOS' }"
-                        @click="setPlatformFilter('IOS')">iOS
-                    </div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': platformFilter === 'Kodi' }"
-                        @click="setPlatformFilter('Kodi')">Kodi
-                    </div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': platformFilter === 'Roku' }"
-                        @click="setPlatformFilter('Roku')">Roku
-                    </div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': platformFilter === 'tvOS' }"
-                        @click="setPlatformFilter('tvOS')">tvOS
-                    </div>
-                    <div class="px-4 cursor-pointer" :class="{ 'text-yellow': platformFilter === 'webos' }"
-                        @click="setPlatformFilter('webos')">
-                        webOS</div>
+                <div class="flex items-center space-x-1">
+                    <UIcon v-if="client.hasOwnProperty('iconTwo')" :name="client.iconTwo" size="36px" />
+                    <UIcon :name="client.icon" size="36px" />
                 </div>
             </div>
 
-            <div>
-                <div v-for="client in filteredClients" :key="client.name">
-                    <div class="bg-forg rounded-md shadow-md p-4 mb-4 text-gray-200">
-                        <div class="flex justify-between items-center">
-                            <div class="flex items-center">
-                                <h2 class="text-xl font-bold mb-2 mr-2">{{ client.name }}</h2>
-                                <span
-                                    :class="tagClass(client.tag)" class="text-gray-200 rounded-md px-2 py-1 text-xs font-semibold">{{
-                                        client.tag }}</span>
-                            </div>
-                            <div class="flex">
-                                <Icon :name="client.iconTwo" size="36px" v-if="client.hasOwnProperty('iconTwo')"
-                                    class="mr-2" />
-                                <Icon :name="client.icon" size="36px" />
-                            </div>
-                        </div>
+            <p class="text-gray-500 mb-4">{{ client.description }} </p>
 
-                        <p class="text-gray-500 mb-4">{{ client.description }} </p>
+            <div class="flex justify-between items-center">
+                <UButton color="cyan" variant="outline" :label="client.projectText" :to="client.projectLink"
+                    :ui="{ rounded: 'rounded-full' }" />
 
-                        <div class="flex justify-between items-center">
-                            <button class="px-4 py-1 rounded-full ring-1 ring-blueBorder text-blueBorder"><a
-                                    :href="client.projectLink">{{ client.projectText }}</a></button>
-
-                            <div class="flex items-center">
-                                <button v-if="client.hasOwnProperty('downloadLinkThree')"
-                                    class="px-4 py-1 rounded-full ring-1 ring-blueBorde text-white mr-2"><a
-                                        :href="client.downloadLinkThree">{{ client.downloadTextThree }}</a></button>
-                                <button v-if="client.hasOwnProperty('downloadLinkTwo')"
-                                    class="px-4 py-1 rounded-full ring-1 ring-blueBorder text-white mr-2"><a
-                                        :href="client.downloadLinkTwo">{{ client.downloadTextTwo }}</a></button>
-                                <button class="px-4 py-1 rounded-full ring-1 ring-blueBorder text-white mr-2"><a
-                                        :href="client.downloadLink">{{ client.downloadText }}</a></button>
-                                <button class="px-4 py-1 rounded-full ring-1 ring-blueBorder text-white"><a
-                                        :href="client.installLink">{{ client.installText }}</a></button>
-                            </div>
-                        </div>
-                    </div>
+                <div class="flex space-x-1 items-center">
+                    <UButton v-if="client.hasOwnProperty('downloadLinkThree')" color="gray" variant="solid"
+                        :label="client.downloadTextThree" :to="client.downloadLinkThree"
+                        :ui="{ rounded: 'rounded-full' }" />
+                    <UButton v-if="client.hasOwnProperty('downloadLinkTwo')" color="gray" variant="solid"
+                        :label="client.downloadTextTwo" :to="client.downloadLinkTwo" :ui="{ rounded: 'rounded-full' }" />
+                    <UButton color="gray" variant="solid" :label="client.downloadText" :to="client.downloadLink"
+                        :ui="{ rounded: 'rounded-full' }" />
+                    <UButton color="gray" variant="solid" :label="client.installText" :to="client.installLink"
+                        :ui="{ rounded: 'rounded-full' }" />
                 </div>
             </div>
-    </section>
+        </UCard>
+    </div>
 </template>
-
-<style>
-.official-tag {
-  background-color: #f4cf44;
-  color: black;
-}
-
-.jellyfin-tag {
-  background-color: #007ca6;
-  color: white;
-}
-
-.beta-tag {
-  background-color: #ffba00;
-  color: black;
-}
-
-.thirdParty-tag {
-  background-color: #00a400;
-  color: white;
-}
-</style>
+ 
