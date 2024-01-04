@@ -1,83 +1,49 @@
+<script setup>
+const modules = [{
+  title: 'Streaming library',
+  description: 'Watch full seasons of exclusive series, classic favorites, Network Originals, hit movies, current episodes, kids shows, and tons more..',
+  icon: 'FeatStreaming'
+}, {
+  title: 'Watch anywhere',
+  description: 'Enjoy from the web or with the GBstreams app on your phone, tablet, or select Smart TVs — on up to 2 devices at once.',
+  icon: 'FeatWatch'
+}, {
+  title: 'IPTV',
+  description: 'Catch your games at home or on the go. Stream live games from major leagues from around the world.',
+  icon: 'FeatIptv'
+}, {
+  title: 'Automated services',
+  description: 'Request & reporting interface that is incredibly easy to understand and use. Several notification agents are directly supported',
+  icon: 'FeatAuto'
+}, {
+  title: 'CDN',
+  description: 'We store high demand content on high avaliable 10Gbps storage to bring GBstreams faster load, seek, skip and play times.',
+  icon: 'FeatCdn'
+}, {
+  title: 'Fast support',
+  description: 'Access to live messaging, FAQ and helpful guides!!',
+  icon: 'FeatFaq'
+}]
+</script>
+
 <template>
-    <section class="p-6">
-      <div class="container px-2 mx-auto">
-        <div class="md:max-w-4xl mb-4 mx-auto text-center">
-          <span
-            class="inline-block py-px px-2 mb-4 text-xs leading-5 text-yellow bg-forg font-medium uppercase rounded-full shadow-sm">Features</span>
-          <h1 class="mb-4 text-gray-200 text-3xl md:text-4xl leading-tight font-bold tracking-tighter">What We Do</h1>
-          <p class="text-lg md:text-xl font-medium">Enjoy your favorite shows your
-            way, There's always something great on <span class="text-yellow font-bold">GBstreams</span></p>
+  <div class="md:max-w-4xl mb-10 mx-auto text-center">
+    <UBadge label="Features" variant="soft" :ui="{ rounded: 'rounded-full', font: 'uppercase' }" />
+    <h1 class="my-3 text-gray-200 text-3xl md:text-4xl leading-tight font-bold tracking-tighter">What We Do</h1>
+    <p class="text-lg md:text-xl font-medium">Enjoy your favorite shows your
+      way, There's always something great on <span class="text-primary font-bold">GBstreams</span></p>
+  </div>
+  <UPageGrid>
+    <UPageCard v-for="(module) in modules" :ui="{ ring: '' }">
+      <template #description>
+        <div class="p-8 text-center">
+          <div class="items-center justify-center">
+            <UIcon :name="module.icon" class="h-32 w-32" />
+          </div>
+          <h3 class="mb-4 text-gray-200 text-xl md:text-2xl leading-tight font-bold">{{ module.title }}</h3>
+          <p class="font-medium">{{ module.description }}</p>
         </div>
-
-        <div class="flex flex-wrap -mx-4">
-          <div class="w-full md:w-1/2 lg:w-1/3 px-4">
-            <div class="h-full p-8 text-center rounded-md">
-              <div class="inline-flex mb-6 mx-auto items-center justify-center">
-                <Icon name="FeatStreaming" class="h-32 w-32" />
-              </div>
-              <h3 class="mb-4 text-gray-200 text-xl md:text-2xl leading-tight font-bold">Streaming library</h3>
-              <p class="font-medium">Watch full seasons of exclusive series, classic favorites, Network Originals, hit
-                movies, current episodes, kids shows, and tons more..
-              </p>
-            </div>
-          </div>
-
-          <div class="w-full md:w-1/2 lg:w-1/3 px-4">
-            <div class="h-full p-8 text-center rounded-md">
-              <div class="inline-flex mb-6 mx-auto items-center justify-center">
-                <Icon name="FeatWatch" class="h-32 w-32" />
-              </div>
-              <h3 class="mb-4 text-gray-200 text-xl md:text-2xl leading-tight font-bold">Watch anywhere</h3>
-              <p class="font-medium">Enjoy from the web or with the GBstreams app on your phone, tablet, or select Smart
-                TVs — on up to 2 devices at once.</p>
-            </div>
-          </div>
-
-          <div class="w-full md:w-1/2 lg:w-1/3 px-4">
-            <div class="h-full p-8 text-center rounded-md">
-              <div class="inline-flex mb-6 mx-auto items-center justify-center">
-                <Icon name="FeatIptv" class="h-32 w-32" />
-              </div>
-              <h3 class="mb-4 text-gray-200 text-xl md:text-2xl leading-tight font-bold">IPTV</h3>
-              <p class="font-medium">Catch your games at home or on the go. Stream live games from major leagues from
-                around the world.</p>
-            </div>
-          </div>
-
-          <div class="w-full md:w-1/2 lg:w-1/3 px-4">
-            <div class="h-full p-8 text-center rounded-md">
-              <div class="inline-flex mb-6 mx-auto items-center justify-center">
-                <Icon name="FeatAuto" class="h-32 w-32" />
-              </div>
-              <h3 class="mb-4 text-gray-200 text-xl md:text-2xl leading-tight font-bold">Automated services</h3>
-              <p class="font-medium">Request & reporting interface that is incredibly easy to understand and use.
-                Several
-                notification agents are directly supported</p>
-            </div>
-          </div>
-
-          <div class="w-full md:w-1/2 lg:w-1/3 px-4">
-            <div class="h-full p-8 text-center rounded-md">
-              <div class="inline-flex mb-6 mx-auto items-center justify-center">
-                <Icon name="FeatCdn" class="h-32 w-32" />
-              </div>
-              <h3 class="mb-4 text-gray-200 text-xl md:text-2xl leading-tight font-bold">CDN</h3>
-              <p class="font-medium">We store high demand content on high avaliable 10Gbps storage
-                to bring GBstreams faster load, seek, skip and play times.</p>
-            </div>
-          </div>
-
-          <div class="w-full md:w-1/2 lg:w-1/3 px-4">
-            <div class="h-full p-8 text-center rounded-md">
-              <div class="inline-flex mb-6 mx-auto items-center justify-center">
-                <Icon name="FeatFaq" class="h-32 w-32" />
-              </div>
-              <h3 class="mb-4 text-gray-200 text-xl md:text-2xl leading-tight font-bold">Fast support</h3>
-              <p class="font-medium">Access to live messaging, FAQ and helpful guides!!</p>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
+      </template>
+    </UPageCard>
+  </UPageGrid>
 </template>
