@@ -25,17 +25,13 @@ const items = [
         slot: 'account',
         disabled: true
     }], [{
-        label: 'Settings',
-        icon: 'i-heroicons-cog-8-tooth'
+        label: 'Dashboard',
+        icon: 'i-heroicons-book-open',
+        to: '/dashboard/profile'
     }], [{
-        label: 'Documentation',
-        icon: 'i-heroicons-book-open'
-    }, {
-        label: 'Changelog',
-        icon: 'i-heroicons-megaphone'
-    }, {
-        label: 'Status',
-        icon: 'i-heroicons-signal'
+        label: 'Settings',
+        icon: 'i-heroicons-cog-8-tooth',
+        to: '/dashboard/settings/general'
     }], [{
         label: 'Sign out',
         icon: 'i-heroicons-arrow-left-on-rectangle'

@@ -1,4 +1,8 @@
 <script setup lang="ts">
+definePageMeta({
+    layout: "docs",
+});
+
 const route = useRoute()
 const { data: page } = await useAsyncData('docs', async () => await queryContent('docs').where({ _path: route.path }).findOne())
 if (page.value) {
@@ -11,7 +15,6 @@ if (page.value) {
 </script>
 
 <template>
-  <NuxtLayout name="docs">
     <ContentDoc>
       <template #default="{ doc }">
         <ContentRenderer class="" :value="doc">
@@ -35,5 +38,4 @@ if (page.value) {
         </TheAlert>
       </template>
     </ContentDoc>
-  </NuxtLayout>
 </template>
