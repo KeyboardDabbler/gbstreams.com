@@ -1,55 +1,65 @@
 <script setup lang="ts">
-import type { FormError } from '#ui/types'
+import { z } from 'zod'
+import type { FormSubmitEvent } from '#ui/types'
 
-const fields = [{
-  name: 'email',
-  type: 'text',
-  label: 'Email',
-  placeholder: 'Enter your email'
-}, {
-  name: 'password',
-  label: 'Password',
-  type: 'password',
-  placeholder: 'Enter your password'
-}]
+const schema = z.object({
+  email: z.string().email('Invalid email'),
+  username: z.string().min(3, 'Must be at least 3 characters'),
+  textarea: z.string().min(10, 'Must be at least 10 characters'),
+});
 
-const validate = (state: any) => {
-  const errors: FormError[] = []
-  if (!state.email) errors.push({ path: 'email', message: 'Email is required' })
-  if (!state.password) errors.push({ path: 'password', message: 'Password is required' })
-  return errors
+type Schema = z.infer<typeof schema>;
+
+const state = reactive({
+  email: undefined,
+  username: undefined,
+  textarea: undefined,
+});
+
+export interface IFormData {
+    email: string
+    username: string
+    textarea: string
 }
 
-function onSubmit (data: any) {
-  console.log('Submitted', data)
+const successMessage = ref<string | null>(null)
+
+async function onSubmit(data: IFormData, event: FormSubmitEvent<Schema>) {
+  successMessage.value = null
+  try {
+    const { data: emailRes, error } = await useFetch('/api/user/send-email', {
+      method: 'POST',
+      body: data
+    })
+    if (emailRes.value === 200) {
+      successMessage.value = 'Email has been sent.'
+    }
+  } catch (error) {
+    console.error(error)
+  }
 }
 </script>
 
-<!-- eslint-disable vue/multiline-html-element-content-newline -->
-<!-- eslint-disable vue/singleline-html-element-content-newline -->
 <template>
   <UCard class="max-w-sm w-full">
-    <UAuthForm
-      :fields="fields"
-      :validate="validate"
-      :providers="providers"
-      title="Welcome back!"
-      align="top"
-      icon="i-heroicons-lock-closed"
-      :ui="{ base: 'text-center', footer: 'text-center' }"
-      @submit="onSubmit"
-    >
-      <template #description>
-        Login with your account.
-      </template>
-
-      <template #password-hint>
-        <NuxtLink to="/" class="text-primary font-medium">Forgot password?</NuxtLink>
-      </template>
-
-      <template #footer>
-        By signing in, you agree to our <NuxtLink to="/" class="text-primary font-medium">Terms of Service</NuxtLink>.
-      </template>
-    </UAuthForm>
+    <div class="text-center mb-6">
+      <UIcon name="i-heroicons-envelope" class="mb-2 dark:text-white w-8 h-8" />
+      <p class="text-2xl dark:text-white font-bold">Request access!</p>
+      <p class="dark:text-gray-400 mt-1"> How did hear about <span class="text-primary">GBstreams</span>? </p>
+    </div>
+    <UForm :schema="schema" :state="state" class="gap-y-6 space-y-4" @submit="onSubmit">
+      <UFormGroup label="Email" name="email">
+        <UInput v-model="state.email" placeholder="Enter your email" />
+      </UFormGroup>
+      <UFormGroup label="Do you know an existing user?" name="username">
+        <UInput v-model="state.username" placeholder="User" />
+      </UFormGroup>
+      <UFormGroup label="Text Area" name="textarea">
+        <UTextarea v-model="state.textarea" placeholder="Add any further description to help our decision?" />
+      </UFormGroup>
+      <UButton label="Submit" type="submit" block />
+      <span class="flex text-sm dark:text-gray-400 mt-2 text-center">We will never share your email with anyone
+        else.</span>
+    </UForm>
   </UCard>
 </template>

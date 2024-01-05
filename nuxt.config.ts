@@ -11,6 +11,12 @@ export default defineNuxtConfig({
     '@nuxt/image-edge',
     "@nuxt/image"
   ],
+  runtimeConfig: {
+    apiSecret: {
+      EMAIL_USER: process.env.EMAIL_USER,
+      EMAIL_PASS: process.env.EMAIL_PASS
+    }
+  },
   css: [
     '@/resources/main.css',
     '@/resources/scrollbars.css',
