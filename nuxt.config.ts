@@ -9,9 +9,21 @@ export default defineNuxtConfig({
     'nuxt-headlessui',
     'nuxt-icon',
     '@nuxt/image-edge',
-    "@nuxt/image"
+    "@nuxt/image",
+    [
+      '@pinia/nuxt',
+      {
+        autoImports: [
+          // automatically imports `defineStore`
+          'defineStore',
+        ],
+      },
+    ],
   ],
   runtimeConfig: {
+    public: {
+      JFA_URL: process.env.JFA_URL,
+    },
     apiSecret: {
       EMAIL_USER: process.env.EMAIL_USER,
       EMAIL_PASS: process.env.EMAIL_PASS

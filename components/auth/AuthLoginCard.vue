@@ -1,11 +1,18 @@
 <script setup lang="ts">
 import type { FormError } from '#ui/types'
+import { storeToRefs } from 'pinia';
+import { useAuthStore } from '~/store/auth';
+
+const { authenticateUser } = useAuthStore();
+const { authenticated } = storeToRefs(useAuthStore());
+
+const router = useRouter();
 
 const fields = [{
-  name: 'email',
+  name: 'username',
   type: 'text',
-  label: 'Email',
-  placeholder: 'Enter your email'
+  label: 'Username',
+  placeholder: 'Enter your username'
 }, {
   name: 'password',
   label: 'Password',
@@ -15,30 +22,26 @@ const fields = [{
 
 const validate = (state: any) => {
   const errors: FormError[] = []
-  if (!state.email) errors.push({ path: 'email', message: 'Email is required' })
+  if (!state.username) errors.push({ path: 'username', message: 'Username is required' })
   if (!state.password) errors.push({ path: 'password', message: 'Password is required' })
   return errors
 }
 
-function onSubmit (data: any) {
-  console.log('Submitted', data)
+async function onSubmit(data: any) {
+  await authenticateUser(data);
+
+  if (authenticated.value) {
+    router.push('/dashboard/profile');
+  } else {
+    console.error('Authentication failed');
+  }
 }
 </script>
 
-<!-- eslint-disable vue/multiline-html-element-content-newline -->
-<!-- eslint-disable vue/singleline-html-element-content-newline -->
 <template>
   <UCard class="max-w-sm w-full">
-    <UAuthForm
-      :fields="fields"
-      :validate="validate"
-      :providers="providers"
-      title="Welcome back!"
-      align="top"
-      icon="i-heroicons-lock-closed"
-      :ui="{ base: 'text-center', footer: 'text-center' }"
-      @submit="onSubmit"
-    >
+    <UAuthForm :fields="fields" :validate="validate" title="Welcome back!" align="top" icon="i-heroicons-lock-closed"
+      :ui="{ base: 'text-center', footer: 'text-center' }" @submit="onSubmit">
       <template #description>
         Login with your account.
       </template>

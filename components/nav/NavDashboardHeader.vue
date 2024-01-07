@@ -1,4 +1,9 @@
 <script setup lang="ts">
+import { useAuthStore } from '~/store/auth'
+
+const router = useRouter()
+const { logUserOut } = useAuthStore()
+
 const links = [{
     label: 'Clients',
     icon: 'i-heroicons-book-open',
@@ -34,7 +39,11 @@ const items = [
         to: '/dashboard/settings/general'
     }], [{
         label: 'Sign out',
-        icon: 'i-heroicons-arrow-left-on-rectangle'
+        icon: 'i-heroicons-arrow-left-on-rectangle',
+        click: () => {
+            logUserOut()
+            router.push('/login')
+        }
     }]
 ]
 </script>
