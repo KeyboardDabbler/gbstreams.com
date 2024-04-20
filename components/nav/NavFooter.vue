@@ -7,7 +7,6 @@
         <p class="">© 2016-{{ new Date().getFullYear() }}<span class="text-primary font-bold"> GBstreams</span> | All
           rights reserved.</p>
       </div>
-
     </template>
   </UFooter>
 </template>
