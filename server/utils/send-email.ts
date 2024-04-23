@@ -11,14 +11,14 @@ export default async (data: IEmailData): Promise<void> => {
     const transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: useRuntimeConfig().apiSecret.EMAIL_PASS,
+            user: useRuntimeConfig().apiSecret.EMAIL_USER,
             pass: useRuntimeConfig().apiSecret.EMAIL_PASS
         }
     })
 
     const compileSource = handlebars.compile(data.source)
     const mailOptions = {
-        from: 'Send Email Example <test@gmail.com>',
+        from: useRuntimeConfig().apiSecret.EMAIL_USER,
         to: data.head.to,
         subject: data.head.subject,
         html: compileSource(data.body)

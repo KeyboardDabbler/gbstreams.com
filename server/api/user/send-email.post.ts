@@ -1,25 +1,19 @@
-export interface IFormData {
-    email: string
-    username: string
-    textarea: string
-}
-
 export default defineEventHandler(async (event) => {
     try {
-        const body: IFormData | null = await readBody(event)
+        const body: Schema | null = await readBody(event)
         if (!body) {
             return createError({ statusCode: 400, statusMessage: 'Bad request.' })
         }
         // const keys = useStorage().getKeys() - Get list of all keys available to your app.
-        const source = await useStorage().getItem('root:assets:email-templates:verification.html')
+        const source = await useStorage().getItem('root:assets:email-templates:request-email.html')
         const emailHeading: { to: string, subject: string } = {
-            to: 'predefined@example.com',
-            subject: 'GBstreams - Request access form'
+            to: useRuntimeConfig().apiSecret.EMAIL_USER,
+            subject: 'Request Access - Web form'
         }
-        const emailBody: { email: string, user: string, textarea: string } = {
+        const emailBody: { name: string, body: string } = {
+            name: body.username,
             email: body.email,
-            user: body.username,
-            textarea: body.textarea,
+            body: body.textarea
         }
         if (source) {
             await sendEmail({ source: source as string, head: emailHeading, body: emailBody })
