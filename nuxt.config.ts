@@ -25,6 +25,7 @@ export default defineNuxtConfig({
       JFA_URL: process.env.JFA_URL,
     },
     apiSecret: {
+      JFA_URLL: process.env.JFA_URLL,
       EMAIL_USER: process.env.EMAIL_USER,
       EMAIL_PASS: process.env.EMAIL_PASS
     }
