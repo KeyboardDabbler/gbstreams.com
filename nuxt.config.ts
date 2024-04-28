@@ -5,24 +5,25 @@ export default defineNuxtConfig({
   ],
   modules: [
     '@nuxt/content',
+    '@nuxt/eslint',
     '@nuxt/ui',
     'nuxt-headlessui',
     'nuxt-icon',
     '@nuxt/image-edge',
-    "@nuxt/image",
+    '@nuxt/image',
     [
       '@pinia/nuxt',
       {
         autoImports: [
           // automatically imports `defineStore`
-          'defineStore',
-        ],
-      },
-    ],
+          'defineStore'
+        ]
+      }
+    ]
   ],
   runtimeConfig: {
     public: {
-      JFA_URL: process.env.JFA_URL,
+      JFA_URL: process.env.JFA_URL
     },
     apiSecret: {
       JFA_URLL: process.env.JFA_URLL,
@@ -32,13 +33,13 @@ export default defineNuxtConfig({
   },
   css: [
     '@/resources/main.css',
-    '@/resources/scrollbars.css',
+    '@/resources/scrollbars.css'
   ],
   app: {
     layoutTransition: { name: 'layout', mode: 'out-in' }
   },
   ui: {
-    icons: ['heroicons'],
+    icons: ['heroicons']
   },
   colorMode: {
     preference: 'dark'
@@ -58,32 +59,43 @@ export default defineNuxtConfig({
       baseURL: 'https://res.cloudinary.com/dpub6gcei/image/upload/v1678918300/GBstreams',
       modifiers: {
         quality: 'auto:best',
-        dpr: 'auto',
-      },
+        dpr: 'auto'
+      }
     }
   },
   headlessui: {
-    prefix: 'Headless',
+    prefix: 'Headless'
   },
   content: {
     navigation: {
-      fields: ['icon'],
+      fields: ['icon']
     },
     highlight: {
       preload: [
         'c',
         'cpp',
-        'java',
+        'java'
       ],
       // Theme used in all color schemes.
-      theme: 'github-dark',
+      theme: 'github-dark'
     },
     // documentDriven: true,
     markdown: {
       toc: {
         depth: 4,
-        searchDepth: 4,
-      },
-    },
+        searchDepth: 4
+      }
+    }
   },
+  typescript: {
+    strict: false
+  },
+  eslint: {
+    config: {
+      stylistic: {
+        commaDangle: 'never',
+        braceStyle: '1tbs'
+      }
+    }
+  }
 })
