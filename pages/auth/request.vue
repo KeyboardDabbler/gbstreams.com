@@ -1,7 +1,7 @@
 <script>
 definePageMeta({
-  layout: "card",
-});
+  layout: 'card'
+})
 </script>
 
 <template>

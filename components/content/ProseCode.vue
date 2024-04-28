@@ -5,27 +5,30 @@ export default defineComponent({
   props: {
     code: {
       type: String,
-      default: '',
+      default: ''
     },
     language: {
       type: String,
-      default: null,
+      default: null
     },
     filename: {
       type: String,
-      default: null,
+      default: null
     },
     highlights: {
       type: Array as () => number[],
-      default: () => [],
-    },
-  },
+      default: () => []
+    }
+  }
 })
 </script>
 
 <template>
   <div class="w-full my-4 overflow-hidden rounded bg-zinc-800">
-    <div v-if="language" class="relative px-5">
+    <div
+      v-if="language"
+      class="relative px-5"
+    >
       <div class="px-4 py-0 border border-t-0 rounded w-max border-zinc-700">
         <p class="text-violet-400">
           {{ language }}

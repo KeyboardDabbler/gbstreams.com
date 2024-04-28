@@ -11,7 +11,7 @@ export default <Partial<Config>>{
     './pages/**/*.vue',
     './plugins/**/*.{js,ts}',
     './utils/**/*.{js,ts}',
-    './app.vue',
+    './app.vue'
   ],
   theme: {
     extend: {
@@ -21,14 +21,14 @@ export default <Partial<Config>>{
         yellowbg: '#f4cf44',
         yellowfg: '#897931',
         blueBorder: '#2E5597',
-        bluer: '#007aff',
+        bluer: '#007aff'
       },
       fontFamily: {
-        sans: ['DM Sans', ...defaultTheme.fontFamily.sans],
+        sans: ['DM Sans', ...defaultTheme.fontFamily.sans]
       },
       backgroundImage: {
-        'login-pattern': "url('./assets/AuthBG.png')",
-      },
-    },
-  },
+        'login-pattern': 'url(\'./assets/AuthBG.png\')'
+      }
+    }
+  }
 }

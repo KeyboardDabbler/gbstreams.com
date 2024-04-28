@@ -43,6 +43,6 @@ export const useScrollSpy = () => {
   return {
     visibleHeadings,
     activeHeadings,
-    updateHeadings,
+    updateHeadings
   }
 }

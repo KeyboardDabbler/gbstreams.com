@@ -1,12 +1,12 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
 import type { FormError } from '#ui/types'
-import { storeToRefs } from 'pinia';
-import { useAuthStore } from '~/store/auth';
+import { useAuthStore } from '~/store/auth'
 
-const { authenticateUser } = useAuthStore();
-const { authenticated } = storeToRefs(useAuthStore());
+const { authenticateUser } = useAuthStore()
+const { authenticated } = storeToRefs(useAuthStore())
 
-const router = useRouter();
+const router = useRouter()
 
 const fields = [{
   name: 'username',
@@ -28,30 +28,47 @@ const validate = (state: any) => {
 }
 
 async function onSubmit(data: any) {
-  await authenticateUser(data);
+  await authenticateUser(data)
 
   if (authenticated.value) {
-    router.push('/dashboard/profile');
+    router.push('/dashboard/profile')
   } else {
-    console.error('Authentication failed');
+    console.error('Authentication failed')
   }
 }
 </script>
 
 <template>
   <UCard class="max-w-sm w-full">
-    <UAuthForm :fields="fields" :validate="validate" title="Welcome back!" align="top" icon="i-heroicons-lock-closed"
-      :ui="{ base: 'text-center', footer: 'text-center' }" @submit="onSubmit">
+    <UAuthForm
+      :fields="fields"
+      :validate="validate"
+      title="Welcome back!"
+      align="top"
+      icon="i-heroicons-lock-closed"
+      :ui="{ base: 'text-center', footer: 'text-center' }"
+      @submit="onSubmit"
+    >
       <template #description>
         Login with your account.
       </template>
 
       <template #password-hint>
-        <NuxtLink to="/" class="text-primary font-medium">Forgot password?</NuxtLink>
+        <NuxtLink
+          to="#"
+          class="text-primary font-medium"
+        >
+          Forgot password?
+        </NuxtLink>
       </template>
 
       <template #footer>
-        By signing in, you agree to our <NuxtLink to="/" class="text-primary font-medium">Terms of Service</NuxtLink>.
+        By signing in, you agree to our <NuxtLink
+          to="#"
+          class="text-primary font-medium"
+        >
+          Terms of Service
+        </NuxtLink>.
       </template>
     </UAuthForm>
   </UCard>

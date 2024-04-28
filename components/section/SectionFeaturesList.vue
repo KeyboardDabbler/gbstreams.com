@@ -28,20 +28,38 @@ const modules = [{
 
 <template>
   <div class="md:max-w-4xl mb-10 mx-auto text-center">
-    <UBadge label="Features" variant="soft" :ui="{ rounded: 'rounded-full', font: 'uppercase' }" />
-    <h1 class="my-3 text-gray-200 text-3xl md:text-4xl leading-tight font-bold tracking-tighter">What We Do</h1>
-    <p class="text-lg md:text-xl font-medium">Enjoy your favorite shows your
-      way, There's always something great on <span class="text-primary font-bold">GBstreams</span></p>
+    <UBadge
+      label="Features"
+      variant="soft"
+      :ui="{ rounded: 'rounded-full', font: 'uppercase' }"
+    />
+    <h1 class="my-3 text-gray-200 text-3xl md:text-4xl leading-tight font-bold tracking-tighter">
+      What We Do
+    </h1>
+    <p class="text-lg md:text-xl font-medium">
+      Enjoy your favorite shows your
+      way, There's always something great on <span class="text-primary font-bold">GBstreams</span>
+    </p>
   </div>
   <UPageGrid>
-    <UPageCard v-for="(module) in modules" :ui="{ ring: '' }">
+    <UPageCard
+      v-for="(module) in modules"
+      :ui="{ ring: '' }"
+    >
       <template #description>
         <div class="p-8 text-center">
           <div class="items-center justify-center">
-            <UIcon :name="module.icon" class="h-32 w-32" />
+            <UIcon
+              :name="module.icon"
+              class="h-32 w-32"
+            />
           </div>
-          <h3 class="mb-4 text-gray-200 text-xl md:text-2xl leading-tight font-bold">{{ module.title }}</h3>
-          <p class="font-medium">{{ module.description }}</p>
+          <h3 class="mb-4 text-gray-200 text-xl md:text-2xl leading-tight font-bold">
+            {{ module.title }}
+          </h3>
+          <p class="font-medium">
+            {{ module.description }}
+          </p>
         </div>
       </template>
     </UPageCard>

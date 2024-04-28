@@ -1,11 +1,11 @@
 <script>
 definePageMeta({
-    layout: "card",
-});
+  layout: 'card'
+})
 </script>
 
 <template>
-    <section>
-        <SectionWizardCard />
-    </section>
+  <section>
+    <SectionWizardCard />
+  </section>
 </template>

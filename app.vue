@@ -1,10 +1,13 @@
 <template>
-  <div class="text-gray-400"
-    >
-        <NuxtLoadingIndicator :height="5" :duration="3000" :throttle="400" />
-        <NuxtLayout>
-          <NuxtPage />
-        </NuxtLayout>
+  <div class="text-gray-400">
+    <NuxtLoadingIndicator
+      :height="5"
+      :duration="3000"
+      :throttle="400"
+    />
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>
 

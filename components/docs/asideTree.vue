@@ -4,16 +4,16 @@ import type { PropType } from 'vue'
 const props = defineProps({
   links: {
     type: Array as PropType<any>,
-    default: () => [],
+    default: () => []
   },
   level: {
     type: Number,
-    default: 0,
+    default: 0
   },
   max: {
     type: Number,
-    default: null,
-  },
+    default: null
+  }
 })
 
 const route = useRoute()
@@ -63,16 +63,28 @@ const hasNesting = computed(() => props.links.some((link: any) => link.children)
       class="flex flex-col"
       :class="[
         { 'pl-3 ml-2 border-l-2': level > 0 },
-        isActive(link) ? 'border-l-yellow font-medium' : 'border-l-gray-800 hover:border-l-gray-700',
+        isActive(link) ? 'border-l-yellow font-medium' : 'border-l-gray-800 hover:border-l-gray-700'
       ]"
     >
-      <button v-if="link.children" aria-label="Navigation Header" class="flex justify-between w-full py-1" @click="toggleCollapse(link)">
+      <button
+        v-if="link.children"
+        aria-label="Navigation Header"
+        class="flex justify-between w-full py-1"
+        @click="toggleCollapse(link)"
+      >
         <span class="flex items-center justify-start text-xl">
-          <Icon v-if="link?.navigation?.icon || link.icon" :name="link?.navigation?.icon || link.icon" class="mr-2 grayscale" />
+          <Icon
+            v-if="link?.navigation?.icon || link.icon"
+            :name="link?.navigation?.icon || link.icon"
+            class="mr-2 grayscale"
+          />
           <span class="text-left">{{ link?.navigation?.title || link.title || link._path }}</span>
         </span>
         <span>
-          <Icon :name="isCollapsed(link) ? 'lucide:chevrons-up-down' : 'lucide:chevrons-down-up'" class="text-gray-500" />
+          <Icon
+            :name="isCollapsed(link) ? 'lucide:chevrons-up-down' : 'lucide:chevrons-down-up'"
+            class="text-gray-500"
+          />
         </span>
       </button>
       <NuxtLink
@@ -82,7 +94,11 @@ const hasNesting = computed(() => props.links.some((link: any) => link.children)
         class="flex"
       >
         <span :class="`text-base w-full py-0.5 ${isActive(link) ? 'text-yellow' : 'text-gray-500 hover:text-gray-400'}`">
-          <Icon v-if="link?.navigation?.icon || link.icon" :name="link?.navigation?.icon || link.icon" class="icon" />
+          <Icon
+            v-if="link?.navigation?.icon || link.icon"
+            :name="link?.navigation?.icon || link.icon"
+            class="icon"
+          />
           <span>{{ link?.navigation?.title || link.title || link._path }}</span>
         </span>
       </NuxtLink>
