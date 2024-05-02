@@ -1,8 +1,4 @@
 <script setup lang="ts">
-definePageMeta({
-  layout: 'dashboard'
-})
-
 const state = reactive<{ [key: string]: boolean }>({
   newContent: true,
   product_updates: false
@@ -60,5 +56,5 @@ async function onChange() {
         </UFormGroup>
       </UCard>
     </UDashboardSection>
-  </udashboardpanelcontent>
+  </UDashboardPanelContent>
 </template>

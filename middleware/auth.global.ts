@@ -13,7 +13,7 @@ export default defineNuxtRouteMiddleware((to, from) => {
   const allowedRoutes = ['/', '/auth/login', '/auth/request', '/auth/signup']
 
   if (token.value && allowedRoutes.includes(to.path)) {
-    return navigateTo('/dashboard/profile')
+    return navigateTo('/dashboard')
   }
 
   // If token doesn't exist and the current route is neither the root nor /auth/login, redirect to login

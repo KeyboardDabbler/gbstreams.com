@@ -1,10 +1,6 @@
 <script setup lang="ts">
 import type { FormError, FormSubmitEvent } from '#ui/types'
 
-definePageMeta({
-  layout: 'dashboard'
-})
-
 const fileRef = ref<HTMLInputElement>()
 
 const state = reactive({
