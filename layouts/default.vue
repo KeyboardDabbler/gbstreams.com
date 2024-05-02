@@ -11,29 +11,14 @@ const links = [{
   tooltip: {
     text: 'Home'
   }
-}, {
-  id: 'request',
-  label: 'Request',
-  icon: 'i-heroicons-rocket-launch',
-  to: 'https://request.gbstreams.com',
-  target: '_blank',
-  tooltip: {
-    text: 'Request'
-  }
-}, {
-  id: 'webApp',
-  label: 'Web App',
-  icon: 'i-heroicons-rocket-launch',
-  to: 'https://play.gbstreams.com',
-  target: '_blank',
-  tooltip: {
-    text: 'Web app'
-  }
-}, {
+}]
+
+const settingsLinks = [{
   id: 'settings',
   label: 'Settings',
   to: '/dashboard/settings',
   icon: 'i-heroicons-cog-8-tooth',
+  defaultOpen: route.path.startsWith('/dashboard/settings'),
   children: [{
     label: 'General',
     to: '/dashboard/settings',
@@ -53,27 +38,63 @@ const links = [{
   }
 }]
 
+const externalLinks = [{
+  id: 'request',
+  label: 'Request & Report',
+  icon: 'i-heroicons-rocket-launch',
+  to: 'https://request.gbstreams.com',
+  target: '_blank',
+  tooltip: {
+    text: 'Request'
+  }
+}, {
+  id: 'webApp',
+  label: 'Web Player',
+  icon: 'i-heroicons-tv',
+  to: 'https://play.gbstreams.com',
+  target: '_blank',
+  tooltip: {
+    text: 'Web app'
+  }
+}]
+
 const supportLinks = [{
   id: 'support',
   label: 'Support',
   icon: 'i-heroicons-question-mark-circle',
   collapsible: false,
   children: [{
-    label: 'Clients',
+    label: 'Client Downloads',
     to: '/dashboard/clients',
     exact: true
-  }, {
-    label: 'Documentation',
-    to: '/docs'
   }, {
     label: 'Inbox',
     to: '/dashboard/inbox'
   }, {
-    label: 'Setup wizard',
+    label: 'Setup Wizard',
     to: '/dashboard/wizard'
   }],
   tooltip: {
     text: 'Support'
+  }
+}, {
+  id: 'documentaion',
+  label: 'Documentaion',
+  icon: 'i-heroicons-book-open',
+  defaultOpen: route.path.startsWith('/dashboard/docs'),
+  children: [{
+    label: 'Introduction',
+    to: '/dashboard/docs/introduction',
+    exact: true
+  }, {
+    label: 'Request & Report',
+    to: '/dashboard/docs/request'
+  }, {
+    label: 'FAQ',
+    to: '/dashboard/docs/faq'
+  }],
+  tooltip: {
+    text: 'documentaion'
   }
 }]
 
@@ -81,7 +102,7 @@ const adminLinks = [{
   id: 'admin',
   label: 'Admin',
   icon: 'i-heroicons-user-group',
-  collapsible: true,
+  defaultOpen: route.path.startsWith('/dashboard/admin'),
   tooltip: {
     text: 'Admin'
   }
@@ -111,9 +132,17 @@ const adminLinks = [{
 
         <UDashboardSidebarLinks :links="links" />
 
+        <UDashboardSidebarLinks :links="settingsLinks" />
+
+        <UDivider />
+
+        <UDashboardSidebarLinks :links="externalLinks" />
+
         <UDivider />
 
         <UDashboardSidebarLinks :links="supportLinks" />
+
+        <UDashboardSidebarLinks :links="docLinks" />
 
         <UDivider />
 
@@ -131,13 +160,8 @@ const adminLinks = [{
 
     <slot />
 
-    <!-- ~/components/HelpSlideover.vue -->
-    <HelpSlideover />
-    <!-- ~/components/NotificationsSlideover.vue -->
-    <NotificationsSlideover />
-
     <ClientOnly>
-      <LazyUDashboardSearch :groups="groups" />
+      <LazyUDashboardSearch />
     </ClientOnly>
   </UDashboardLayout>
 </template>
