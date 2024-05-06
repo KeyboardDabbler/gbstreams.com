@@ -34,5 +34,6 @@ export const useAuthStore = defineStore('auth', {
       this.authenticated = false // set authenticated  state value to false
       token.value = null // clear the token cookie
     }
-  }
+  },
+  persist: true
 })

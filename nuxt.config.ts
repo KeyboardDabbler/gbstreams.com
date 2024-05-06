@@ -11,6 +11,7 @@ export default defineNuxtConfig({
     'nuxt-icon',
     '@nuxt/image-edge',
     '@nuxt/image',
+    '@pinia-plugin-persistedstate/nuxt',
     [
       '@pinia/nuxt',
       {
