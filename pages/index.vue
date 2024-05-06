@@ -1,3 +1,9 @@
+<script setup>
+definePageMeta({
+  layout: false,
+});
+</script>
+
 <template>
   <div class="flex flex-col min-h-screen">
     <NavDefaultHeader
