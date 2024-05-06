@@ -16,7 +16,7 @@ const items = computed(() => [
     icon: 'i-heroicons-arrow-left-on-rectangle',
     click: () => {
       logUserOut()
-      router.push('/login')
+      router.push('/auth/login')
     }
   }]
 ])

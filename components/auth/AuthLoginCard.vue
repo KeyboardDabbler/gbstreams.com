@@ -31,7 +31,7 @@ async function onSubmit(data: any) {
   await authenticateUser(data)
 
   if (authenticated.value) {
-    router.push('/dashboard/profile')
+    router.push('/dashboard')
   } else {
     console.error('Authentication failed')
   }
