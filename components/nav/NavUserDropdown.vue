@@ -1,6 +1,10 @@
 <script setup lang="ts">
+import { useAuthStore } from '~/store/auth'
+
 const { isHelpSlideoverOpen } = useDashboard()
 const { isDashboardSearchModalOpen } = useUIState()
+const router = useRouter()
+const { logUserOut } = useAuthStore()
 
 const items = computed(() => [
   [{
