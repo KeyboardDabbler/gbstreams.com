@@ -1,7 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   devtools: { enabled: true },
-  modules: ["@nuxt/ui-pro", "@nuxt/eslint"],
+  modules: ["@nuxt/ui-pro", "@nuxt/eslint", '@nuxt/image'],
   css: ['~/assets/css/main.css'],
 
   icon: {
@@ -9,6 +9,16 @@ export default defineNuxtConfig({
       prefix: 'custom',
       dir: './assets/icons'
     }]
+  },
+
+  image: {
+    cloudinary: {
+      baseURL: 'https://res.cloudinary.com/dpub6gcei/image/upload/v1678918300/GBstreams',
+      modifiers: {
+        quality: 'auto:best',
+        dpr: 'auto',
+      },
+    }
   },
 
   future: {
