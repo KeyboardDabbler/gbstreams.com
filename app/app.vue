@@ -8,7 +8,6 @@
       <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
-      <UNotifications />
     </Body>
   </Html>
 </template>
