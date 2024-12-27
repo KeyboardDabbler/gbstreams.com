@@ -4,6 +4,13 @@ export default defineNuxtConfig({
   modules: ["@nuxt/ui-pro", "@nuxt/eslint"],
   css: ['~/assets/css/main.css'],
 
+  icon: {
+    customCollections: [{
+      prefix: 'custom',
+      dir: './assets/icons'
+    }]
+  },
+
   future: {
     compatibilityVersion: 4
   },
