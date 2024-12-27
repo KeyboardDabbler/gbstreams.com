@@ -1,0 +1,18 @@
+@import "tailwindcss";
+@import "@nuxt/ui-pro";
+
+@theme {
+  --font-sans: "Nunito", sans-serif;
+
+  /* Color Configuration */
+  --color-backg: #111828;
+  --color-forg: #202938;
+  --color-yellow-1: #F4CF44;
+  --color-yellow-2: #897931;
+  --color-blueBorder: #2E5597;
+  --color-bluer: #007aff;
+}
+
+body {
+  @apply bg-gray-100 dark:bg-gray-950;
+}
