@@ -89,12 +89,14 @@ const stepper = useTemplateRef('stepper')
                     >
                       <li
                         v-for="bullet in item.bulletPoints"
+                        :key="bullet"
                         class="flex items-center space-x-3"
                       >
                         <Icon
                           class="mr-1 text-green-400"
                           name="mdi:check"
-                        /> {{ bullet }}
+                        />
+                        {{ bullet }}
                       </li>
                     </ul>
                   </div>
