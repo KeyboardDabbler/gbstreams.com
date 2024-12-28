@@ -2,17 +2,20 @@ export default defineAppConfig({
   // https://ui3.nuxt.dev/getting-started/theme#design-system
   ui: {
     colors: {
-      primary: 'emerald',
+      primary: 'green',
       neutral: 'slate',
-    },
-    button: {
-      defaultVariants: {
-        // Set default button color to neutral
-        // color: 'neutral'
-      }
     }
   },
   uiPro: {
+    error: {
+      slots: {
+        root: 'min-h-[calc(90vh-var(--ui-header-height))] flex flex-col items-center justify-center text-center',
+        statusCode: 'text-base font-semibold text-[var(--ui-primary)]',
+        statusMessage: 'mt-2 text-4xl sm:text-5xl font-bold text-white text-balance',
+        message: 'mt-4 text-lg text-[var(--ui-text-muted)] text-balance',
+        links: 'mt-8 flex items-center justify-center gap-6'
+      }
+    },
     header: {
       slots: {
         root: 'bg-backg border-b-1 border-gray-400 border-opacity-40 sticky top-0 z-50',
