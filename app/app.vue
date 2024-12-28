@@ -5,9 +5,7 @@
   >
     <Body class="antialiased duration-300 transition-colors">
       <NuxtLoadingIndicator />
-      <NuxtLayout>
-        <NuxtPage />
-      </NuxtLayout>
+      <NuxtPage />
     </Body>
   </Html>
 </template>
