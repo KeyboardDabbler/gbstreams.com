@@ -1,5 +1,5 @@
 <template>
-    <NuxtLayout>
-        <SectionFeaturesList />
-    </NuxtLayout>
+  <NuxtLayout>
+    <SectionFeaturesList />
+  </NuxtLayout>
 </template>

@@ -1,5 +1,5 @@
 <template>
-    <NuxtLayout>
-        <SectionFaqList />
-    </NuxtLayout>
+  <NuxtLayout>
+    <SectionFaqList />
+  </NuxtLayout>
 </template>

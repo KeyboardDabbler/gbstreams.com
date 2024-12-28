@@ -1,35 +1,18 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
+  modules: ['@nuxt/ui-pro', '@nuxt/eslint', '@nuxt/image'],
   devtools: { enabled: true },
-  modules: ["@nuxt/ui-pro", "@nuxt/eslint", '@nuxt/image'],
   css: ['~/assets/css/main.css'],
 
-  icon: {
-    customCollections: [{
-      prefix: 'custom',
-      dir: './assets/icons'
-    }]
-  },
-
-  image: {
-    cloudinary: {
-      baseURL: 'https://res.cloudinary.com/dpub6gcei/image/upload/v1678918300/GBstreams',
-      modifiers: {
-        quality: 'auto:best',
-        dpr: 'auto',
-      },
-    }
+  ui: {
+    colorMode: false
   },
 
   future: {
     compatibilityVersion: 4
   },
 
-  ui: {
-    colorMode: false
-  },
-
-  compatibilityDate: "2024-11-27",
+  compatibilityDate: '2024-11-27',
 
   typescript: {
     typeCheck: false,
@@ -44,4 +27,21 @@ export default defineNuxtConfig({
       }
     }
   },
+
+  icon: {
+    customCollections: [{
+      prefix: 'custom',
+      dir: './assets/icons'
+    }]
+  },
+
+  image: {
+    cloudinary: {
+      baseURL: 'https://res.cloudinary.com/dpub6gcei/image/upload/v1678918300/GBstreams',
+      modifiers: {
+        quality: 'auto:best',
+        dpr: 'auto'
+      }
+    }
+  }
 })

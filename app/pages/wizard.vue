@@ -1,5 +1,5 @@
 <template>
-    <NuxtLayout>
-        <SectionWizardStepper />
-    </NuxtLayout>
+  <NuxtLayout>
+    <SectionWizardStepper />
+  </NuxtLayout>
 </template>

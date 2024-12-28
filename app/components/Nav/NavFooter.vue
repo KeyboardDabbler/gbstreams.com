@@ -1,12 +1,19 @@
 <template>
-    <footer>
-      <section class="container px-4 py-2 mx-auto border-t-1 border-gray-400 border-opacity-40">
-        <div class="row">
-          <div class="text-center text-sm text-gray-400">
-            <p class="my-3">Made with ❤️ by <NuxtLink to="https://github.com/KeyboardDabbler" class="text-yellow-1 font-bold">keyboardDabbler</NuxtLink></p>
-            <p class="my-3">© 2016-PRESENT <span class="text-yellow-1 font-bold">GBstreams</span> | All rights reserved.</p>
-          </div>
+  <footer>
+    <section class="container px-4 py-2 mx-auto border-t-1 border-gray-400 border-opacity-40">
+      <div class="row">
+        <div class="text-center text-sm text-gray-400">
+          <p class="my-3">
+            Made with ❤️ by <NuxtLink
+              to="https://github.com/KeyboardDabbler"
+              class="text-yellow-1 font-bold"
+            >keyboardDabbler</NuxtLink>
+          </p>
+          <p class="my-3">
+            © 2016-PRESENT <span class="text-yellow-1 font-bold">GBstreams</span> | All rights reserved.
+          </p>
         </div>
-      </section>
-    </footer>
-  </template>
+      </div>
+    </section>
+  </footer>
+</template>
