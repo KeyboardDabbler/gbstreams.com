@@ -132,13 +132,16 @@ const stepper = useTemplateRef('stepper')
                           name="mdi:arrow-right"
                         />
                         <span>
-                          <span v-if="bullet.text">{{ bullet.text }}</span>
-                          <a
-                            v-if="bullet.link"
-                            :href="bullet.link.href"
-                            :class="bullet.link.class"
-                          >{{ bullet.link.text }}</a>
-                          <span v-if="bullet.afterLink">{{ bullet.afterLink }}</span>
+                          <span v-if="typeof bullet === 'string'">{{ bullet }}</span>
+                          <span v-else>
+                            <span v-if="bullet.text">{{ bullet.text }}</span>
+                            <a
+                              v-if="bullet.link"
+                              :href="bullet.link.href"
+                              :class="bullet.link.class"
+                            >{{ bullet.link.text }}</a>
+                            <span v-if="bullet.afterLink">{{ bullet.afterLink }}</span>
+                          </span>
                         </span>
                       </li>
                     </ul>
