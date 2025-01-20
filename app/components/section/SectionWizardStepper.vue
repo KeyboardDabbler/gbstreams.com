@@ -18,7 +18,9 @@ const items = [
     noteIcon: '💡',
     noteTitle: 'Tip:',
     note: 'The Jellyfin app is available on most platforms, so you’re never far from great entertainment!',
-    deviceIcons: 'yes'
+    deviceIcons: 'yes',
+    gif: '',
+    gifAlt: ''
   },
   {
     head: 'Finding Content Made Easy',
@@ -38,7 +40,9 @@ const items = [
     noteIcon: '💡',
     noteTitle: 'Important:',
     note: 'Make sure you’re signed into GBstreams atleast once before using the Request system.',
-    deviceIcons: ''
+    deviceIcons: '',
+    gif: '/img/request_np0jga.gif',
+    gifAlt: 'Reporting media'
   },
   {
     head: 'What is GBstreams?',
@@ -58,7 +62,9 @@ const items = [
     noteIcon: '',
     noteTitle: '',
     note: '',
-    deviceIcons: ''
+    deviceIcons: '',
+    gif: '',
+    gifAlt: ''
   },
   {
     head: 'Personalize Your Account',
@@ -74,7 +80,9 @@ const items = [
     noteIcon: '💡',
     noteTitle: 'Pro Tip:',
     note: 'A personalized profile helps differentiate users, especially if you share your account with family or friends.',
-    deviceIcons: ''
+    deviceIcons: '',
+    gif: '/img/avatar_x2ufzo.gif',
+    gifAlt: 'Setting profile avatar gif'
   }
 ]
 
@@ -179,6 +187,19 @@ const stepper = useTemplateRef('stepper')
                     <UIcon
                       name="mdi:apple-ios"
                       class="size-15"
+                    />
+                  </div>
+
+                  <div
+                    v-if="item.gif"
+                    class="flex justify-center pt-10 space-x-10"
+                  >
+                    <NuxtImg
+                      provider="cloudinary"
+                      format="gif"
+                      :src="item.gif"
+                      :alt="item.gifAlt"
+                      class="h-100"
                     />
                   </div>
 
