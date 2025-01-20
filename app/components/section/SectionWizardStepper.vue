@@ -1,41 +1,65 @@
 <script setup lang="ts">
 const items = [
   {
-    slot: 'address',
-    title: '',
-    description: '',
-    head: 'Thanks for Joining GBstreams',
-    instructions: 'Great news! You now have access to our server\'s media collection. Let\'s make sure you know how to use it on you\'re device.',
-    link: '/clients',
-    linkText: 'Download',
-    trailingicon: 'material-symbols:download'
-  },
-  {
-    slot: 'shipping',
-    title: '',
-    description: '',
-    head: 'The Best Way to Discover Media',
-    instructions: 'We are excited to offer you a wide selection of media to choose from. If you\'re having trouble finding something you like, dont worry! We have a user-friendly Request & Repot system that can automatically search for the media you\'re looking for. You will find yourself deeper and deeper in a rabbit hole of content you never knew you just had to watch.',
+    head: 'Thanks for Joining GBstreams!',
+    instructions: 'Great news! You now have access to our server’s media collection. Let’s make sure you know how to use it on you’re device.',
+    subIcon: '👉',
+    subTitle: 'What’s next?',
     bulletPoints: [
-      'Request any available Movie or TV Show',
-      'Report issues with content, such as playback problems.',
-      'If enabled, recieve notification once ready to watch.'
+      'Check out our <a href="/clients" class="text-yellow-1 underline">list of supported apps and devices</a> to see how to set up GBstreams on your preferred platform. Follow simple guides tailored for PCs, smartphones, TVs, and more.',
+      'Follow simple guides tailored for PCs, smartphones, TVs, and more.'
     ],
-    link: 'https://request.gbstreams.com',
-    linkText: 'Check it Out',
-    trailingicon: 'material-symbols:open-in-new'
+    noteIcon: '💡',
+    noteTitle: 'Tip:',
+    note: 'The Jellyfin app is available on most platforms, so you’re never far from great entertainment!',
+    deviceIcons: 'yes'
   },
   {
-    slot: 'checkout',
-    title: '',
-    description: '',
-    head: 'Eh, So, What is GBstreams Exactly',
-    instructions: 'At GBstreams, we provide access to an extensive library. Our platform is built on Jellyfin, a volunteer-built media solution that puts you in control of your media. However, we have made unique modifications to the core code to add new features and branding changes that make GBstreams stand out from the crowd.',
-    subTitle: 'Right, So How Do I Watch Stuff?',
-    subInstructions: 'It couldn\'t be simpler! GBstreams is available on a wide varietyof devices including PC\'s, tablets, smartphones and TV\'s. All you need to do is download the app on your device, sign in with your account, and you\'re ready to start streaming. It\'s that easy!',
-    link: 'https://play.gbstreams.com',
-    linkText: 'Open GBstreams Web Player',
-    trailingicon: 'material-symbols:open-in-new'
+    head: 'Finding Content Made Easy',
+    instructions: 'We’re excited to offer you a vast selection of media, from blockbuster movies to hidden gems. If you can’t find what you’re looking for, we’ve got you covered with our Request & Report system.',
+    subIcon: '👉',
+    subTitle: 'Here’s how it works:',
+    bulletPoints: [
+      'Request Movies or TV Shows that aren’t already available.',
+      'Report issues like playback problems or missing subtitles.',
+      '(Optional) Get Notifications when your requested media is ready to watch.'
+    ],
+    linkIcon: '👉',
+    linkText: '<a href="https://request.gbstreams.com" class="text-yellow-1 underline">Access the Request Website</a>',
+    noteIcon: '💡',
+    noteTitle: 'Important:',
+    note: 'Make sure you’re signed into GBstreams atleast once before using the Request system.',
+    deviceIcons: ''
+  },
+  {
+    head: 'What is GBstreams?',
+    instructions: 'GBstreams is powered by Jellyfin, an open-source media solution that puts you in control of your entertainment. But we’ve gone the extra mile, adding new features and branding to create an enhanced streaming experience just for you.',
+    subIcon: '',
+    subTitle: 'Getting Started Is Simple:',
+    bulletPoints: [
+      'Download the Jellyfin app for your device.',
+      'Sign in with your GBstreams account.',
+      'Start watching!'
+    ],
+    linkIcon: '👉',
+    linkText: '<a href="https://play.gbstreams.com" class="text-yellow-1 underline">Open the GBstreams Web Player</a>',
+    noteIcon: '',
+    noteTitle: '',
+    note: '',
+    deviceIcons: ''
+  },
+  {
+    head: 'Personalize Your Account',
+    instructions: 'Make your profile uniquely yours by updating your avatar. It’s a quick and easy way to personalize your GBstreams experience.',
+    subIcon: '',
+    subTitle: '',
+    bulletPoints: [],
+    linkIcon: '👉',
+    linkText: '<a href="https://play.gbstreams.com/web/#/userprofile.html" class="text-yellow-1 underline">Go to Profile Settings</a>',
+    noteIcon: '💡',
+    noteTitle: 'Pro Tip:',
+    note: 'A personalized profile helps differentiate users, especially if you share your account with family or friends.',
+    deviceIcons: ''
   }
 ]
 
@@ -53,7 +77,8 @@ const stepper = useTemplateRef('stepper')
           Setup Wizard
         </h1>
         <p class="text-lg md:text-xl font-medium">
-          Follow the 3 simple steps and you'll be able to start watching on <span class="text-yellow-1 font-bold">GBstreams</span>
+          Follow these 4 simple steps to get started with <span class="text-yellow-1 font-bold">GBstreams</span> and
+          enjoy your favorite media.
         </p>
       </div>
 
@@ -70,49 +95,76 @@ const stepper = useTemplateRef('stepper')
                   <h2 class="mb-4 text-gray-200 text-2xl md:text-3xl font-bold">
                     {{ item.head }}
                   </h2>
-                  <p class="text-coolGray-500 ">
+                  <p class="text-coolGray-500">
                     {{ item.instructions }}
                   </p>
 
-                  <div>
-                    <h2 class="my-4 text-gray-200 text-2xl md:text-3xl font-bold">
-                      {{ item.subTitle }}
-                    </h2>
-                    <p class="text-coolGray-500 ">
-                      {{ item.subInstructions }}
-                    </p>
-                  </div>
-
-                  <div class="">
+                  <div v-if="item.subTitle || item.subInstructions">
+                    <h3 class="my-4 text-gray-200 text-xl font-semibold">
+                      {{ item.subIcon }} {{ item.subTitle }}
+                    </h3>
+                    <p
+                      class="text-coolGray-500"
+                      v-html="item.subInstructions"
+                    />
                     <ul
-                      class="mt-2 space-y-4 text-left text-gray-500 dark:text-gray-400"
+                      v-if="item.bulletPoints && item.bulletPoints.length"
+                      class="mt-4 space-y-2 text-left"
                     >
                       <li
                         v-for="bullet in item.bulletPoints"
                         :key="bullet"
-                        class="flex items-center space-x-3"
+                        class="flex items-start space-x-3 ml-4"
                       >
                         <Icon
                           class="mr-1 text-green-400"
-                          name="mdi:check"
+                          name="mdi:arrow-right"
                         />
-                        {{ bullet }}
+                        <span v-html="bullet" />
                       </li>
                     </ul>
                   </div>
 
-                  <div class="flex justify-center pt-5">
-                    <UButton
-                      class="text-base text-black font-medium text-center bg-yellow-1 rounded-md shadow-sm"
-                      size="lg"
-                      color="warning"
-                      variant="solid"
-                      :href="item.link"
-                      target="_blank"
-                      :trailing-icon="item.trailingicon"
-                    >
-                      {{ item.linkText }}
-                    </UButton>
+                  <div
+                    v-if="item.linkText"
+                    class="flex justify-center"
+                  >
+                    <h4 class="mt-10 text-gray-200 text-xl font-semibold">
+                      {{ item.linkIcon }}
+                      <span
+                        class="text-base font-normal text-gray-400"
+                        v-html="item.linkText"
+                      />
+                    </h4>
+                  </div>
+
+                  <div
+                    v-if="item.deviceIcons"
+                    class="flex justify-center pt-10 space-x-10"
+                  >
+                    <UIcon
+                      name="i-custom-tvosicon"
+                      class="size-15"
+                    />
+                    <UIcon
+                      name="i-custom-amazonfiretvicon"
+                      class="size-15"
+                    />
+                    <UIcon
+                      name="mdi:android"
+                      class="size-15"
+                    />
+                    <UIcon
+                      name="mdi:apple-ios"
+                      class="size-15"
+                    />
+                  </div>
+
+                  <div v-if="item.noteTitle">
+                    <h4 class="my-10 text-gray-200 text-xl font-semibold">
+                      {{ item.noteIcon }} {{ item.noteTitle }}
+                      <span class="text-base font-normal text-gray-400">{{ item.note }}</span>
+                    </h4>
                   </div>
                 </div>
               </section>
