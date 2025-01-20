@@ -6,8 +6,14 @@ const items = [
     subIcon: '👉',
     subTitle: 'What’s next?',
     bulletPoints: [
-      'Check out our <a href="/clients" class="text-yellow-1 underline">list of supported apps and devices</a> to see how to set up GBstreams on your preferred platform. Follow simple guides tailored for PCs, smartphones, TVs, and more.',
-      'Follow simple guides tailored for PCs, smartphones, TVs, and more.'
+      {
+        text: 'Check out our ',
+        link: { href: '/clients', text: 'list of supported apps and devices', class: 'text-yellow-1 underline' },
+        afterLink: ' to see how to set up GBstreams on your preferred platform. Follow simple guides tailored for PCs, smartphones, TVs, and more.'
+      },
+      {
+        text: 'Follow simple guides tailored for PCs, smartphones, TVs, and more.'
+      }
     ],
     noteIcon: '💡',
     noteTitle: 'Tip:',
@@ -25,7 +31,10 @@ const items = [
       '(Optional) Get Notifications when your requested media is ready to watch.'
     ],
     linkIcon: '👉',
-    linkText: '<a href="https://request.gbstreams.com" class="text-yellow-1 underline">Access the Request Website</a>',
+    linkText: {
+      href: 'https://request.gbstreams.com',
+      text: 'Access the Request Website'
+    },
     noteIcon: '💡',
     noteTitle: 'Important:',
     note: 'Make sure you’re signed into GBstreams atleast once before using the Request system.',
@@ -42,7 +51,10 @@ const items = [
       'Start watching!'
     ],
     linkIcon: '👉',
-    linkText: '<a href="https://play.gbstreams.com" class="text-yellow-1 underline">Open the GBstreams Web Player</a>',
+    linkText: {
+      href: 'https://play.gbstreams.com',
+      text: 'Open the GBstreams Web Player'
+    },
     noteIcon: '',
     noteTitle: '',
     note: '',
@@ -55,7 +67,10 @@ const items = [
     subTitle: '',
     bulletPoints: [],
     linkIcon: '👉',
-    linkText: '<a href="https://play.gbstreams.com/web/#/userprofile.html" class="text-yellow-1 underline">Go to Profile Settings</a>',
+    linkText: {
+      href: 'https://play.gbstreams.com/web/#/userprofile.html',
+      text: 'Go to Profile Settings'
+    },
     noteIcon: '💡',
     noteTitle: 'Pro Tip:',
     note: 'A personalized profile helps differentiate users, especially if you share your account with family or friends.',
@@ -103,24 +118,28 @@ const stepper = useTemplateRef('stepper')
                     <h3 class="my-4 text-gray-200 text-xl font-semibold">
                       {{ item.subIcon }} {{ item.subTitle }}
                     </h3>
-                    <p
-                      class="text-coolGray-500"
-                      v-html="item.subInstructions"
-                    />
                     <ul
                       v-if="item.bulletPoints && item.bulletPoints.length"
                       class="mt-4 space-y-2 text-left"
                     >
                       <li
-                        v-for="bullet in item.bulletPoints"
-                        :key="bullet"
+                        v-for="(bullet, index) in item.bulletPoints"
+                        :key="index"
                         class="flex items-start space-x-3 ml-4"
                       >
                         <Icon
                           class="mr-1 text-green-400"
                           name="mdi:arrow-right"
                         />
-                        <span v-html="bullet" />
+                        <span>
+                          <span v-if="bullet.text">{{ bullet.text }}</span>
+                          <a
+                            v-if="bullet.link"
+                            :href="bullet.link.href"
+                            :class="bullet.link.class"
+                          >{{ bullet.link.text }}</a>
+                          <span v-if="bullet.afterLink">{{ bullet.afterLink }}</span>
+                        </span>
                       </li>
                     </ul>
                   </div>
@@ -129,13 +148,13 @@ const stepper = useTemplateRef('stepper')
                     v-if="item.linkText"
                     class="flex justify-center"
                   >
-                    <h4 class="mt-10 text-gray-200 text-xl font-semibold">
+                    <h5 class="mt-10 text-gray-200 text-lg font-semibold">
                       {{ item.linkIcon }}
-                      <span
-                        class="text-base font-normal text-gray-400"
-                        v-html="item.linkText"
-                      />
-                    </h4>
+                      <a
+                        :href="item.linkText.href"
+                        class="text-yellow-1 underline"
+                      >{{ item.linkText.text }}</a>
+                    </h5>
                   </div>
 
                   <div
