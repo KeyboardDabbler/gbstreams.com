@@ -57,21 +57,8 @@ const items = ref([
           icon="i-lucide-info"
           title="This documentation as well as the code may change frequently. Please check back often and do not hesitate to contact us!"
         />
-        <br>
-        <p>Are you tired of managing your own media server or paying for multiple streaming services to watch your favorite shows and movies? Look no further than GBstreams - the ultimate streaming solution.</p>
-        <br>
-        <p>At GBstreams, we provide access to an extensive library of movies, TV shows, music, books, and photos that you can stream anytime, anywhere. And the best part? You don't need to worry about managing your own server - we take care of everything for you.</p>
-        <br>
-        <p>Our platform is built on Jellyfin, a volunteer-built media solution that puts you in control of your media. However, we have made unique modifications to the core code to add new features and branding changes that make GBstreams stand out from the crowd.</p>
-        <br>
-        <p>If you've used Plex, Emby, or even Jellyfin before, you'll feel right at home with GBstreams. Our clients play all kinds of media, and we are constantly updating our library to provide you with the latest content. If you can't find what you're looking for, our request system allows you to ask us to add missing content to our library.</p>
-        <br>
-        <p>At GBstreams, we're committed to providing you with the best possible streaming experience. We offer a user-friendly interface that makes it easy to navigate our library and find your favorite content. Plus, we're always working to improve our platform and add new features that enhance your viewing experience.</p>
-        <br>
-        <p>So, what are you waiting for? Sign up for GBstreams today and unleash the power of unlimited streaming. With our platform, you'll never have to worry about managing your own server or paying for multiple streaming services again.</p>
-        <br>
       </UContainer>
-      <UContainer>
+      <UContainer class="mt-10">
         <USeparator label="FAQ" />
         <UAccordion :items="items" />
       </UContainer>
