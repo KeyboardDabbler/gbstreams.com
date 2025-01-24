@@ -174,6 +174,7 @@ const stepper = useTemplateRef('stepper')
                             <a
                               v-if="bullet.link"
                               :href="bullet.link.href"
+                              target="_blank"
                               :class="bullet.link.class"
                             >{{ bullet.link.text }}</a>
                             <span v-if="bullet.afterLink">{{ bullet.afterLink }}</span>
@@ -191,6 +192,7 @@ const stepper = useTemplateRef('stepper')
                       {{ item.linkIcon }}
                       <a
                         :href="item.linkText.href"
+                        target="_blank"
                         class="text-yellow-1 underline"
                       >{{ item.linkText.text }}</a>
                     </h5>
