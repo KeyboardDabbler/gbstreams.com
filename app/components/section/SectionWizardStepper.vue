@@ -135,7 +135,7 @@ const stepper = useTemplateRef('stepper')
       <div class="w-full">
         <UStepper
           ref="stepper"
-          linear="false"
+          :linear="false"
           color="secondary"
           :items="items"
         >
