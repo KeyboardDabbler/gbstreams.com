@@ -83,6 +83,33 @@ const items = [
     deviceIcons: '',
     gif: '/img/avatar_x2ufzo.gif',
     gifAlt: 'Setting profile avatar gif'
+  },
+  {
+    head: 'Share the Experience',
+    instructions: 'GBstreams is an invite-only service, designed to keep our resources available for our valued members. From time to time, we open up new memberships to allow our community to grow.',
+    subIcon: '',
+    subTitle: 'How It Works:',
+    bulletPoints: [
+      {
+        text: 'Check your ',
+        link: { href: 'https://invite.gbstreams.com', text: 'User Invite Page', class: 'text-yellow-1 underline' },
+        afterLink: ' to see if you have any referral links available.'
+      },
+      {
+        text: 'Share these links with friends or family members.'
+      },
+      {
+        text: 'Each referral link allows someone to create their own account and join the GBstreams platform.'
+      }
+    ],
+    linkIcon: '👉',
+    linkText: {},
+    noteIcon: '💡',
+    noteTitle: 'Pro Tip:',
+    note: 'Referral links are limited, so choose wisely and share them with those who will appreciate our content as much as you do!',
+    deviceIcons: '',
+    gif: '/img/refferal_e9cd6m.gif',
+    gifAlt: 'Creating refferal link gif'
   }
 ]
 
@@ -108,6 +135,7 @@ const stepper = useTemplateRef('stepper')
       <div class="w-full">
         <UStepper
           ref="stepper"
+          linear="false"
           color="secondary"
           :items="items"
         >
