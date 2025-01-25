@@ -16,6 +16,7 @@
     "@iconify-json/lucide": "^1.2.24",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/simple-icons": "^1.2.21",
+    "@nuxt/content": "^3.0.0",
     "@nuxt/image": "1.8.1",
     "@nuxt/ui": "3.0.0-alpha.11",
     "@nuxt/ui-pro": "3.0.0-alpha.11",
