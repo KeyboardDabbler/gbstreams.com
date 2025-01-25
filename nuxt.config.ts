@@ -8,6 +8,10 @@ export default defineNuxtConfig({
     colorMode: false
   },
 
+  routeRules: {
+    '/docs': { redirect: '/docs/getting-started', prerender: false }
+  },
+
   future: {
     compatibilityVersion: 4
   },
