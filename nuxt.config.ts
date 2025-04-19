@@ -1,11 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  modules: [
-    '@nuxt/content', 
-    '@nuxt/ui-pro', 
-    '@nuxt/image', 
-    '@vueuse/nuxt'
-  ],
+  modules: ['@nuxt/content', '@nuxt/ui-pro', '@nuxt/image', '@vueuse/nuxt', '@nuxt/eslint'],
 
   devtools: {
     enabled: true
@@ -21,6 +16,20 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-07-11',
+
+  typescript: {
+    typeCheck: false,
+    strict: false
+  },
+
+  eslint: {
+    config: {
+      stylistic: {
+        commaDangle: 'never',
+        braceStyle: '1tbs'
+      }
+    }
+  },
 
   app: {
     layoutTransition: { name: 'layout', mode: 'out-in' }
