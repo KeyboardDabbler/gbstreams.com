@@ -1,6 +1,8 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import vue from '@vitejs/plugin-vue'
+
 export default defineNuxtConfig({
-  modules: ['@nuxt/content', '@nuxt/ui-pro', '@nuxt/image', '@vueuse/nuxt', '@nuxt/eslint'],
+  modules: ['@nuxt/content', '@nuxt/ui-pro', '@nuxt/image', '@vueuse/nuxt', '@nuxt/eslint', 'nuxt-nodemailer'],
 
   devtools: {
     enabled: true
@@ -36,11 +38,27 @@ export default defineNuxtConfig({
     colorMode: false
   },
 
+  runtimeConfig: {
+    apiSecret: {
+      EMAIL_USER: process.env.EMAIL_USER,
+      EMAIL_PASS: process.env.EMAIL_PASS,
+      SMTP_HOST: process.env.SMTP_HOST,
+      SMTP_PORT: process.env.SMTP_PORT,
+      ADMIN_EMAIL: process.env.ADMIN_EMAIL
+    }
+  },
+
   future: {
     compatibilityVersion: 4
   },
 
   compatibilityDate: '2024-07-11',
+
+  nitro: {
+    rollupConfig: {
+      plugins: [vue()]
+    }
+  },
 
   typescript: {
     typeCheck: false,

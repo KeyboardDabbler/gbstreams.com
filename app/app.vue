@@ -1,3 +1,7 @@
+<script setup lang="ts">
+const toast = useToast()
+</script>
+
 <template>
   <Html
     class="scheme-only-dark scrollbar-thin"
@@ -5,9 +9,12 @@
   >
     <Body class="antialiased duration-300 transition-colors">
       <NuxtLoadingIndicator />
-      <NuxtLayout>
+      <UApp>
+        <NuxtLayout>
         <NuxtPage />
       </NuxtLayout>
+      </UApp>
+      
     </Body>
   </Html>
 </template>

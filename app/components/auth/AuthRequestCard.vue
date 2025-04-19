@@ -31,8 +31,24 @@ const schema = z.object({
 
 type Schema = z.output<typeof schema>
 
-function onSubmit(payload: FormSubmitEvent<Schema>) {
-  console.log('Submitted', payload)
+async function onSubmit(payload: FormSubmitEvent<Schema>) {
+  toast.add({ title: 'Success', description: 'button pressed.', color: 'primary' })
+
+  console.log('Form submitted with payload:', payload.data)
+  try {
+    const response = await useFetch('/api/email/request-access', {
+      method: 'POST',
+      body: payload.data
+    })
+    if (response.success) {
+      toast.add({ title: 'Success', description: 'Your request has been sent successfully!', color: 'primary' })
+    } else {
+      toast.add({ title: 'Success', description: 'Failed to send your request. Please try again.', color: 'primary' })
+    }
+  } catch (error) {
+    console.error(error)
+    toast.add({ title: 'Success', description: 'An error occurred while sending your request.', color: 'primary' })
+  }
 }
 </script>
 
