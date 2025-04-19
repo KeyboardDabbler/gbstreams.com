@@ -7,8 +7,7 @@ export default defineNuxtConfig({
   },
 
   css: [
-    '@/resources/main.css',
-    '@/resources/scrollbars.css',
+    '~/assets/css/main.css'
   ],
   
   ui: {
