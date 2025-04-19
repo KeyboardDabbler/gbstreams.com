@@ -31,7 +31,7 @@ importers:
         version: 3.5.13(typescript@5.8.3)
     devDependencies:
       typescript:
-        specifier: ^5.3.3
+        specifier: ^5.8.2
         version: 5.8.3
 
 packages:
