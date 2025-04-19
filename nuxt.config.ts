@@ -10,6 +10,10 @@ export default defineNuxtConfig({
     '@/resources/main.css',
     '@/resources/scrollbars.css',
   ],
+  
+  ui: {
+    colorMode: false
+  },
 
   future: {
     compatibilityVersion: 4
@@ -37,23 +41,7 @@ export default defineNuxtConfig({
       dir: './assets/icons'
     }]
   },
-
-  app: {
-    layoutTransition: { name: 'layout', mode: 'out-in' }
-  },
-  colorMode: {
-    preference: 'dark'
-  },
-  googleFonts: {
-    display: 'swap',
-    download: true,
-    families: {
-      'DM+Sans': [400, 500, 600, 700]
-    }
-  },
-  fontMetrics: {
-    fonts: ['DM Sans']
-  },
+  
   image: {
     cloudinary: {
       baseURL: 'https://res.cloudinary.com/dpub6gcei/image/upload/v1678918300/GBstreams',
@@ -63,9 +51,7 @@ export default defineNuxtConfig({
       },
     }
   },
-  headlessui: {
-    prefix: 'Headless',
-  },
+  
   content: {
     navigation: {
       fields: ['icon'],
