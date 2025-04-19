@@ -47,11 +47,11 @@ export default defineNuxtConfig({
       baseURL: 'https://res.cloudinary.com/dpub6gcei/image/upload/v1678918300/GBstreams',
       modifiers: {
         quality: 'auto:best',
-        dpr: 'auto',
-      },
+        dpr: 'auto'
+      }
     }
   },
-  
+
   content: {
     navigation: {
       fields: ['icon'],
