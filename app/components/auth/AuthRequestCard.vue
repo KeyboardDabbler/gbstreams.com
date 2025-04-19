@@ -3,6 +3,7 @@ import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 const toast = useToast()
+const token = ref('') // Turnstile token
 
 const fields = [{
   name: 'email',
@@ -32,22 +33,25 @@ const schema = z.object({
 type Schema = z.output<typeof schema>
 
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
-  toast.add({ title: 'Success', description: 'button pressed.', color: 'primary' })
+  if (!token.value) {
+    toast.add({ title: 'Error', description: 'CAPTCHA validation failed.', color: 'error' })
+    return
+  }
 
-  console.log('Form submitted with payload:', payload.data)
   try {
-    const response = await useFetch('/api/email/request-access', {
+    const { data } = await useFetch('/api/email/request-access', {
       method: 'POST',
-      body: payload.data
+      body: { ...payload.data, token: token.value }
     })
-    if (response.success) {
+
+    if (data.value?.success) {
       toast.add({ title: 'Success', description: 'Your request has been sent successfully!', color: 'primary' })
     } else {
-      toast.add({ title: 'Success', description: 'Failed to send your request. Please try again.', color: 'primary' })
+      toast.add({ title: 'Error', description: 'Failed to send your request. Please try again.', color: 'error' })
     }
   } catch (error) {
     console.error(error)
-    toast.add({ title: 'Success', description: 'An error occurred while sending your request.', color: 'primary' })
+    toast.add({ title: 'Error', description: 'An error occurred while sending your request.', color: 'error' })
   }
 }
 </script>
@@ -70,6 +74,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
     </template>
 
     <template #footer>
+      <NuxtTurnstile v-model="token" data-theme="dark" class="pb-5" />
       By signing in, you agree to our <ULink
         to="/"
         class="text-(--ui-secondary) font-medium"

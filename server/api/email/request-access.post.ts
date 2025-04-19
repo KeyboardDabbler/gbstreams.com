@@ -7,6 +7,15 @@ export default defineEventHandler(async (event) => {
 
   console.log('server route value:', body)
 
+  // Validate the Turnstile token
+  const isValid = await verifyTurnstileToken(body.token)
+  if (!isValid) {
+    throw createError({
+      statusCode: 422,
+      statusMessage: 'Invalid CAPTCHA token.'
+    })
+  }
+
   // Validate the incoming data
   if (!body.email || !body.username) {
     throw createError({

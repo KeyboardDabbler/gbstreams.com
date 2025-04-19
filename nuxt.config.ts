@@ -2,7 +2,16 @@
 import vue from '@vitejs/plugin-vue'
 
 export default defineNuxtConfig({
-  modules: ['@nuxt/content', '@nuxt/ui-pro', '@nuxt/image', '@vueuse/nuxt', '@nuxt/eslint', 'nuxt-nodemailer'],
+  modules: [
+    '@nuxt/content',
+    '@nuxt/ui-pro',
+    '@nuxt/image',
+    '@vueuse/nuxt',
+    '@nuxt/eslint',
+    'nuxt-nodemailer',
+    '@nuxt/scripts',
+    '@nuxtjs/turnstile'
+  ],
 
   devtools: {
     enabled: true
@@ -45,6 +54,9 @@ export default defineNuxtConfig({
       SMTP_HOST: process.env.SMTP_HOST,
       SMTP_PORT: process.env.SMTP_PORT,
       ADMIN_EMAIL: process.env.ADMIN_EMAIL
+    },
+    turnstile: {
+      secretKey: process.env.NUXT_TURNSTILE_SECRET_KEY
     }
   },
 
@@ -89,5 +101,10 @@ export default defineNuxtConfig({
         dpr: 'auto'
       }
     }
+  },
+
+  turnstile: {
+    siteKey: process.env.NUXT_TURNSTILE_SITE_KEY,
+    addValidateEndpoint: true
   }
 })
