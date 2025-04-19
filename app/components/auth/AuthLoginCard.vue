@@ -1,55 +1,69 @@
 <script setup lang="ts">
-import type { FormError } from '#ui/types'
+import * as z from 'zod'
+import type { FormSubmitEvent } from '@nuxt/ui'
+
+const toast = useToast()
 
 const fields = [{
   name: 'email',
-  type: 'text',
+  type: 'text' as const,
   label: 'Email',
-  placeholder: 'Enter your email'
+  placeholder: 'Enter your email',
+  required: true
 }, {
   name: 'password',
   label: 'Password',
-  type: 'password',
-  placeholder: 'Enter your password'
+  type: 'password' as const,
+  placeholder: 'Enter your password',
+  required: true
+}, {
+  name: 'remember',
+  label: 'Remember me',
+  type: 'checkbox' as const
 }]
 
-const validate = (state: any) => {
-  const errors: FormError[] = []
-  if (!state.email) errors.push({ path: 'email', message: 'Email is required' })
-  if (!state.password) errors.push({ path: 'password', message: 'Password is required' })
-  return errors
-}
+const schema = z.object({
+  email: z.string().email('Invalid email'),
+  password: z.string().min(8, 'Must be at least 8 characters')
+})
 
-function onSubmit (data: any) {
-  console.log('Submitted', data)
+type Schema = z.output<typeof schema>
+
+function onSubmit(payload: FormSubmitEvent<Schema>) {
+  console.log('Submitted', payload)
 }
 </script>
 
-<!-- eslint-disable vue/multiline-html-element-content-newline -->
-<!-- eslint-disable vue/singleline-html-element-content-newline -->
 <template>
-  <UCard class="max-w-sm w-full">
-    <UAuthForm
-      :fields="fields"
-      :validate="validate"
-      :providers="providers"
-      title="Welcome back!"
-      align="top"
-      icon="i-heroicons-lock-closed"
-      :ui="{ base: 'text-center', footer: 'text-center' }"
-      @submit="onSubmit"
-    >
-      <template #description>
-        Login with your account.
-      </template>
+  <UAuthForm
+    :fields="fields"
+    :schema="schema"
+    title="Welcome back!"
+    icon="i-heroicons-lock-closed"
+    :submit="{
+      label: 'Submit',
+      color: 'primary',
+      variant: 'solid'
+    }"
+    @submit="onSubmit"
+  >
+    <template #description>
+      Login with your account.
+    </template>
 
-      <template #password-hint>
-        <NuxtLink to="/" class="text-primary font-medium">Forgot password?</NuxtLink>
-      </template>
+    <template #password-hint>
+      <ULink
+        to="/"
+        class="text-(--ui-secondary) font-medium"
+        tabindex="-1"
+      >Forgot password?</ULink>
+    </template>
 
-      <template #footer>
-        By signing in, you agree to our <NuxtLink to="/" class="text-primary font-medium">Terms of Service</NuxtLink>.
-      </template>
-    </UAuthForm>
-  </UCard>
+    <template #footer>
+      By signing in, you agree to our <ULink
+        to="/"
+        class="text-(--ui-secondary) font-medium"
+      >Terms of Service</ULink>.
+    </template>
+  </UAuthForm>
 </template>

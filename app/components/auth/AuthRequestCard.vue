@@ -1,55 +1,63 @@
 <script setup lang="ts">
-import type { FormError } from '#ui/types'
+import * as z from 'zod'
+import type { FormSubmitEvent } from '@nuxt/ui'
+
+const toast = useToast()
 
 const fields = [{
   name: 'email',
-  type: 'text',
+  type: 'text' as const,
   label: 'Email',
-  placeholder: 'Enter your email'
+  placeholder: 'Enter your email',
+  required: true
 }, {
-  name: 'password',
-  label: 'Password',
-  type: 'password',
-  placeholder: 'Enter your password'
+  name: 'username',
+  label: 'Username',
+  type: 'text' as const,
+  placeholder: 'Enter your username',
+  required: true
+}, {
+  name: 'existingMember',
+  label: 'Existing Member',
+  type: 'text' as const,
+  placeholder: 'Provide the name of an existing member'
 }]
 
-const validate = (state: any) => {
-  const errors: FormError[] = []
-  if (!state.email) errors.push({ path: 'email', message: 'Email is required' })
-  if (!state.password) errors.push({ path: 'password', message: 'Password is required' })
-  return errors
-}
+const schema = z.object({
+  email: z.string().email('Invalid email'),
+  username: z.string().min(3, 'Username must be at least 3 characters'),
+  existingMember: z.string().nullable().optional()
+})
 
-function onSubmit (data: any) {
-  console.log('Submitted', data)
+type Schema = z.output<typeof schema>
+
+function onSubmit(payload: FormSubmitEvent<Schema>) {
+  console.log('Submitted', payload)
 }
 </script>
 
-<!-- eslint-disable vue/multiline-html-element-content-newline -->
-<!-- eslint-disable vue/singleline-html-element-content-newline -->
 <template>
-  <UCard class="max-w-sm w-full">
-    <UAuthForm
-      :fields="fields"
-      :validate="validate"
-      :providers="providers"
-      title="Welcome back!"
-      align="top"
-      icon="i-heroicons-lock-closed"
-      :ui="{ base: 'text-center', footer: 'text-center' }"
-      @submit="onSubmit"
-    >
-      <template #description>
-        Login with your account.
-      </template>
+  <UAuthForm
+    :fields="fields"
+    :schema="schema"
+    title="Request Access"
+    icon="i-heroicons-identification"
+    :submit="{
+      label: 'Submit',
+      color: 'primary',
+      variant: 'solid'
+    }"
+    @submit="onSubmit"
+  >
+    <template #description>
+      Let us know a bit about you.
+    </template>
 
-      <template #password-hint>
-        <NuxtLink to="/" class="text-primary font-medium">Forgot password?</NuxtLink>
-      </template>
-
-      <template #footer>
-        By signing in, you agree to our <NuxtLink to="/" class="text-primary font-medium">Terms of Service</NuxtLink>.
-      </template>
-    </UAuthForm>
-  </UCard>
+    <template #footer>
+      By signing in, you agree to our <ULink
+        to="/"
+        class="text-(--ui-secondary) font-medium"
+      >Terms of Service</ULink>.
+    </template>
+  </UAuthForm>
 </template>

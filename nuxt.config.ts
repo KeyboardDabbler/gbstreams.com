@@ -9,7 +9,29 @@ export default defineNuxtConfig({
   css: [
     '~/assets/css/main.css'
   ],
-  
+
+  content: {
+    navigation: {
+      fields: ['icon']
+    },
+    highlight: {
+      preload: [
+        'c',
+        'cpp',
+        'java'
+      ],
+      // Theme used in all color schemes.
+      theme: 'github-dark'
+    },
+    // documentDriven: true,
+    markdown: {
+      toc: {
+        depth: 4,
+        searchDepth: 4
+      }
+    }
+  },
+
   ui: {
     colorMode: false
   },
@@ -40,7 +62,7 @@ export default defineNuxtConfig({
       dir: './assets/icons'
     }]
   },
-  
+
   image: {
     cloudinary: {
       baseURL: 'https://res.cloudinary.com/dpub6gcei/image/upload/v1678918300/GBstreams',
@@ -49,27 +71,5 @@ export default defineNuxtConfig({
         dpr: 'auto'
       }
     }
-  },
-
-  content: {
-    navigation: {
-      fields: ['icon'],
-    },
-    highlight: {
-      preload: [
-        'c',
-        'cpp',
-        'java',
-      ],
-      // Theme used in all color schemes.
-      theme: 'github-dark',
-    },
-    // documentDriven: true,
-    markdown: {
-      toc: {
-        depth: 4,
-        searchDepth: 4,
-      },
-    },
-  },
+  }
 })
