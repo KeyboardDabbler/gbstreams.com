@@ -5,10 +5,7 @@ export default defineNuxtConfig({
   ],
   modules: [
     '@nuxt/content',
-    '@nuxt/ui',
-    'nuxt-headlessui',
-    'nuxt-icon',
-    '@nuxt/image-edge',
+    '@nuxt/ui-pro',
     "@nuxt/image"
   ],
   css: [
