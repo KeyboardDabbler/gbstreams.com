@@ -31,11 +31,15 @@ export default defineNuxtConfig({
     }
   },
 
+  icon: {
+    customCollections: [{
+      prefix: 'custom',
+      dir: './assets/icons'
+    }]
+  },
+
   app: {
     layoutTransition: { name: 'layout', mode: 'out-in' }
-  },
-  ui: {
-    icons: ['heroicons'],
   },
   colorMode: {
     preference: 'dark'
