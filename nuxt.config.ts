@@ -1,17 +1,27 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  extends: [
-    '@nuxt/ui-pro'
-  ],
   modules: [
-    '@nuxt/content',
-    '@nuxt/ui-pro',
-    "@nuxt/image"
+    '@nuxt/content', 
+    '@nuxt/ui-pro', 
+    '@nuxt/image', 
+    '@vueuse/nuxt'
   ],
+
+  devtools: {
+    enabled: true
+  },
+
   css: [
     '@/resources/main.css',
     '@/resources/scrollbars.css',
   ],
+
+  future: {
+    compatibilityVersion: 4
+  },
+
+  compatibilityDate: '2024-07-11',
+
   app: {
     layoutTransition: { name: 'layout', mode: 'out-in' }
   },
