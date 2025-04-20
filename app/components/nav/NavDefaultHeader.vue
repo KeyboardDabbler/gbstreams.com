@@ -11,7 +11,7 @@
     <template #right>
       <div v-if="$route.path !== '/dashboard/wizard'">
         <NuxtLink
-          :to="$attrs.buttonLink"
+          :to="$attrs.route"
           class="decoration-yellow-1 decoration-2 underline-offset-8 hover:underline bg-transparent font-medium rounded-md"
         >
           {{ $attrs.button }}

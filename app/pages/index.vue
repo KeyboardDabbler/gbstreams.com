@@ -2,7 +2,7 @@
   <div class="flex flex-col min-h-screen">
     <NavDefaultHeader
       :button="'Login Page'"
-      :button-link="'/auth/login'"
+      :route="'/auth/login'"
     />
     <div class="flex-1 w-full flex flex-col">
       <UContainer class="p-6">
