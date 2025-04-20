@@ -117,155 +117,150 @@ const stepper = useTemplateRef('stepper')
 </script>
 
 <template>
-  <section class="p-6">
-    <div class="container px-2 mx-auto">
-      <div class="md:max-w-4xl mb-10 mx-auto text-center">
-        <span
-          class="inline-block py-px px-2 mb-4 text-xs leading-5 text-yellow-1 bg-forg font-medium uppercase rounded-full shadow-sm"
-        >Guide</span>
-        <h1 class="mb-4 text-gray-200 text-3xl md:text-4xl leading-tight font-bold tracking-tighter">
-          Setup Wizard
-        </h1>
-        <p class="text-lg md:text-xl font-medium">
-          Follow these 4 simple steps to get started with <span class="text-yellow-1 font-bold">GBstreams</span> and
-          enjoy your favorite media.
-        </p>
-      </div>
+  <section>
+    <div class="md:max-w-4xl mb-10 mx-auto text-center">
+      <h1 class="mb-4 text-gray-200 text-3xl md:text-4xl leading-tight font-bold tracking-tighter">
+        Setup Wizard
+      </h1>
+      <p class="text-lg md:text-xl font-medium">
+        Follow these 4 simple steps to get started with <span class="text-yellow-1 font-bold">GBstreams</span> and
+        enjoy your favorite media.
+      </p>
+    </div>
 
-      <div class="w-full">
-        <UStepper
-          ref="stepper"
-          :linear="false"
-          color="secondary"
-          :items="items"
-        >
-          <template #content="{ item }">
-            <Placeholder class="aspect-video">
-              <section class="p-6 sm:p-8">
-                <div class="">
-                  <h2 class="mb-4 text-gray-200 text-2xl md:text-3xl font-bold">
-                    {{ item.head }}
-                  </h2>
-                  <p class="text-coolGray-500">
-                    {{ item.instructions }}
-                  </p>
+    <div class="w-full">
+      <UStepper
+        ref="stepper"
+        :linear="false"
+        color="secondary"
+        :items="items"
+      >
+        <template #content="{ item }">
+          <Placeholder class="aspect-video">
+            <section class="p-6 sm:p-8">
+              <div class="">
+                <h2 class="mb-4 text-gray-200 text-2xl md:text-3xl font-bold">
+                  {{ item.head }}
+                </h2>
+                <p class="text-coolGray-500">
+                  {{ item.instructions }}
+                </p>
 
-                  <div v-if="item.subTitle || item.subInstructions">
-                    <h3 class="my-4 text-gray-200 text-xl font-semibold">
-                      {{ item.subIcon }} {{ item.subTitle }}
-                    </h3>
-                    <ul
-                      v-if="item.bulletPoints && item.bulletPoints.length"
-                      class="mt-4 space-y-2 text-left"
+                <div v-if="item.subTitle || item.subInstructions">
+                  <h3 class="my-4 text-gray-200 text-xl font-semibold">
+                    {{ item.subIcon }} {{ item.subTitle }}
+                  </h3>
+                  <ul
+                    v-if="item.bulletPoints && item.bulletPoints.length"
+                    class="mt-4 space-y-2 text-left"
+                  >
+                    <li
+                      v-for="(bullet, index) in item.bulletPoints"
+                      :key="index"
+                      class="flex items-start space-x-3 ml-4"
                     >
-                      <li
-                        v-for="(bullet, index) in item.bulletPoints"
-                        :key="index"
-                        class="flex items-start space-x-3 ml-4"
-                      >
-                        <Icon
-                          class="mr-1 text-green-400"
-                          name="mdi:arrow-right"
-                        />
-                        <span>
-                          <span v-if="typeof bullet === 'string'">{{ bullet }}</span>
-                          <span v-else>
-                            <span v-if="bullet.text">{{ bullet.text }}</span>
-                            <a
-                              v-if="bullet.link"
-                              :href="bullet.link.href"
-                              target="_blank"
-                              :class="bullet.link.class"
-                            >{{ bullet.link.text }}</a>
-                            <span v-if="bullet.afterLink">{{ bullet.afterLink }}</span>
-                          </span>
+                      <Icon
+                        class="mr-1 text-green-400"
+                        name="mdi:arrow-right"
+                      />
+                      <span>
+                        <span v-if="typeof bullet === 'string'">{{ bullet }}</span>
+                        <span v-else>
+                          <span v-if="bullet.text">{{ bullet.text }}</span>
+                          <a
+                            v-if="bullet.link"
+                            :href="bullet.link.href"
+                            target="_blank"
+                            :class="bullet.link.class"
+                          >{{ bullet.link.text }}</a>
+                          <span v-if="bullet.afterLink">{{ bullet.afterLink }}</span>
                         </span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div
-                    v-if="item.linkText"
-                    class="flex justify-center"
-                  >
-                    <h5 class="mt-10 text-gray-200 text-lg font-semibold">
-                      {{ item.linkIcon }}
-                      <a
-                        :href="item.linkText.href"
-                        target="_blank"
-                        class="text-yellow-1 underline"
-                      >{{ item.linkText.text }}</a>
-                    </h5>
-                  </div>
-
-                  <div
-                    v-if="item.deviceIcons"
-                    class="flex justify-center pt-10 space-x-10"
-                  >
-                    <UIcon
-                      name="i-custom-tvosicon"
-                      class="size-15"
-                    />
-                    <UIcon
-                      name="i-custom-amazonfiretvicon"
-                      class="size-15"
-                    />
-                    <UIcon
-                      name="mdi:android"
-                      class="size-15"
-                    />
-                    <UIcon
-                      name="mdi:apple-ios"
-                      class="size-15"
-                    />
-                  </div>
-
-                  <div
-                    v-if="item.gif"
-                    class="flex justify-center pt-10 space-x-10"
-                  >
-                    <NuxtImg
-                      provider="cloudinary"
-                      format="gif"
-                      :src="item.gif"
-                      :alt="item.gifAlt"
-                      class="h-100"
-                    />
-                  </div>
-
-                  <div v-if="item.noteTitle">
-                    <h4 class="my-10 text-gray-200 text-xl font-semibold">
-                      {{ item.noteIcon }} {{ item.noteTitle }}
-                      <span class="text-base font-normal text-gray-400">{{ item.note }}</span>
-                    </h4>
-                  </div>
+                      </span>
+                    </li>
+                  </ul>
                 </div>
-              </section>
-            </Placeholder>
-          </template>
-        </UStepper>
 
-        <div class="flex gap-2 justify-between mt-4">
-          <UButton
-            color="secondary"
-            variant="subtle"
-            leading-icon="i-lucide-arrow-left"
-            :disabled="!stepper?.hasPrev"
-            @click="stepper?.prev()"
-          >
-            Prev
-          </UButton>
+                <div
+                  v-if="item.linkText"
+                  class="flex justify-center"
+                >
+                  <h5 class="mt-10 text-gray-200 text-lg font-semibold">
+                    {{ item.linkIcon }}
+                    <a
+                      :href="item.linkText.href"
+                      target="_blank"
+                      class="text-yellow-1 underline"
+                    >{{ item.linkText.text }}</a>
+                  </h5>
+                </div>
 
-          <UButton
-            color="secondary"
-            variant="subtle"
-            trailing-icon="i-lucide-arrow-right"
-            :disabled="!stepper?.hasNext"
-            @click="stepper?.next()"
-          >
-            Next
-          </UButton>
-        </div>
+                <div
+                  v-if="item.deviceIcons"
+                  class="flex justify-center pt-10 space-x-10"
+                >
+                  <UIcon
+                    name="i-custom-tvosicon"
+                    class="size-15"
+                  />
+                  <UIcon
+                    name="i-custom-amazonfiretvicon"
+                    class="size-15"
+                  />
+                  <UIcon
+                    name="mdi:android"
+                    class="size-15"
+                  />
+                  <UIcon
+                    name="mdi:apple-ios"
+                    class="size-15"
+                  />
+                </div>
+
+                <div
+                  v-if="item.gif"
+                  class="flex justify-center pt-10 space-x-10"
+                >
+                  <NuxtImg
+                    provider="cloudinary"
+                    format="gif"
+                    :src="item.gif"
+                    :alt="item.gifAlt"
+                    class="h-100"
+                  />
+                </div>
+
+                <div v-if="item.noteTitle">
+                  <h4 class="my-10 text-gray-200 text-xl font-semibold">
+                    {{ item.noteIcon }} {{ item.noteTitle }}
+                    <span class="text-base font-normal text-gray-400">{{ item.note }}</span>
+                  </h4>
+                </div>
+              </div>
+            </section>
+          </Placeholder>
+        </template>
+      </UStepper>
+
+      <div class="flex gap-2 justify-between mt-4">
+        <UButton
+          color="secondary"
+          variant="subtle"
+          leading-icon="i-lucide-arrow-left"
+          :disabled="!stepper?.hasPrev"
+          @click="stepper?.prev()"
+        >
+          Prev
+        </UButton>
+
+        <UButton
+          color="secondary"
+          variant="subtle"
+          trailing-icon="i-lucide-arrow-right"
+          :disabled="!stepper?.hasNext"
+          @click="stepper?.next()"
+        >
+          Next
+        </UButton>
       </div>
     </div>
   </section>

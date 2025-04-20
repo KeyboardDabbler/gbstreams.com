@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <NavDefaultHeader />
+    <NavHeader />
     <section class="flex flex-1 flex-col items-center justify-center px-6 py-8 mx-auto lg:py-0 w-full">
       <div class="">
         <UPageCard

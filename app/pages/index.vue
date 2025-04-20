@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col min-h-screen">
-    <NavDefaultHeader
+    <NavHeader
       :button="'Login Page'"
       :route="'/auth/login'"
     />
