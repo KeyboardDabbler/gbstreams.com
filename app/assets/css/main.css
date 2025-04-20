@@ -13,6 +13,12 @@
   --color-bluer: #007aff;
 }
 
+@utility scrollbar-thin {
+  & {
+    scrollbar-width: thin;
+  }
+}
+
 :root {
   /* Least prominent text */
   --ui-text-dimmed: var(--ui-color-neutral-500);
