@@ -17,6 +17,7 @@
     "@iconify-json/lucide": "^1.2.24",
     "@iconify-json/mdi": "^1.2.3",
     "@iconify-json/simple-icons": "^1.2.21",
+    "@jellyfin/sdk": "^0.11.0",
     "@nuxt/content": "2.10.0",
     "@nuxt/image": "^1.10.0",
     "@nuxt/scripts": "0.11.6",
