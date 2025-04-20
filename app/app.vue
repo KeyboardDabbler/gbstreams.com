@@ -1,7 +1,3 @@
-<script setup lang="ts">
-const toast = useToast()
-</script>
-
 <template>
   <Html
     class="scheme-only-dark scrollbar-thin"
@@ -11,10 +7,9 @@ const toast = useToast()
       <NuxtLoadingIndicator />
       <UApp>
         <NuxtLayout>
-        <NuxtPage />
-      </NuxtLayout>
+          <NuxtPage />
+        </NuxtLayout>
       </UApp>
-      
     </Body>
   </Html>
 </template>

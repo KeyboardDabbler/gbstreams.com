@@ -74,7 +74,11 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
     </template>
 
     <template #footer>
-      <NuxtTurnstile v-model="token" data-theme="dark" class="pb-5" />
+      <NuxtTurnstile
+        v-model="token"
+        data-theme="dark"
+        class="pb-5"
+      />
       By signing in, you agree to our <ULink
         to="/"
         class="text-(--ui-secondary) font-medium"

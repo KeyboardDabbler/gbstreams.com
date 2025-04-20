@@ -10,12 +10,18 @@
         <div class="block md:hidden">
           <HeadlessDisclosure>
             <HeadlessDisclosureButton class="p-2 -translate-x-2">
-              <Icon class="text-xl" name="mdi:menu" />
+              <Icon
+                class="text-xl"
+                name="mdi:menu"
+              />
             </HeadlessDisclosureButton>
             <HeadlessDisclosurePanel class="text-gray-500">
               <DocsDropdown>
                 <HeadlessDisclosureButton href="/home">
-                  <Icon class="mt-4 mb-2 text-2xl text-zinc-300" name="mdi:close" />
+                  <Icon
+                    class="mt-4 mb-2 text-2xl text-zinc-300"
+                    name="mdi:close"
+                  />
                 </HeadlessDisclosureButton>
               </DocsDropdown>
             </HeadlessDisclosurePanel>
@@ -25,10 +31,14 @@
           <div class="w-full rounded-2xl bg-forg p-4 my-4">
             <HeadlessDisclosure v-slot="{ open }">
               <HeadlessDisclosureButton
-                class="flex w-full justify-between text-left text-sm font-medium text-white">
+                class="flex w-full justify-between text-left text-sm font-medium text-white"
+              >
                 <span>Table of Contents</span>
-                <Icon name="ic:baseline-keyboard-arrow-up" :class="open ? 'rotate-180 transform' : ''"
-                  class="h-5 w-5 text-white" />
+                <Icon
+                  name="ic:baseline-keyboard-arrow-up"
+                  :class="open ? 'rotate-180 transform' : ''"
+                  class="h-5 w-5 text-white"
+                />
               </HeadlessDisclosureButton>
               <HeadlessDisclosurePanel class="px-4 pt-4 pb-2 text-sm text-gray-500">
                 <TableOfContent class="" />
@@ -56,5 +66,3 @@
     </slot>
   </div>
 </template>
-
-

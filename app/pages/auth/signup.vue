@@ -1,11 +1,11 @@
 <script>
 definePageMeta({
-    layout: "card",
-});
+  layout: 'card'
+})
 </script>
 
 <template>
-    <section>
-        <AuthSignupCard />
-    </section>
+  <section>
+    <AuthSignupCard />
+  </section>
 </template>

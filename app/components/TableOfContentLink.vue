@@ -1,21 +1,22 @@
 <script setup lang="ts">
 import type { PropType } from 'vue'
 import type { TocLink } from '@nuxt/content/dist/runtime/types'
+
 const props = defineProps({
   links: {
     type: Array as PropType<TocLink[]>,
-    default: () => [],
-  },
+    default: () => []
+  }
 })
 const router = useRouter()
 const { activeHeadings, updateHeadings } = useScrollSpy()
-if (process.client) {
+if (import.meta.client) {
   setTimeout(() => {
     updateHeadings([
       ...document.querySelectorAll('.document-article h1'),
       ...document.querySelectorAll('.document-article h2'),
       ...document.querySelectorAll('.document-article h3'),
-      ...document.querySelectorAll('.document-article h4'),
+      ...document.querySelectorAll('.document-article h4')
     ])
   }, 300)
 }
@@ -26,7 +27,11 @@ function scrollToHeading(id: string) {
 
 <template>
   <ul class="list-none">
-    <li v-for="link in links" :key="link.text" :class="`depth-${link.depth}`">
+    <li
+      v-for="link in links"
+      :key="link.text"
+      :class="`depth-${link.depth}`"
+    >
       <template v-if="link.depth < 5">
         <a
           :href="`#${link.id}`"
@@ -35,7 +40,10 @@ function scrollToHeading(id: string) {
         >
           {{ link.text }}
         </a>
-        <TableOfContentLink v-if="link.children" :links="link.children" />
+        <TableOfContentLink
+          v-if="link.children"
+          :links="link.children"
+        />
       </template>
     </li>
   </ul>

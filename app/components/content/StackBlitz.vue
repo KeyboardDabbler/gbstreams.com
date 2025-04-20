@@ -2,8 +2,8 @@
 const props = defineProps({
   src: {
     type: String,
-    default: '',
-  },
+    default: ''
+  }
 })
 </script>
 
