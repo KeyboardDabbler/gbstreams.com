@@ -22,28 +22,6 @@ export default defineNuxtConfig({
     '~/assets/css/main.css'
   ],
 
-  content: {
-    navigation: {
-      fields: ['icon']
-    },
-    highlight: {
-      preload: [
-        'c',
-        'cpp',
-        'java'
-      ],
-      // Theme used in all color schemes.
-      theme: 'github-dark'
-    },
-    // documentDriven: true,
-    markdown: {
-      toc: {
-        depth: 4,
-        searchDepth: 4
-      }
-    }
-  },
-
   ui: {
     colorMode: false
   },

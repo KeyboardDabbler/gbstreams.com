@@ -29,6 +29,8 @@ const schema = z.object({
 
 type Schema = z.output<typeof schema>
 
+const { loggedIn, user, session, clear } = useUserSession()
+
 function onSubmit(payload: FormSubmitEvent<Schema>) {
   console.log('Submitted', payload)
 }
