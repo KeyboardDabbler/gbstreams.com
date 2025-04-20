@@ -29,6 +29,7 @@
     "@vue-email/render": "^0.0.9",
     "@vueuse/nuxt": "13.1.0",
     "nuxt": "^3.16.0",
+    "nuxt-auth-utils": "0.5.20",
     "vue": "^3.5.0",
     "zod": "^3.24.2"
   },

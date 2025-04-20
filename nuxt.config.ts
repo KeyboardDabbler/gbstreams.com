@@ -10,7 +10,8 @@ export default defineNuxtConfig({
     '@nuxt/eslint',
     'nuxt-nodemailer',
     '@nuxt/scripts',
-    '@nuxtjs/turnstile'
+    '@nuxtjs/turnstile',
+    'nuxt-auth-utils'
   ],
 
   devtools: {
