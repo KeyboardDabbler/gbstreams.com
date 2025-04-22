@@ -48,7 +48,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
   }
 
   toast.add({ title: 'Login successful', description: 'Welcome back!', color: 'green' })
-  return navigateTo('/dashboard')
+  return await navigateTo('/dashboard')
 }
 </script>
 
