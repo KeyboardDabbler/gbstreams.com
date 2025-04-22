@@ -32,7 +32,9 @@ type Schema = z.output<typeof schema>
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
   const { username, password } = payload.data
 
-  const { data, error } = await useFetch('/api/login', {
+  console.log('Login attempt with:', { username, password })
+
+  const { data, error } = await useFetch('/api/auth/login', {
     method: 'POST',
     body: {
       Username: username,
