@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
+import { ref } from 'vue'
+import AuthLogoutCard from '~/components/auth/AuthLogoutCard.vue'
 
 defineProps<{
   collapsed?: boolean
@@ -12,6 +14,12 @@ const user = ref({
     alt: 'Benjamin Canac'
   }
 })
+
+const logoutCardRef = ref<InstanceType<typeof AuthLogoutCard> | null>(null)
+
+function handleLogout() {
+  logoutCardRef.value?.logout()
+}
 
 const items = computed<DropdownMenuItem[][]>(() => ([[{
   type: 'label',
@@ -27,7 +35,8 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
   to: '/dashboard/settings'
 }], [{
   label: 'Log out',
-  icon: 'i-lucide-log-out'
+  icon: 'i-lucide-log-out',
+  click: handleLogout
 }]]))
 </script>
 
@@ -60,4 +69,8 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
       />
     </template>
   </UDropdownMenu>
+  <AuthLogoutCard
+    ref="logoutCardRef"
+    style="display:none"
+  />
 </template>
