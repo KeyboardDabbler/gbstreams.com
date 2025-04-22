@@ -4,12 +4,7 @@ export default defineEventHandler(async (event) => {
 
   const { Username, Pw } = body
 
-  const jellyfin = useNitroApp().jellyfin
-
-  const servers = await jellyfin.discovery.getRecommendedServerCandidates('https://play.gbstreams.com')
-  const best = jellyfin.discovery.findBestServer(servers)
-
-  const api = jellyfin.createApi(best.address)
+  const api = useNitroApp().jellyfinApi
 
   try {
     const auth = await api.authenticateUserByName(Username, Pw)
