@@ -5,10 +5,10 @@ import type { FormSubmitEvent } from '@nuxt/ui'
 const toast = useToast()
 
 const fields = [{
-  name: 'email',
+  name: 'username',
   type: 'text' as const,
-  label: 'Email',
-  placeholder: 'Enter your email',
+  label: 'Username',
+  placeholder: 'Enter your username',
   required: true
 }, {
   name: 'password',
@@ -23,16 +23,30 @@ const fields = [{
 }]
 
 const schema = z.object({
-  email: z.string().email('Invalid email'),
+  username: z.string().min(1, 'Username is required'),
   password: z.string().min(8, 'Must be at least 8 characters')
 })
 
 type Schema = z.output<typeof schema>
 
-const { loggedIn, user, session, clear } = useUserSession()
+async function onSubmit(payload: FormSubmitEvent<Schema>) {
+  const { username, password } = payload.data
 
-function onSubmit(payload: FormSubmitEvent<Schema>) {
-  console.log('Submitted', payload)
+  const { data, error } = await useFetch('/api/login', {
+    method: 'POST',
+    body: {
+      Username: username,
+      Pw: password
+    }
+  })
+
+  if (error.value || !data.value?.success) {
+    toast.add({ title: 'Login failed', description: data.value?.error || 'Invalid credentials', color: 'red' })
+    return
+  }
+
+  toast.add({ title: 'Login successful', description: 'Welcome back!', color: 'green' })
+  return navigateTo('/dashboard')
 }
 </script>
 
