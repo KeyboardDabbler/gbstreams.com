@@ -65,6 +65,7 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
       color: 'primary',
       variant: 'solid'
     }"
+    loading-auto
     @submit="onSubmit"
   >
     <template #description>
