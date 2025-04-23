@@ -4,7 +4,7 @@ import { syncJellyfinUser } from '~/server/utils/syncJellyfinUser'
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
 
-  const { Username, Pw } = body
+  const { Username, Pw, Remember } = body
 
   const api = useNitroApp().jellyfinApi
 
@@ -15,6 +15,10 @@ export default defineEventHandler(async (event) => {
 
     await syncJellyfinUser(jellyfinUser)
 
+    const sessionOptions = Remember
+      ? { maxAge: 60 * 60 * 24 * 7 }
+      : undefined
+
     await setUserSession(event, {
       user: {
         id: jellyfinUser.Id,
@@ -22,7 +26,7 @@ export default defineEventHandler(async (event) => {
         accessToken: accessToken
       },
       loggedInAt: Date.now()
-    })
+    }, sessionOptions)
     return { success: true }
   } catch (e) {
     return { success: false, error: 'Invalid credentials' }

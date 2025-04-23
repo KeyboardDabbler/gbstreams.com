@@ -25,21 +25,21 @@ const fields = [{
 
 const schema = z.object({
   username: z.string().min(1, 'Username is required'),
-  password: z.string().min(8, 'Must be at least 8 characters')
+  password: z.string().min(8, 'Must be at least 8 characters'),
+  remember: z.boolean().optional()
 })
 
 type Schema = z.output<typeof schema>
 
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
-  const { username, password } = payload.data
-
-  console.log('Login attempt with:', { username, password })
+  const { username, password, remember } = payload.data
 
   const { data, error } = await useFetch('/api/auth/login', {
     method: 'POST',
     body: {
       Username: username,
-      Pw: password
+      Pw: password,
+      Remember: remember
     }
   })
 
