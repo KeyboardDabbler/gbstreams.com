@@ -11,8 +11,7 @@ export default defineNuxtConfig({
     'nuxt-nodemailer',
     '@nuxt/scripts',
     '@nuxtjs/turnstile',
-    'nuxt-auth-utils',
-    '@prisma/nuxt'
+    'nuxt-auth-utils'
   ],
 
   devtools: {
