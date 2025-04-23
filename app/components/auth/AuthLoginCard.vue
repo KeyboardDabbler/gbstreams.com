@@ -3,6 +3,7 @@ import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 const toast = useToast()
+const { fetch } = useAuth()
 
 const fields = [{
   name: 'username',
@@ -45,10 +46,11 @@ async function onSubmit(payload: FormSubmitEvent<Schema>) {
   if (error.value || !data.value?.success) {
     toast.add({ title: 'Login failed', description: data.value?.error || 'Invalid credentials', color: 'red' })
     return
+  } else {
+    toast.add({ title: 'Login successful', description: 'Welcome back!', color: 'green' })
+    await fetch()
+    return await navigateTo('/dashboard')
   }
-
-  toast.add({ title: 'Login successful', description: 'Welcome back!', color: 'green' })
-  return await navigateTo('/dashboard')
 }
 </script>
 

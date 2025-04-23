@@ -1,3 +1,15 @@
+<script setup lang="ts">
+import { useAuth } from '~/composables/useAuth'
+
+const { loggedIn } = useAuth()
+
+watch(loggedIn, (val) => {
+  if (!val) {
+    navigateTo('/auth/login')
+  }
+})
+</script>
+
 <template>
   <Html
     class="scheme-only-dark scrollbar-thin"

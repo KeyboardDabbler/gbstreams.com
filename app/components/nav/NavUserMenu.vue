@@ -2,6 +2,7 @@
 import type { DropdownMenuItem } from '@nuxt/ui'
 
 const toast = useToast()
+const { fetch } = useAuth()
 
 defineProps<{
   collapsed?: boolean
@@ -15,20 +16,18 @@ const user = ref({
   }
 })
 
-const loading = ref(false)
-
 async function logout() {
-  loading.value = true
   const { logout } = useAuth()
   const success = await logout()
-  loading.value = false
 
   if (!success) {
     toast.add({ title: 'Logout failed', color: 'red' })
     return
+  } else {
+    toast.add({ title: 'Logged out', color: 'green' })
+    await fetch()
+    return await navigateTo('/auth/login')
   }
-  toast.add({ title: 'Logged out', color: 'green' })
-  await navigateTo('/auth/login')
 }
 
 const items = computed<DropdownMenuItem[][]>(() => ([[{
