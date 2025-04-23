@@ -3,9 +3,9 @@ export default defineEventHandler(async (event) => {
   if (session?.user?.accessToken) {
     const api = useNitroApp().jellyfinApi
     try {
-      await api.logout()
+      await 
     } catch (e) {
-      // Optionally log error
+      console.error('Error logging out from Jellyfin:', e)
     }
   }
   await clearUserSession(event)

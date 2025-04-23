@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
-import { ref } from 'vue'
-import AuthLogoutCard from '~/components/auth/AuthLogoutCard.vue'
+
+const toast = useToast()
 
 defineProps<{
   collapsed?: boolean
@@ -15,10 +15,20 @@ const user = ref({
   }
 })
 
-const logoutCardRef = ref<InstanceType<typeof AuthLogoutCard> | null>(null)
+const loading = ref(false)
 
-function handleLogout() {
-  logoutCardRef.value?.logout()
+async function logout() {
+  loading.value = true
+  const { logout } = useAuth()
+  const success = await logout()
+  loading.value = false
+
+  if (!success) {
+    toast.add({ title: 'Logout failed', color: 'red' })
+    return
+  }
+  toast.add({ title: 'Logged out', color: 'green' })
+  await navigateTo('/auth/login')
 }
 
 const items = computed<DropdownMenuItem[][]>(() => ([[{
@@ -36,7 +46,10 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
 }], [{
   label: 'Log out',
   icon: 'i-lucide-log-out',
-  click: handleLogout
+  onSelect: (e?: Event) => {
+    e?.preventDefault()
+    logout()
+  }
 }]]))
 </script>
 
@@ -69,8 +82,4 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
       />
     </template>
   </UDropdownMenu>
-  <AuthLogoutCard
-    ref="logoutCardRef"
-    style="display:none"
-  />
 </template>
