@@ -1,4 +1,6 @@
 // server/api/login.post.ts
+import { syncJellyfinUser } from '~/server/utils/syncJellyfinUser'
+
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
 
@@ -8,12 +10,16 @@ export default defineEventHandler(async (event) => {
 
   try {
     const auth = await api.authenticateUserByName(Username, Pw)
+    const jellyfinUser = auth.data.User
+    const accessToken = api.accessToken
+
+    await syncJellyfinUser(jellyfinUser)
 
     await setUserSession(event, {
       user: {
-        id: auth.data.User.Id,
-        name: auth.data.User.Name,
-        accessToken: api.accessToken
+        id: jellyfinUser.Id,
+        name: jellyfinUser.Name,
+        accessToken: accessToken
       },
       loggedInAt: Date.now()
     })

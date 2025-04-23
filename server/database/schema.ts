@@ -7,5 +7,5 @@ export const jellyfinUsers = sqliteTable('users', {
   enableAutoLogin: integer('enable_auto_login', { mode: 'boolean' }).notNull(),
   lastLoginDate: text('last_login_date'),
   lastActivityDate: text('last_activity_date'),
-  accessToken: text('access_token')
+  lastSynced: integer('last_synced')
 })
