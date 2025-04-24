@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "a2a2169a-ac2e-4cfb-bb86-28f8d72d1b9b",
+  "id": "fd1db646-4d8f-4bd7-96f4-4b8c31ca3ace",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "users": {
@@ -49,9 +49,9 @@
           "notNull": false,
           "autoincrement": false
         },
-        "access_token": {
-          "name": "access_token",
-          "type": "text",
+        "last_synced": {
+          "name": "last_synced",
+          "type": "integer",
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false

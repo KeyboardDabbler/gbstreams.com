@@ -5,5 +5,5 @@ CREATE TABLE `users` (
 	`enable_auto_login` integer NOT NULL,
 	`last_login_date` text,
 	`last_activity_date` text,
-	`access_token` text
+	`last_synced` integer
 );

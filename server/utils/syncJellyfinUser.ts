@@ -1,5 +1,3 @@
-import { useDrizzle, tables, eq } from '~/server/utils/drizzle'
-
 export async function syncJellyfinUser(jellyfinUser: any) {
   const db = useDrizzle()
   const userId = jellyfinUser.Id
