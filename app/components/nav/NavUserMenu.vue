@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
+import { useUserStore } from '@/stores/user'
 
+const userStore = useUserStore()
 const toast = useToast()
 const { fetch } = useAuth()
 
@@ -9,10 +11,10 @@ defineProps<{
 }>()
 
 const user = ref({
-  name: 'Benjamin Canac',
+  name: userStore.name,
   avatar: {
-    src: 'https://github.com/benjamincanac.png',
-    alt: 'Benjamin Canac'
+    src: userStore.avatarUrl,
+    alt: userStore.name
   }
 })
 
