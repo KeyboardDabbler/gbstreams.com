@@ -11,7 +11,8 @@ export default defineNuxtConfig({
     'nuxt-nodemailer',
     '@nuxt/scripts',
     '@nuxtjs/turnstile',
-    'nuxt-auth-utils'
+    'nuxt-auth-utils',
+    '@pinia/nuxt'
   ],
 
   devtools: {

@@ -1,17 +1,36 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
+import { useUserStore } from '@/stores/user'
+
+const userStore = useUserStore()
+const toast = useToast()
+const { fetch } = useAuth()
 
 defineProps<{
   collapsed?: boolean
 }>()
 
 const user = ref({
-  name: 'Benjamin Canac',
+  name: userStore.name,
   avatar: {
-    src: 'https://github.com/benjamincanac.png',
-    alt: 'Benjamin Canac'
+    src: userStore.avatarUrl,
+    alt: userStore.name
   }
 })
+
+async function logout() {
+  const { logout } = useAuth()
+  const success = await logout()
+
+  if (!success) {
+    toast.add({ title: 'Logout failed', color: 'red' })
+    return
+  } else {
+    toast.add({ title: 'Logged out', color: 'green' })
+    await fetch()
+    return await navigateTo('/auth/login')
+  }
+}
 
 const items = computed<DropdownMenuItem[][]>(() => ([[{
   type: 'label',
@@ -27,7 +46,11 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
   to: '/dashboard/settings'
 }], [{
   label: 'Log out',
-  icon: 'i-lucide-log-out'
+  icon: 'i-lucide-log-out',
+  onSelect: (e?: Event) => {
+    e?.preventDefault()
+    logout()
+  }
 }]]))
 </script>
 

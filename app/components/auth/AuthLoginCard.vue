@@ -3,12 +3,13 @@ import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
 
 const toast = useToast()
+const { fetch } = useAuth()
 
 const fields = [{
-  name: 'email',
+  name: 'username',
   type: 'text' as const,
-  label: 'Email',
-  placeholder: 'Enter your email',
+  label: 'Username',
+  placeholder: 'Enter your username',
   required: true
 }, {
   name: 'password',
@@ -23,16 +24,33 @@ const fields = [{
 }]
 
 const schema = z.object({
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Must be at least 8 characters')
+  username: z.string().min(1, 'Username is required'),
+  password: z.string().min(8, 'Must be at least 8 characters'),
+  remember: z.boolean().optional()
 })
 
 type Schema = z.output<typeof schema>
 
-const { loggedIn, user, session, clear } = useUserSession()
+async function onSubmit(payload: FormSubmitEvent<Schema>) {
+  const { username, password, remember } = payload.data
 
-function onSubmit(payload: FormSubmitEvent<Schema>) {
-  console.log('Submitted', payload)
+  const { data, error } = await useFetch('/api/auth/login', {
+    method: 'POST',
+    body: {
+      Username: username,
+      Pw: password,
+      Remember: remember
+    }
+  })
+
+  if (error.value || !data.value?.success) {
+    toast.add({ title: 'Login failed', description: data.value?.error || 'Invalid credentials', color: 'red' })
+    return
+  } else {
+    toast.add({ title: 'Login successful', description: 'Welcome back!', color: 'green' })
+    await fetch()
+    return await navigateTo('/dashboard')
+  }
 }
 </script>
 
@@ -47,6 +65,7 @@ function onSubmit(payload: FormSubmitEvent<Schema>) {
       color: 'primary',
       variant: 'solid'
     }"
+    loading-auto
     @submit="onSubmit"
   >
     <template #description>
