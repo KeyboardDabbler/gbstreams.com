@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
+import { useUserStore } from '@/stores/user'
 
 definePageMeta({
   layout: 'dashboard'
 })
 
+const userStore = useUserStore()
 const fileRef = ref<HTMLInputElement>()
 
 const profileSchema = z.object({
@@ -19,9 +21,9 @@ const profileSchema = z.object({
 type ProfileSchema = z.output<typeof profileSchema>
 
 const profile = reactive<Partial<ProfileSchema>>({
-  name: 'Benjamin Canac',
-  email: 'ben@nuxtlabs.com',
-  username: 'benjamincanac',
+  name: userStore.name,
+  email: userStore.email,
+  username: userStore.name,
   avatar: undefined,
   bio: undefined
 })
@@ -106,13 +108,13 @@ function onFileClick() {
         name="username"
         label="Username"
         description="Your unique username for logging in and your profile URL."
-        required
         class="flex max-sm:flex-col justify-between items-start gap-4"
       >
         <UInput
           v-model="profile.username"
           type="username"
           autocomplete="off"
+          disabled
         />
       </UFormField>
       <USeparator />

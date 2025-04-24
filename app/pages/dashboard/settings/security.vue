@@ -30,6 +30,25 @@ const validate = (state: Partial<PasswordSchema>): FormError[] => {
   }
   return errors
 }
+
+const toast = useToast()
+
+async function onSubmit() {
+  const { data, error } = await useFetch('/api/user/password', {
+    method: 'POST',
+    body: {
+      current: password.current,
+      new: password.new
+    }
+  })
+  if (error.value || !data.value?.success) {
+    toast.add({ title: 'Password update failed', color: 'red' })
+  } else {
+    toast.add({ title: 'Password updated. Please sign in again.', color: 'green' })
+    password.current = password.new = password.confirm = ''
+    await navigateTo('/auth/login')
+  }
+}
 </script>
 
 <template>
@@ -43,6 +62,7 @@ const validate = (state: Partial<PasswordSchema>): FormError[] => {
       :state="password"
       :validate="validate"
       class="flex flex-col gap-4 max-w-xs"
+      @submit="onSubmit"
     >
       <UFormField name="current">
         <UInput
@@ -81,7 +101,7 @@ const validate = (state: Partial<PasswordSchema>): FormError[] => {
     class="bg-gradient-to-tl from-(--ui-error)/10 from-5% to-(--ui-bg)"
   >
     <template #footer>
-      <UButton label="Delete account" color="error" />
+      <UButton disabled label="Delete account" color="error" />
     </template>
   </UPageCard>
 </template>
