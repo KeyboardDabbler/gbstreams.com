@@ -8,6 +8,20 @@
       "when": 1745467352539,
       "tag": "0000_stormy_runaways",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1745499850553,
+      "tag": "0001_sleepy_vengeance",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1745551861528,
+      "tag": "0002_jazzy_young_avengers",
+      "breakpoints": true
     }
   ]
 }
