@@ -11,10 +11,10 @@ defineProps<{
 }>()
 
 const user = ref({
-  name: userStore.name,
+  userName: userStore.userName,
   avatar: {
-    src: userStore.avatarUrl,
-    alt: userStore.name
+    src: userStore.avatar,
+    alt: userStore.userName
   }
 })
 
@@ -34,7 +34,7 @@ async function logout() {
 
 const items = computed<DropdownMenuItem[][]>(() => ([[{
   type: 'label',
-  label: user.value.name,
+  label: user.value.userName,
   avatar: user.value.avatar
 }], [{
   label: 'Billing',
@@ -63,7 +63,7 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
     <UButton
       v-bind="{
         ...user,
-        label: collapsed ? undefined : user?.name,
+        label: collapsed ? undefined : user?.userName,
         trailingIcon: collapsed ? undefined : 'i-lucide-chevrons-up-down'
       }"
       color="neutral"
