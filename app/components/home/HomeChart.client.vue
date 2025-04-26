@@ -1,109 +1,116 @@
 <script setup lang="ts">
-import { eachDayOfInterval, eachWeekOfInterval, eachMonthOfInterval, format } from 'date-fns'
-import { VisXYContainer, VisLine, VisAxis, VisArea, VisCrosshair, VisTooltip } from '@unovis/vue'
-import type { Period, Range } from '~/types'
+import { ref } from 'vue'
+import { eachDayOfInterval, format, sub } from 'date-fns'
+import { VisXYContainer, VisGroupedBar, VisAxis, VisTooltip, VisCrosshair } from '@unovis/vue'
 
 const cardRef = useTemplateRef<HTMLElement | null>('cardRef')
 
-const props = defineProps<{
-  period: Period
-  range: Range
-}>()
-
-type DataRecord = {
-  date: Date
-  amount: number
-}
-
 const { width } = useElementSize(cardRef)
 
-// We use `useAsyncData` here to have same random data on the client and server
-const { data } = await useAsyncData<DataRecord[]>(async () => {
-  const dates = ({
-    daily: eachDayOfInterval,
-    weekly: eachWeekOfInterval,
-    monthly: eachMonthOfInterval
-  } as Record<Period, typeof eachDayOfInterval>)[props.period](props.range)
+const stats = ref<{ user_usage: Record<string, number> } | null>(null)
+const loading = ref(true)
+const error = ref(null)
 
-  const min = 1000
-  const max = 10000
+const range = ref({
+  start: sub(new Date(), { days: 14 }),
+  end: new Date()
+})
+const period = ref('daily')
 
-  return dates.map(date => ({ date, amount: Math.floor(Math.random() * (max - min + 1)) + min }))
-}, {
-  watch: [() => props.period, () => props.range],
-  default: () => []
+const filterMovies = ref(true)
+const filterEpisodes = ref(true)
+
+function getFilterParam() {
+  const filters = []
+  if (filterMovies.value) filters.push('Movie')
+  if (filterEpisodes.value) filters.push('Episode')
+  return filters.join(',')
+}
+
+async function fetchData() {
+  loading.value = true
+  error.value = null
+  try {
+    const days = Math.ceil((range.value.end.getTime() - range.value.start.getTime()) / (1000 * 60 * 60 * 24)) + 1
+    const endDate = range.value.end.toISOString().slice(0, 10)
+    const filter = getFilterParam()
+    const res = await $fetch('/api/user/playback-report', {
+      params: { days, endDate, filter }
+    })
+    stats.value = res
+    console.log('Fetched playback report:', res)
+  } catch (e) {
+    error.value = e
+    stats.value = null
+    console.error('Error fetching playback report:', e)
+  } finally {
+    loading.value = false
+  }
+}
+
+watch(() => [period.value, range.value.start, range.value.end, filterMovies.value, filterEpisodes.value], fetchData, { immediate: true })
+
+const chartData = computed(() => {
+  if (!stats.value) return []
+  // Always show all days in range, even if 0
+  const daysArr = eachDayOfInterval({ start: range.value.start, end: range.value.end })
+  return daysArr.map(date => {
+    const key = date.toISOString().slice(0, 10)
+    return { date, count: stats.value.user_usage[key] ?? 0 }
+  })
 })
 
-const x = (_: DataRecord, i: number) => i
-const y = (d: DataRecord) => d.amount
-
-const total = computed(() => data.value.reduce((acc: number, { amount }) => acc + amount, 0))
-
-const formatNumber = new Intl.NumberFormat('en', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format
-
-const formatDate = (date: Date): string => {
-  return ({
-    daily: format(date, 'd MMM'),
-    weekly: format(date, 'd MMM'),
-    monthly: format(date, 'MMM yyy')
-  })[props.period]
-}
-
+const x = (_: any, i: number) => i
+const y = (d: any) => d.count
+const formatDate = (date: Date) => format(date, 'd MMM')
 const xTicks = (i: number) => {
-  if (i === 0 || i === data.value.length - 1 || !data.value[i]) {
-    return ''
-  }
-
-  return formatDate(data.value[i].date)
+  if (!chartData.value[i]) return ''
+  const date = chartData.value[i].date
+  if (i === 0 || i === chartData.value.length - 1) return formatDate(date)
+  if (chartData.value.length <= 14) return formatDate(date)
+  if (i % 7 === 0) return formatDate(date)
+  return ''
 }
-
-const template = (d: DataRecord) => `${formatDate(d.date)}: ${formatNumber(d.amount)}`
+const template = (d: any) => `${formatDate(d.date)}: ${d.count} plays`
+const total = computed(() => chartData.value.reduce((acc, d) => acc + d.count, 0))
 </script>
 
 <template>
   <UCard ref="cardRef" :ui="{ body: '!px-0 !pt-0 !pb-3' }">
     <template #header>
-      <div>
-        <p class="text-xs text-(--ui-text-muted) uppercase mb-1.5">
-          Revenue
-        </p>
-        <p class="text-3xl text-(--ui-text-highlighted) font-semibold">
-          {{ formatNumber(total) }}
-        </p>
+      <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
+        <div>
+          <p class="text-xs text-(--ui-text-muted) uppercase mb-1.5">
+            Playback Count
+          </p>
+          <p class="text-3xl text-(--ui-text-highlighted) font-semibold">
+            {{ total }}
+          </p>
+        </div>
+        <div class="flex gap-2 items-center">
+          <HomeDateRangePicker v-model="range" class="-ms-1" />
+          <HomePeriodSelect v-model="period" :range="range" />
+          <UCheckbox v-model="filterMovies" color="neutral" label="Movies" />
+          <UCheckbox v-model="filterEpisodes" color="neutral" label="Episodes" />
+        </div>
       </div>
     </template>
 
     <VisXYContainer
-      :data="data"
+      :data="chartData"
       :padding="{ top: 40 }"
       class="h-96"
       :width="width"
     >
-      <VisLine
-        :x="x"
-        :y="y"
-        color="var(--ui-primary)"
-      />
-      <VisArea
-        :x="x"
-        :y="y"
-        color="var(--ui-primary)"
-        :opacity="0.1"
-      />
-
-      <VisAxis
-        type="x"
-        :x="x"
-        :tick-format="xTicks"
-      />
-
-      <VisCrosshair
-        color="var(--ui-primary)"
-        :template="template"
-      />
-
+      <VisGroupedBar :x="x" :y="y" color="var(--ui-primary)" />
+      <VisAxis type="x" :x="x" :tick-format="xTicks" />
+      <VisAxis type="y" :y="y" />
+      <VisCrosshair color="var(--ui-primary)" :template="template" />
       <VisTooltip />
     </VisXYContainer>
+    <div v-if="loading" class="text-center py-4">Loading...</div>
+    <div v-if="error" class="text-center text-red-500 py-4">Error loading chart</div>
+    <div v-if="!loading && chartData.length === 0 && !error" class="text-center py-4">No data available</div>
   </UCard>
 </template>
 
@@ -111,11 +118,9 @@ const template = (d: DataRecord) => `${formatDate(d.date)}: ${formatNumber(d.amo
 .unovis-xy-container {
   --vis-crosshair-line-stroke-color: var(--ui-primary);
   --vis-crosshair-circle-stroke-color: var(--ui-bg);
-
   --vis-axis-grid-color: var(--ui-border);
   --vis-axis-tick-color: var(--ui-border);
   --vis-axis-tick-label-color: var(--ui-text-dimmed);
-
   --vis-tooltip-background-color: var(--ui-bg);
   --vis-tooltip-border-color: var(--ui-border);
   --vis-tooltip-text-color: var(--ui-text-highlighted);
