@@ -7,6 +7,7 @@ export default defineEventHandler(async (event) => {
   const session = await getUserSession(event)
   if (!session?.user?.accessToken) {
     throw createError({ statusCode: 401, message: 'Unauthorized' })
+  }
 
   const jellyfinBase = 'https://play.gbstreams.com'
   const params = new URLSearchParams(query as Record<string, string>)
