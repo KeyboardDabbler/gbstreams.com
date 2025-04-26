@@ -1,4 +1,4 @@
-import { tables } from '../../utils/drizzlePlayback'
+import { usePlaybackDrizzle, playbackTables, playbackEq } from '../../utils/drizzlePlayback'
 
 export default defineEventHandler(async (event) => {
   const query = getQuery(event)
@@ -6,31 +6,26 @@ export default defineEventHandler(async (event) => {
   if (!session?.user?.id) throw createError({ statusCode: 401, message: 'Unauthorized' })
   const userId = session.user.id
 
-  // Parse query params
   const days = parseInt(query.days as string) || 28
   const endDate = query.endDate ? new Date(query.endDate as string) : new Date()
   const startDate = new Date(endDate)
   startDate.setDate(endDate.getDate() - days + 1)
 
-  // Parse filter param for itemType
   const filterTypes = (query.filter as string)?.split(',').map(s => s.trim()).filter(Boolean)
 
-  // Query all playback activity for this user in the date range
   const db = usePlaybackDrizzle()
-  let rows = db.select().from(tables.playbackActivity)
-    .where(eq(tables.playbackActivity.userId, userId))
+  let rows = await db.select().from(playbackTables.playbackActivity)
+    .where(playbackEq(playbackTables.playbackActivity.userId, userId))
     .all()
     .filter(row => {
       const date = new Date(row.dateCreated)
       return date >= startDate && date <= endDate
     })
 
-  // Filter by itemType if filter param is provided
   if (filterTypes && filterTypes.length > 0) {
     rows = rows.filter(row => filterTypes.includes(row.itemType))
   }
 
-  // Aggregate play count per day
   const usage: Record<string, number> = {}
   for (let d = new Date(startDate); d <= endDate; d.setDate(d.getDate() + 1)) {
     const key = d.toISOString().slice(0, 10)
@@ -41,7 +36,6 @@ export default defineEventHandler(async (event) => {
     if (usage[key] !== undefined) usage[key]++
   })
 
-  // Remove user lookup from main DB, use session info instead
   return {
     user_id: userId,
     user_name: session.user.userName || '',

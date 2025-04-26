@@ -8,5 +8,5 @@ export function usePlaybackDrizzle() {
   return drizzle(sqlite, { schema })
 }
 
-export { sql, eq, and, or } from 'drizzle-orm'
-export const tables = schema
+export { sql as playbackSql, eq as playbackEq, and as playbackAnd, or as playbackOr } from 'drizzle-orm'
+export const playbackTables = schema
