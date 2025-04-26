@@ -1,0 +1,105 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "6",
+  "dialect": "sqlite",
+  "tables": {
+    "PlaybackActivity": {
+      "name": "PlaybackActivity",
+      "columns": {
+        "DateCreated": {
+          "autoincrement": false,
+          "name": "DateCreated",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "UserId": {
+          "autoincrement": false,
+          "name": "UserId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ItemId": {
+          "autoincrement": false,
+          "name": "ItemId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ItemType": {
+          "autoincrement": false,
+          "name": "ItemType",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ItemName": {
+          "autoincrement": false,
+          "name": "ItemName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PlaybackMethod": {
+          "autoincrement": false,
+          "name": "PlaybackMethod",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "ClientName": {
+          "autoincrement": false,
+          "name": "ClientName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "DeviceName": {
+          "autoincrement": false,
+          "name": "DeviceName",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PlayDuration": {
+          "autoincrement": false,
+          "name": "PlayDuration",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    },
+    "UserList": {
+      "name": "UserList",
+      "columns": {
+        "UserId": {
+          "autoincrement": false,
+          "name": "UserId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "compositePrimaryKeys": {},
+      "indexes": {},
+      "foreignKeys": {},
+      "uniqueConstraints": {},
+      "checkConstraints": {}
+    }
+  },
+  "views": {},
+  "enums": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
