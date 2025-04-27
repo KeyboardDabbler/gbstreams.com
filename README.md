@@ -28,7 +28,9 @@
 ## ✅ Checklist Summary
 
 ### 🛠 Features Required Now before v1
-- [ ] 
+- [ ] Jellyseerr intergration
+  - [ ] Add Discovery page
+  - [ ] Add request status to dashboard
 
 ### 🕒 Additional Features (Planned)
 - [ ] Server logs
