@@ -60,31 +60,25 @@ const links = [[{
   }]
 }, {
   label: 'Admin',
-  to: '/dashboard/settings',
+  to: '/dashboard/admin',
   icon: 'i-lucide-settings',
   defaultOpen: true,
   children: [{
     label: 'General',
-    to: '/dashboard/settings',
+    to: '/dashboard/admin',
     exact: true,
     onSelect: () => {
       open.value = false
     }
   }, {
     label: 'Members',
-    to: '/dashboard/settings/members',
+    to: '/dashboard/admin/members',
     onSelect: () => {
       open.value = false
     }
   }, {
     label: 'Notifications',
-    to: '/dashboard/settings/notifications',
-    onSelect: () => {
-      open.value = false
-    }
-  }, {
-    label: 'Security',
-    to: '/dashboard/settings/security',
+    to: '/dashboard/admin/notifications',
     onSelect: () => {
       open.value = false
     }

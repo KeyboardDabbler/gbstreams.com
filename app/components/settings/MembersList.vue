@@ -1,59 +1,72 @@
 <script setup lang="ts">
+import { h, resolveComponent } from 'vue'
 import type { Member } from '~/types'
 
 defineProps<{
   members: Member[]
 }>()
 
-const items = [{
-  label: 'Edit member',
-  onSelect: () => console.log('Edit member')
-}, {
-  label: 'Remove member',
-  color: 'error' as const,
-  onSelect: () => console.log('Remove member')
-}]
+const UTable = resolveComponent('UTable')
+const UBadge = resolveComponent('UBadge')
+const USelect = resolveComponent('USelect')
+const UAvatar = resolveComponent('UAvatar')
+
+const columns = [
+  {
+    accessorKey: 'username',
+    header: 'User',
+    cell: ({ row }: any) => h('div', { class: 'flex items-center gap-2' }, [
+      h(UAvatar, { ...row.original.avatar, size: 'sm' }),
+      h('span', row.original.username)
+    ])
+  },
+  {
+    accessorKey: 'email',
+    header: 'Email',
+    cell: ({ row }: any) => row.original.email || '-'
+  },
+  {
+    accessorKey: 'referrals',
+    header: 'Referrals',
+    cell: ({ row }: any) => row.original.referrals ?? '-'
+  },
+  {
+    accessorKey: 'expiry',
+    header: 'Expiry',
+    cell: ({ row }: any) => row.original.expiry ?? '-'
+  },
+  {
+    accessorKey: 'status',
+    header: 'Status',
+    cell: ({ row }: any) => h(UBadge, { class: 'capitalize', variant: 'subtle', color: row.original.status === 'active' ? 'success' : 'neutral' }, () => row.original.status || '-')
+  },
+  {
+    accessorKey: 'lastActive',
+    header: 'Last Active',
+    cell: ({ row }: any) => row.original.lastActive ?? '-'
+  },
+  {
+    accessorKey: 'role',
+    header: 'Role',
+    cell: ({ row }: any) => h(USelect, {
+      modelValue: row.original.role,
+      items: ['member', 'owner'],
+      color: 'neutral',
+      ui: { value: 'capitalize', item: 'capitalize' }
+    })
+  },
+  {
+    accessorKey: 'template',
+    header: 'Template',
+    cell: ({ row }: any) => row.original.template ?? '-'
+  }
+]
 </script>
 
 <template>
-  <ul role="list" class="divide-y divide-(--ui-border)">
-    <li
-      v-for="(member, index) in members"
-      :key="index"
-      class="flex items-center justify-between gap-3 py-3 px-4 sm:px-6"
-    >
-      <div class="flex items-center gap-3 min-w-0">
-        <UAvatar
-          v-bind="member.avatar"
-          size="md"
-        />
-
-        <div class="text-sm min-w-0">
-          <p class="text-(--ui-text-highlighted) font-medium truncate">
-            {{ member.name }}
-          </p>
-          <p class="text-(--ui-text-muted) truncate">
-            {{ member.username }}
-          </p>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-3">
-        <USelect
-          :model-value="member.role"
-          :items="['member', 'owner']"
-          color="neutral"
-          :ui="{ value: 'capitalize', item: 'capitalize' }"
-        />
-
-        <UDropdownMenu :items="items" :content="{ align: 'end' }">
-          <UButton
-            icon="i-lucide-ellipsis-vertical"
-            color="neutral"
-            variant="ghost"
-          />
-        </UDropdownMenu>
-      </div>
-    </li>
-  </ul>
+  <UTable
+    :data="members"
+    :columns="columns"
+    class="shrink-0"
+  />
 </template>
