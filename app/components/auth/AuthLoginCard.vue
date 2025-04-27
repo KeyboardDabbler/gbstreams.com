@@ -1,9 +1,51 @@
 <script setup lang="ts">
 import * as z from 'zod'
 import type { FormSubmitEvent } from '@nuxt/ui'
+import { v4 as uuidv4 } from 'uuid'
+import { useDevice } from '#imports'
 
 const toast = useToast()
 const { fetch } = useAuth()
+const device = useDevice()
+
+function getDeviceName() {
+  const parts = []
+  if (device.isDesktop) parts.push('Desktop')
+  if (device.isTablet) parts.push('Tablet')
+  if (device.isMobile) parts.push('Mobile')
+  if (device.isMobileOrTablet) parts.push('MobileOrTablet')
+  if (device.isDesktopOrTablet) parts.push('DesktopOrTablet')
+  if (device.isIos) parts.push('iOS')
+  if (device.isLinux) parts.push('Linux')
+  if (device.isWindows) parts.push('Windows')
+  if (device.isMacOS) parts.push('MacOS')
+  if (device.isApple) parts.push('Apple')
+  if (device.isAndroid) parts.push('Android')
+  if (device.isFirefox) parts.push('Firefox')
+  if (device.isEdge) parts.push('Edge')
+  if (device.isChrome) parts.push('Chrome')
+  if (device.isSafari) parts.push('Safari')
+  if (device.isSamsung) parts.push('Samsung')
+  if (device.isCrawler) parts.push('Crawler')
+
+  if (parts.length === 0 && device.userAgent) {
+    parts.push(device.userAgent)
+  }
+  return parts.join(' ')
+}
+
+function getDeviceId() {
+  const storageKey = 'deviceId'
+  let id = ''
+  if (import.meta.client) {
+    id = localStorage.getItem(storageKey) || ''
+    if (!id) {
+      id = uuidv4()
+      localStorage.setItem(storageKey, id)
+    }
+  }
+  return id
+}
 
 const fields = [{
   name: 'username',
@@ -33,13 +75,17 @@ type Schema = z.output<typeof schema>
 
 async function onSubmit(payload: FormSubmitEvent<Schema>) {
   const { username, password, remember } = payload.data
+  const deviceName = getDeviceName()
+  const deviceId = getDeviceId()
 
   const { data, error } = await useFetch('/api/auth/login', {
     method: 'POST',
     body: {
       Username: username,
       Pw: password,
-      Remember: remember
+      Remember: remember,
+      deviceName,
+      deviceId
     }
   })
 

@@ -1,7 +1,21 @@
+import { Jellyfin } from '@jellyfin/sdk'
+
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const { Username, Pw, Remember } = body
-  const api = useNitroApp().jellyfinApi
+  const { Username, Pw, Remember, deviceName, deviceId } = body
+  const serverUrl = useNitroApp().jellyfinServerUrl
+
+  const jellyfin = new Jellyfin({
+    clientInfo: {
+      name: 'GBStreams-com',
+      version: '1.0.0'
+    },
+    deviceInfo: {
+      name: deviceName,
+      id: deviceId
+    }
+  })
+  const api = jellyfin.createApi(serverUrl)
 
   try {
     const auth = await api.authenticateUserByName(Username, Pw)
@@ -21,7 +35,9 @@ export default defineEventHandler(async (event) => {
     await setUserSession(event, {
       user: {
         id: jellyfinUser.Id,
-        accessToken: accessToken
+        accessToken: accessToken,
+        deviceName,
+        deviceId
       },
       loggedInAt: Date.now()
     }, sessionOptions)

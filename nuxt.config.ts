@@ -12,7 +12,8 @@ export default defineNuxtConfig({
     '@nuxt/scripts',
     '@nuxtjs/turnstile',
     'nuxt-auth-utils',
-    '@pinia/nuxt'
+    '@pinia/nuxt',
+    '@nuxtjs/device'
   ],
 
   devtools: {

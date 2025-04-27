@@ -1,23 +1,11 @@
 import { UserLibraryApi } from '@jellyfin/sdk/lib/generated-client'
+import { getJellyfinApiFromSession } from '../utils/jellyfinApi'
 
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event)
-  if (!session?.user?.id || !session.user.accessToken) {
-    throw createError({ statusCode: 401, message: 'Unauthorized' })
-  }
-  const userId = session.user.id
+  const api = await getJellyfinApiFromSession(event)
+  const userId = api.userId
 
-  const jellyfinApi = useNitroApp().jellyfinApi
-  if (!jellyfinApi) {
-    throw createError({ statusCode: 500, message: 'Jellyfin API not available' })
-  }
-
-  // Set the access token for this request
-  jellyfinApi.accessToken = session.user.accessToken
-  // Set the X-Emby-Token header for the axios instance
-  jellyfinApi.axiosInstance.defaults.headers['X-Emby-Token'] = session.user.accessToken
-
-  const userLibraryApi = new UserLibraryApi(undefined, jellyfinApi.basePath, jellyfinApi.axiosInstance)
+  const userLibraryApi = new UserLibraryApi(undefined, api.basePath, api.axiosInstance)
 
   const { data: items } = await userLibraryApi.getLatestMedia({
     userId,

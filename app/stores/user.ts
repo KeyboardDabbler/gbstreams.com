@@ -6,7 +6,9 @@ export const useUserStore = defineStore('user', {
     userName: '',
     email: '',
     avatar: '',
-    bio: ''
+    bio: '',
+    deviceName: '' as string,
+    deviceId: '' as string
   }),
   actions: {
     setUser(user: any) {
@@ -15,6 +17,8 @@ export const useUserStore = defineStore('user', {
       this.email = user.email
       this.avatar = user.avatar
       this.bio = user.bio
+      this.deviceName = user.deviceName || ''
+      this.deviceId = user.deviceId || ''
     },
     clearUser() {
       this.$reset()

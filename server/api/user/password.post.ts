@@ -1,16 +1,11 @@
+import { getJellyfinApiFromSession } from '../../utils/jellyfinApi'
+
 export default defineEventHandler(async (event) => {
-  const session = await getUserSession(event)
-  if (!session?.user?.id || !session?.user?.accessToken) {
-    throw createError({ statusCode: 401, message: 'Unauthorized' })
-  }
+  const api = await getJellyfinApiFromSession(event)
   const body = await readBody(event)
   const { current, new: newPassword } = body
-
-  const api = useNitroApp().jellyfinApi
-  api.accessToken = session.user.accessToken
-
   try {
-    await api.updateUserPassword(session.user.id, {
+    await api.updateUserPassword(api.userId, {
       CurrentPw: current,
       NewPw: newPassword
     })

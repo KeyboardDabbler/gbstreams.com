@@ -25,7 +25,6 @@ onMounted(async () => {
 
 function getPosterUrl(item) {
   if (item.ImageTags && item.ImageTags.Primary) {
-    // Always include tag for cache busting, and let backend add format/quality
     return `/api/jellyfin/image/${item.Id}/Primary?tag=${item.ImageTags.Primary}`
   }
   return '/placeholder.png'
