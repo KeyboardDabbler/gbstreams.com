@@ -20,6 +20,11 @@
 
 ---
 
+##  WARNING 
+This project is in **early development** and is not yet ready for public use, unless you know what needs changing to deploy in your environment.
+
+---
+
 ## 🖼️ Previews
 
 > _Coming soon:_
@@ -32,6 +37,7 @@
 - [x] User authentication
   - [x] Login with Jellyfin
   - [ ] Site admin user role
+
 - [ ] Invitation System
   - [ ] Set profiles
   - [ ] Set policy
@@ -48,6 +54,7 @@
     - [ ] Share code via copy or email
     - [ ] Track who signed up using their code
     - [ ] Limit how many people they can invite
+
 - [ ] Signup Page
   - [ ] Accept referral code
   - [ ] Verify it before showing the signup form
@@ -55,12 +62,19 @@
   - [ ] Track who referred who
   - [ ] Invite code signup
   - [ ] Assign referral codes to users
+  - [ ] Request Access Page
+    - [ ] Admin setting to toggle on/ off page
+    - [x] Request form
+    - [x] Request email Template
+    - [x] Send email to admin submitted form request
+    - [ ] Send request to admin via app notification
+
 - [ ] System Stats
-  - [ ] User stats
-    - [ ] Play count
-    - [ ] Playback report
-    - [ ] Watch History
-    - [ ] Latest Media
+  - [x] User stats
+    - [x] Play count
+    - [x] Playback report
+    - [x] Watch History
+    - [x] Latest Media
   - [ ] Global stats
     - [ ] Activity streams
     - [ ] Most watched (play count, duration)
@@ -70,19 +84,16 @@
     - [ ] User Recent Activity
     - [ ] Player/ device Stats
     - [ ] History
-  - [ ] User play count
-  - [ ] Playback report
-  - [ ] Watch History
-  - [ ] Latest Media
-
 
 - [ ] Web Player built with Vue
   - [ ] Jellyfin integration
   - [ ] Add Studios section
   - [ ] Add Networks section
+
 - [ ] Jellyseerr intergration
   - [ ] Add Discovery page
   - [ ] Add request status to dashboard
+
 - [ ] Rebrand for public release
   - [ ] Change project name and logo
   - [ ] Add public config
