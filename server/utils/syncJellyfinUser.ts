@@ -37,7 +37,10 @@ export async function syncJellyfinUser(jellyfinUser: any) {
       enableAutoLogin: jellyfinUser.EnableAutoLogin ? 1 : 0,
       lastLoginDate: jellyfinUser.LastLoginDate,
       lastActivityDate: jellyfinUser.LastActivityDate,
-      lastSynced: now
+      lastSynced: now,
+      isAdmin: jellyfinUser.Policy?.IsAdministrator ? 1 : 0,
+      isDisabled: jellyfinUser.Policy?.IsDisabled ? 1 : 0,
+      paymentRole: localUser?.paymentRole || 'Free'
     }
     if (!localUser) {
       await db.insert(tables.jellyfinUsers).values(userData)

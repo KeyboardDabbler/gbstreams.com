@@ -37,7 +37,10 @@ export default defineEventHandler(async (event) => {
         id: jellyfinUser.Id,
         accessToken: accessToken,
         deviceName,
-        deviceId
+        deviceId,
+        isAdmin: jellyfinUser.Policy?.IsAdministrator || false,
+        isDisabled: jellyfinUser.Policy?.IsDisabled || false,
+        paymentRole: (await getUserPaymentRole(jellyfinUser.Id)) || 'Free'
       },
       loggedInAt: Date.now()
     }, sessionOptions)

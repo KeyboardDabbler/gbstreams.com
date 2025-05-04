@@ -8,7 +8,10 @@ export const useUserStore = defineStore('user', {
     avatar: '',
     bio: '',
     deviceName: '' as string,
-    deviceId: '' as string
+    deviceId: '' as string,
+    isAdmin: false,
+    isDisabled: false,
+    paymentRole: 'Free'
   }),
   actions: {
     setUser(user: any) {
@@ -19,6 +22,9 @@ export const useUserStore = defineStore('user', {
       this.bio = user.bio
       this.deviceName = user.deviceName || ''
       this.deviceId = user.deviceId || ''
+      this.isAdmin = user.isAdmin || false
+      this.isDisabled = user.isDisabled || false
+      this.paymentRole = user.paymentRole || 'Free'
     },
     clearUser() {
       this.$reset()

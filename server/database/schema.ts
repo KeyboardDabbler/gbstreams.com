@@ -9,5 +9,8 @@ export const jellyfinUsers = sqliteTable('users', {
   enableAutoLogin: integer('enable_auto_login', { mode: 'boolean' }).notNull(),
   lastLoginDate: text('last_login_date'),
   lastActivityDate: text('last_activity_date'),
-  lastSynced: integer('last_synced')
+  lastSynced: integer('last_synced'),
+  isAdmin: integer('is_admin', { mode: 'boolean' }).notNull().default(false),
+  isDisabled: integer('is_disabled', { mode: 'boolean' }).notNull().default(false),
+  paymentRole: text('payment_role').notNull().default('Free')
 })
