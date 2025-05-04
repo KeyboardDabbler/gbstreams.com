@@ -9,27 +9,27 @@ const links = [[{
   to: '/dashboard/settings',
   exact: true
 }, {
-  label: 'Members',
-  icon: 'i-lucide-users',
-  to: '/dashboard/settings/members'
-}, {
-  label: 'Notifications',
-  icon: 'i-lucide-bell',
-  to: '/dashboard/settings/notifications'
+  label: 'Billing',
+  icon: 'i-lucide-credit-card',
+  to: '/dashboard/profile/billing'
 }, {
   label: 'Inbox',
   icon: 'i-lucide-inbox',
-  to: '/dashboard/admin/inbox'
+  to: '/dashboard/profile/inbox'
+}, {
+  label: 'Logs',
+  icon: 'i-lucide-logs',
+  to: '/dashboard/profile/logs'
 }]]
 </script>
 
 <template>
   <UDashboardPanel
-    id="admin"
+    id="profile"
     :ui="{ body: 'lg:py-12' }"
   >
     <template #header>
-      <UDashboardNavbar title="Admin">
+      <UDashboardNavbar title="Profile">
         <template #leading>
           <UDashboardSidebarCollapse />
         </template>
