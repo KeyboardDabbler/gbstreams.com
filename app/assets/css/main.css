@@ -13,9 +13,15 @@
   --color-bluer: #007aff;
 }
 
-@utility scrollbar-thin {
-  & {
-    scrollbar-width: thin;
+
+@layer base {
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+    @apply bg-gray-900;
+  }
+  ::-webkit-scrollbar-thumb {
+    @apply bg-gray-800;
   }
 }
 
