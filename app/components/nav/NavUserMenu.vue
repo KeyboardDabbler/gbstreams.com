@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui'
 import { useUserStore } from '@/stores/user'
+import { useLogout } from '@/composables/useLogout'
 
 const userStore = useUserStore()
-const toast = useToast()
-const { fetch } = useAuth()
+const logoutAndRedirect = useLogout()
 
 defineProps<{
   collapsed?: boolean
@@ -17,20 +17,6 @@ const user = computed(() => ({
     alt: userStore.userName
   }
 }))
-
-async function logout() {
-  const { logout } = useAuth()
-  const success = await logout()
-
-  if (!success) {
-    toast.add({ title: 'Logout failed', color: 'red' })
-    return
-  } else {
-    toast.add({ title: 'Logged out', color: 'green' })
-    await fetch()
-    return await navigateTo('/auth/login')
-  }
-}
 
 const items = computed<DropdownMenuItem[][]>(() => ([[{
   type: 'label',
@@ -49,7 +35,7 @@ const items = computed<DropdownMenuItem[][]>(() => ([[{
   icon: 'i-lucide-log-out',
   onSelect: (e?: Event) => {
     e?.preventDefault()
-    logout()
+    logoutAndRedirect()
   }
 }]]))
 </script>
