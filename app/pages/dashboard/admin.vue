@@ -6,20 +6,20 @@ definePageMeta({
 const links = [[{
   label: 'General',
   icon: 'i-lucide-user',
-  to: '/dashboard/settings',
+  to: '/dashboard/admin',
   exact: true
 }, {
   label: 'Members',
   icon: 'i-lucide-users',
-  to: '/dashboard/settings/members'
-}, {
-  label: 'Notifications',
-  icon: 'i-lucide-bell',
-  to: '/dashboard/settings/notifications'
+  to: '/dashboard/admin/members'
 }, {
   label: 'Inbox',
   icon: 'i-lucide-inbox',
   to: '/dashboard/admin/inbox'
+}, {
+  label: 'Notifications',
+  icon: 'i-lucide-bell',
+  to: '/dashboard/admin/notifications'
 }]]
 </script>
 

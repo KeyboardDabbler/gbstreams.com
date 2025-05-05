@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useUserStore } from '@/stores/user'
+
 const route = useRoute()
 const toast = useToast()
 
@@ -12,32 +14,47 @@ const links = [[{
     open.value = false
   }
 }, {
-  label: 'Inbox',
-  icon: 'i-lucide-inbox',
+  label: 'Requests',
+  icon: 'i-lucide-sparkles',
   to: '/dashboard/inbox',
-  badge: '4',
   onSelect: () => {
     open.value = false
   }
 }, {
-  label: 'Referrals',
-  icon: 'i-lucide-users',
-  to: '/dashboard/customers',
-  onSelect: () => {
-    open.value = false
-  }
-}, {
-  label: 'Billing',
-  icon: 'i-lucide-credit-card',
-  to: '/dashboard/customers',
-  onSelect: () => {
-    open.value = false
-  }
+  label: 'Profile',
+  to: '/dashboard/profile',
+  icon: 'i-lucide-user',
+  children: [{
+    label: 'General',
+    to: '/dashboard/profile',
+    exact: true,
+    onSelect: () => {
+      open.value = false
+    }
+  }, {
+    label: 'Subscription',
+    to: '/dashboard/profile/subscription',
+    onSelect: () => {
+      open.value = false
+    }
+  }, {
+    label: 'Inbox',
+    to: '/dashboard/profile/inbox',
+    badge: '4',
+    onSelect: () => {
+      open.value = false
+    }
+  }, {
+    label: 'Logs',
+    to: '/dashboard/profile/logs',
+    onSelect: () => {
+      open.value = false
+    }
+  }]
 }, {
   label: 'Settings',
   to: '/dashboard/settings',
   icon: 'i-lucide-settings',
-  defaultOpen: true,
   children: [{
     label: 'General',
     to: '/dashboard/settings',
@@ -73,6 +90,13 @@ const links = [[{
   }, {
     label: 'Members',
     to: '/dashboard/admin/members',
+    onSelect: () => {
+      open.value = false
+    }
+  }, {
+    label: 'Inbox',
+    to: '/dashboard/admin/inbox',
+    badge: '4',
     onSelect: () => {
       open.value = false
     }
@@ -115,6 +139,16 @@ const links = [[{
     open.value = false
   }
 }]]
+
+const userStore = useUserStore()
+
+const filteredLinks = computed(() => {
+  // Remove Admin menu if not admin
+  return [
+    links[0].filter(link => link.label !== 'Admin' || userStore.isAdmin),
+    links[1]
+  ]
+})
 
 const groups = computed(() => [{
   id: 'links',
@@ -173,17 +207,20 @@ onMounted(async () => {
       </template>
 
       <template #default="{ collapsed }">
-        <UDashboardSearchButton :collapsed="collapsed" class="bg-transparent ring-(--ui-border)" />
+        <UDashboardSearchButton
+          :collapsed="collapsed"
+          class="bg-transparent ring-(--ui-border)"
+        />
 
         <UNavigationMenu
           :collapsed="collapsed"
-          :items="links[0]"
+          :items="filteredLinks[0]"
           orientation="vertical"
         />
 
         <UNavigationMenu
           :collapsed="collapsed"
-          :items="links[1]"
+          :items="filteredLinks[1]"
           orientation="vertical"
           class="mt-auto"
         />

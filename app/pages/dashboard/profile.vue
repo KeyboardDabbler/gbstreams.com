@@ -6,12 +6,12 @@ definePageMeta({
 const links = [[{
   label: 'General',
   icon: 'i-lucide-user',
-  to: '/dashboard/settings',
+  to: '/dashboard/profile',
   exact: true
 }, {
-  label: 'Billing',
+  label: 'Subscription',
   icon: 'i-lucide-credit-card',
-  to: '/dashboard/profile/billing'
+  to: '/dashboard/profile/subscription'
 }, {
   label: 'Inbox',
   icon: 'i-lucide-inbox',
