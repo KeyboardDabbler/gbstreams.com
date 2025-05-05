@@ -10,13 +10,13 @@ defineProps<{
   collapsed?: boolean
 }>()
 
-const user = ref({
+const user = computed(() => ({
   userName: userStore.userName,
   avatar: {
     src: userStore.avatar,
     alt: userStore.userName
   }
-})
+}))
 
 async function logout() {
   const { logout } = useAuth()
