@@ -10,14 +10,20 @@ definePageMeta({
 
 const userStore = useUserStore()
 
-const profileSchema = z.object({
-  userName: z.string().min(3, 'Too short'),
-  email: z.string().email('Invalid email'),
-  avatar: z.string().optional(),
-  bio: z.string().optional()
-})
+const hasEmail = computed(() => !!userStore.email)
 
-type ProfileSchema = z.output<typeof profileSchema>
+const profileSchema = computed(() =>
+  z.object({
+    userName: z.string().min(3, 'Too short'),
+    email: hasEmail.value
+      ? z.string().email('Invalid email').optional()
+      : z.string().email('Email required'),
+    avatar: z.string().optional(),
+    bio: z.string().max(80, 'Bio must be at most 80 characters').optional()
+  })
+)
+
+type ProfileSchema = z.output<ReturnType<typeof profileSchema>>
 
 const profile = reactive<Partial<ProfileSchema>>({
   email: userStore.email,
@@ -29,16 +35,29 @@ const toast = useToast()
 
 function onAvatarUpdate(newAvatar: string) {
   profile.avatar = newAvatar
-  userStore.avatar = newAvatar
 }
 
 async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
+  if (!profile.email) {
+    toast.add({
+      title: 'Email required',
+      description: 'Please provide an email address to update your profile.',
+      color: 'red',
+      icon: 'i-lucide-x'
+    })
+    profile.email = userStore.email
+    return
+  }
+
+  const body: Record<string, any> = { userName: profile.userName }
+
+  if (profile.email !== userStore.email) body.email = profile.email
+  if (profile.bio !== undefined) body.bio = profile.bio
+  if (profile.avatar !== undefined) body.avatar = profile.avatar
+
   const { data, error } = await useFetch('/api/user/profile', {
     method: 'POST',
-    body: {
-      email: profile.email,
-      bio: profile.bio
-    }
+    body
   })
   if (error.value) {
     if (error.value.statusCode === 409) {
@@ -66,7 +85,7 @@ async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
 <template>
   <UForm
     id="settings"
-    :schema="profileSchema"
+    :schema="profileSchema.value"
     :state="profile"
     @submit="onSubmit"
   >

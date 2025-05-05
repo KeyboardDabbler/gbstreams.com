@@ -21,13 +21,14 @@ export default defineEventHandler(async (event) => {
     }
   }
 
+  const updateData: Record<string, any> = {}
+  if (name !== undefined) updateData.userName = name
+  if (email !== undefined) updateData.email = email
+  if (bio !== undefined) updateData.bio = bio
+  if (avatar !== undefined) updateData.avatar = avatar
+
   await db.update(tables.jellyfinUsers)
-    .set({
-      userName: name,
-      email,
-      bio,
-      avatar
-    })
+    .set(updateData)
     .where(eq(tables.jellyfinUsers.id, session.user.id))
 
   const user = await db.select().from(tables.jellyfinUsers)

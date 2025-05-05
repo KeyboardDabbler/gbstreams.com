@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, watch } from 'vue'
 
-const emit = defineEmits(['update:avatar'])
+const emit = defineEmits(['update'])
 
 const open = ref(false)
 const avatars = ref<{ category: string, filename: string, url: string }[]>([])
@@ -16,7 +16,6 @@ const selectedCategories = ref([
 const searchTerm = ref('')
 const loading = ref(false)
 const selectedAvatar = ref<string | null>(null)
-const toast = useToast()
 
 const categories = [
   'Netflix',
@@ -29,8 +28,8 @@ const categories = [
 
 const filteredAvatars = computed(() => {
   return avatars.value.filter(a =>
-    selectedCategories.value.includes(a.category) &&
-    (!searchTerm.value || a.filename.toLowerCase().includes(searchTerm.value.toLowerCase()))
+    selectedCategories.value.includes(a.category)
+    && (!searchTerm.value || a.filename.toLowerCase().includes(searchTerm.value.toLowerCase()))
   )
 })
 
@@ -60,27 +59,8 @@ function selectAvatar(url: string) {
 
 async function submitAvatar() {
   if (!selectedAvatar.value) return
-  const { data, error } = await useFetch('/api/user/profile', {
-    method: 'POST',
-    body: { avatar: selectedAvatar.value }
-  })
-  if (!error.value) {
-    emit('update:avatar', selectedAvatar.value)
-    toast.add({
-      title: 'Avatar updated',
-      description: 'Your avatar has been updated.',
-      color: 'success',
-      icon: 'i-lucide-check'
-    })
-    open.value = false
-  } else {
-    toast.add({
-      title: 'Avatar update failed',
-      description: error.value.message || 'Failed to update avatar.',
-      color: 'red',
-      icon: 'i-lucide-x'
-    })
-  }
+  emit('update', selectedAvatar.value)
+  open.value = false
 }
 </script>
 
@@ -132,7 +112,11 @@ async function submitAvatar() {
 
         <div class="flex flex-wrap gap-4 p-4">
           <template v-if="loading">
-            <div v-for="n in 12" :key="n" class="flex flex-col items-center">
+            <div
+              v-for="n in 12"
+              :key="n"
+              class="flex flex-col items-center"
+            >
               <USkeleton class="w-24 h-24 rounded-full" />
             </div>
           </template>
@@ -149,12 +133,15 @@ async function submitAvatar() {
                 class="w-24 h-24 rounded-full border-4 transition-all"
                 :class="selectedAvatar === avatar.url ? 'border-primary ring-2 ring-primary' : 'border-transparent'"
                 loading="lazy"
-              />
+              >
             </div>
           </template>
         </div>
 
-        <div v-if="loading" class="flex items-center justify-center py-4">
+        <div
+          v-if="loading"
+          class="flex items-center justify-center py-4"
+        >
           <span>Loading...</span>
         </div>
       </div>
