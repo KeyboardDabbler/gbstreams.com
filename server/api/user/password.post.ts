@@ -1,5 +1,5 @@
-import { getJellyfinApiFromSession } from '../../utils/jellyfinApi'
 import { UserApi } from '@jellyfin/sdk/lib/generated-client'
+import { getJellyfinApiFromSession } from '../../utils/jellyfinApi'
 
 export default defineEventHandler(async (event) => {
   const api = await getJellyfinApiFromSession(event)
@@ -7,7 +7,6 @@ export default defineEventHandler(async (event) => {
   const { current, new: newPassword } = body
   console.log('Received password update request:', { userId: api.userId, current, newPassword })
   try {
-    // Use UserApi to update the user's password
     const userApi = new UserApi(undefined, api.basePath, api.axiosInstance)
     await userApi.updateUserPassword({
       userId: api.userId,
