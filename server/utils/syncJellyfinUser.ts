@@ -1,5 +1,12 @@
 import { useDrizzle, tables, eq } from './drizzle'
 
+export async function getUserPaymentRole(userId: string): Promise<string | null> {
+  const db = useDrizzle()
+  const user = await db.select().from(tables.jellyfinUsers)
+    .where(eq(tables.jellyfinUsers.id, userId)).get()
+  return user?.paymentRole || null
+}
+
 export async function syncJellyfinUser(jellyfinUser: any) {
   const db = useDrizzle()
   const userId = jellyfinUser.Id
@@ -28,19 +35,28 @@ export async function syncJellyfinUser(jellyfinUser: any) {
   }
 
   if (needsSync) {
+    let paymentRole = localUser?.paymentRole || null
+    const isAdmin = jellyfinUser.Policy?.IsAdministrator ? 1 : 0
+    // If user is admin and paymentRole is not Admin, set to Admin
+    if (isAdmin) {
+      if (paymentRole !== 'Admin') paymentRole = 'Admin'
+    } else {
+      // If paymentRole is not set, set to Free
+      if (!paymentRole) paymentRole = 'Free'
+    }
     const userData = {
       id: userId,
       userName: jellyfinUser.Name,
       avatarUrl: jellyfinUser.PrimaryImageTag
         ? `/Users/${userId}/Images/Primary?tag=${jellyfinUser.PrimaryImageTag}`
         : null,
-      enableAutoLogin: jellyfinUser.EnableAutoLogin ? 1 : 0,
+      enableAutoLogin: !!jellyfinUser.EnableAutoLogin,
       lastLoginDate: jellyfinUser.LastLoginDate,
       lastActivityDate: jellyfinUser.LastActivityDate,
       lastSynced: now,
-      isAdmin: jellyfinUser.Policy?.IsAdministrator ? 1 : 0,
+      isAdmin: isAdmin,
       isDisabled: jellyfinUser.Policy?.IsDisabled ? 1 : 0,
-      paymentRole: localUser?.paymentRole || 'Free'
+      paymentRole
     }
     if (!localUser) {
       await db.insert(tables.jellyfinUsers).values(userData)

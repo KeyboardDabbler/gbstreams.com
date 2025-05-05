@@ -1,4 +1,5 @@
 import { Jellyfin } from '@jellyfin/sdk'
+import { getUserPaymentRole } from '../../utils/syncJellyfinUser'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -38,9 +39,9 @@ export default defineEventHandler(async (event) => {
         accessToken: accessToken,
         deviceName,
         deviceId,
-        isAdmin: jellyfinUser.Policy?.IsAdministrator || false,
-        isDisabled: jellyfinUser.Policy?.IsDisabled || false,
-        paymentRole: (await getUserPaymentRole(jellyfinUser.Id)) || 'Free'
+        isAdmin: !!jellyfinUser.Policy?.IsAdministrator,
+        isDisabled: !!jellyfinUser.Policy?.IsDisabled,
+        paymentRole: (await getUserPaymentRole(String(jellyfinUser.Id))) || 'Free'
       },
       loggedInAt: Date.now()
     }, sessionOptions)
