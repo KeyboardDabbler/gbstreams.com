@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import * as z from 'zod'
-import type { FormError } from '@nuxt/ui'
+import type { FormError, FormSubmitEvent } from '@nuxt/ui'
+import { useLogout } from '@/composables/useLogout'
 
 definePageMeta({
   layout: 'dashboard'
@@ -11,7 +12,7 @@ const passwordSchema = z.object({
   new: z.string().min(8, 'Must be at least 8 characters'),
   confirm: z.string().min(8, 'Must be at least 8 characters')
 }).refine(data => data.new === data.confirm, {
-  message: "Passwords do not match",
+  message: 'Passwords do not match',
   path: ['confirm']
 })
 
@@ -32,21 +33,26 @@ const validate = (state: Partial<PasswordSchema>): FormError[] => {
 }
 
 const toast = useToast()
+const logoutAndRedirect = useLogout()
 
-async function onSubmit() {
+async function onSubmit(event: FormSubmitEvent<PasswordSchema>) {
+  const { current, new: newPassword, confirm } = event.data
+  console.log('Submitting password update:', { current, newPassword, confirm })
   const { data, error } = await useFetch('/api/user/password', {
     method: 'POST',
     body: {
-      current: password.current,
-      new: password.new
+      current,
+      new: newPassword
     }
   })
+  console.log('Password update response:', { data: data.value, error: error.value })
   if (error.value || !data.value?.success) {
     toast.add({ title: 'Password update failed', color: 'red' })
+    password.current = password.new = password.confirm = ''
   } else {
     toast.add({ title: 'Password updated. Please sign in again.', color: 'green' })
     password.current = password.new = password.confirm = ''
-    await navigateTo('/auth/login')
+    await logoutAndRedirect()
   }
 }
 </script>
@@ -91,7 +97,11 @@ async function onSubmit() {
         />
       </UFormField>
 
-      <UButton label="Update" class="w-fit" type="submit" />
+      <UButton
+        label="Update"
+        class="w-fit"
+        type="submit"
+      />
     </UForm>
   </UPageCard>
 
@@ -101,8 +111,11 @@ async function onSubmit() {
     class="bg-gradient-to-tl from-(--ui-error)/10 from-5% to-(--ui-bg)"
   >
     <template #footer>
-      <UButton disabled label="Delete account" color="error" />
+      <UButton
+        disabled
+        label="Delete account"
+        color="error"
+      />
     </template>
   </UPageCard>
 </template>
-
