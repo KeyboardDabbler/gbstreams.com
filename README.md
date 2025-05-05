@@ -1,6 +1,6 @@
 # GBstreams Website 🌟
 
-**GBstreams Website** is a passion project built to bring together the best features of various selfhosted apps into one sleek, unified platform. It’s designed to help me grow as a fullstack developer while creating something useful and fun. 🎬✨
+**GBstreams Website** is a passion project built to bring together the best features of various selfhosted apps related to Jellyfin, into one unified platform. This is a hobby to help me grow as a fullstack developer. 🎬✨
 
 ---
 
@@ -36,7 +36,7 @@ This project is in **early development** and is not yet ready for public use, un
 ### 🛠 Features Required Now before v1
 - [x] User authentication
   - [x] Login with Jellyfin
-  - [ ] Site admin user role
+  - [x] Site admin user role
 
 - [ ] Invitation System
   - [ ] Set profiles
@@ -69,12 +69,32 @@ This project is in **early development** and is not yet ready for public use, un
     - [x] Send email to admin submitted form request
     - [ ] Send request to admin via app notification
 
-- [ ] System Stats
+- [ ] User Profile
   - [x] User stats
     - [x] Play count
     - [x] Playback report
     - [x] Watch History
     - [x] Latest Media
+  - [ ] Donations
+    - [] Allow users to donate for extra features
+  - [] Inbox
+    - [] Allow users to send messages to admin
+  - Logs
+        []: # - Login history
+        []: # - Device history
+
+- [ ] User Settings
+  - [x] General
+    - [x] Update userName
+    - [x] Update email
+    - [x] Update Avatar (custom avatar selection modal)
+    - [x] Update Bio
+  - [] Notifications
+    - [] 
+  - [x] Security
+    - [x] Update password
+
+- [ ] Admin Sectiom
   - [ ] Global stats
     - [ ] Activity streams
     - [ ] Most watched (play count, duration)
@@ -84,8 +104,15 @@ This project is in **early development** and is not yet ready for public use, un
     - [ ] User Recent Activity
     - [ ] Player/ device Stats
     - [ ] History
+  - [] Members
+    - [] User management
+  - [] Inbox
+    - [] Allow admin to send messages to specific users
+    - [] Allow admin to delete messages
+  - [] Notifications
+    - []
 
-- [ ] Web Player built with Vue
+- [ ] Web Player
   - [ ] Jellyfin integration
   - [ ] Add Studios section
   - [ ] Add Networks section
