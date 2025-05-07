@@ -36,6 +36,7 @@ export default defineEventHandler(async (event) => {
     await setUserSession(event, {
       user: {
         id: jellyfinUser.Id,
+        userName: jellyfinUser.Name,
         accessToken: accessToken,
         deviceName,
         deviceId,
