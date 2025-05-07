@@ -3,7 +3,7 @@ import Database from 'better-sqlite3'
 
 import * as schema from '../database/schema'
 
-export { sql, eq, and, or } from 'drizzle-orm'
+export { sql, eq, and, or, asc, desc, not } from 'drizzle-orm'
 
 export const tables = schema
 

@@ -1,115 +1,39 @@
 <script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { useInboxStore } from '~/stores/inbox'
+import { useUserStore } from '~/stores/user'
+
 definePageMeta({
   layout: 'dashboard'
 })
 
-const messages = ref([
-  {
-    id: '6045235a-a435-46b8-989d-2df38ca2eb47',
-    role: 'user',
-    content: 'Hello, how are you?'
-  },
-  {
-    id: '7a92b3c1-d5f8-4e76-b8a9-3c1e5fb2e0d8',
-    role: 'assistant',
-    content: 'I am doing well, thank you for asking! How can I assist you today?'
-  },
-  {
-    id: '9c84d6a7-8b23-4f12-a1d5-e7f3b9c05e2a',
-    role: 'user',
-    content: 'What is the current weather in Tokyo?'
-  },
-  {
-    id: 'b2e5f8c3-a1d9-4e67-b3f2-c9d8e7a6b5f4',
-    role: 'assistant',
-    content:
-      'Based on the latest data, Tokyo is currently experiencing sunny weather with temperatures around 24°C (75°F). It\'s a beautiful day with clear skies.'
-  },
-  {
-    id: '6045235a-a435-46b8-989d-2df38ca2eb47',
-    role: 'user',
-    content: 'Hello, how are you?'
-  },
-  {
-    id: '7a92b3c1-d5f8-4e76-b8a9-3c1e5fb2e0d8',
-    role: 'assistant',
-    content: 'I am doing well, thank you for asking! How can I assist you today?'
-  },
-  {
-    id: '9c84d6a7-8b23-4f12-a1d5-e7f3b9c05e2a',
-    role: 'user',
-    content: 'What is the current weather in Tokyo?'
-  },
-  {
-    id: 'b2e5f8c3-a1d9-4e67-b3f2-c9d8e7a6b5f4',
-    role: 'assistant',
-    content:
-      'Based on the latest data, Tokyo is currently experiencing sunny weather with temperatures around 24°C (75°F). It\'s a beautiful day with clear skies.'
-  },
-  {
-    id: '6045235a-a435-46b8-989d-2df38ca2eb47',
-    role: 'user',
-    content: 'Hello, how are you?'
-  },
-  {
-    id: '7a92b3c1-d5f8-4e76-b8a9-3c1e5fb2e0d8',
-    role: 'assistant',
-    content: 'I am doing well, thank you for asking! How can I assist you today?'
-  },
-  {
-    id: '9c84d6a7-8b23-4f12-a1d5-e7f3b9c05e2a',
-    role: 'user',
-    content: 'What is the current weather in Tokyo?'
-  },
-  {
-    id: 'b2e5f8c3-a1d9-4e67-b3f2-c9d8e7a6b5f4',
-    role: 'assistant',
-    content:
-      'Based on the latest data, Tokyo is currently experiencing sunny weather with temperatures around 24°C (75°F). It\'s a beautiful day with clear skies.'
-  },
-  {
-    id: '6045235a-a435-46b8-989d-2df38ca2eb47',
-    role: 'user',
-    content: 'Hello, how are you?'
-  },
-  {
-    id: '7a92b3c1-d5f8-4e76-b8a9-3c1e5fb2e0d8',
-    role: 'assistant',
-    content: 'I am doing well, thank you for asking! How can I assist you today?'
-  },
-  {
-    id: '9c84d6a7-8b23-4f12-a1d5-e7f3b9c05e2a',
-    role: 'user',
-    content: 'What is the current weather in Tokyo?'
-  },
-  {
-    id: 'b2e5f8c3-a1d9-4e67-b3f2-c9d8e7a6b5f4',
-    role: 'assistant',
-    content:
-      'Based on the latest data, Tokyo is currently experiencing sunny weather with temperatures around 24°C (75°F). It\'s a beautiful day with clear skies.'
-  },
-  {
-    id: '6045235a-a435-46b8-989d-2df38ca2eb47',
-    role: 'user',
-    content: 'Hello, how are you?'
-  },
-  {
-    id: '7a92b3c1-d5f8-4e76-b8a9-3c1e5fb2e0d8',
-    role: 'assistant',
-    content: 'I am doing well, thank you for asking! How can I assist you today?'
-  },
-  {
-    id: '9c84d6a7-8b23-4f12-a1d5-e7f3b9c05e2a',
-    role: 'user',
-    content: 'What is the current weather in Tokyo?'
-  },
-  {
-    id: 'b2e5f8c3-a1d9-4e67-b3f2-c9d8e7a6b5f4',
-    role: 'assistant',
-    content:
-      'Based on the latest data, Tokyo is currently experiencing sunny weather with temperatures around 24°C (75°F). It\'s a beautiful day with clear skies.'
-  }
-])
+const inboxStore = useInboxStore()
+const userStore = useUserStore()
+const { messages, error } = storeToRefs(inboxStore)
+const input = ref('')
+
+onMounted(() => {
+  inboxStore.fetchMessages()
+  inboxStore.pollForNewMessages()
+})
+onUnmounted(() => {
+  inboxStore.stopPolling()
+})
+
+function onSubmit() {
+  if (!input.value.trim()) return
+  inboxStore.sendMessage(input.value, 'appAdmin')
+  input.value = ''
+}
+
+function mapMessages() {
+  return messages.value.map(msg => ({
+    id: msg.id,
+    role: msg.sender_id === userStore.userName ? 'user' : 'assistant',
+    content: msg.content,
+    createdAt: new Date(msg.timestamp)
+  }))
+}
 </script>
 
 <template>
@@ -117,24 +41,26 @@ const messages = ref([
     <UChatMessages
       :user="{
         avatar: {
-          src: 'https://github.com/benjamincanac.png'
+          src: userStore.avatar,
+          alt: userStore.userName
         }
       }"
       :assistant="{
         avatar: {
-          icon: 'i-lucide-bot'
+          src: 'https://res.cloudinary.com/dpub6gcei/image/upload/v1678918296/GBstreams/branding/web/android-chrome-512x512_maskable_mteusr.png',
+          alt: 'G Bstreams'
         }
       }"
       auto-scroll-icon="i-lucide-chevron-down"
       :should-scroll-to-bottom="false"
-      :messages="messages"
+      :messages="mapMessages()"
     />
 
     <UChatPrompt
       v-model="input"
       :error="error"
       class="sticky bottom-0 [view-transition-name:chat-prompt] rounded-b-none z-10"
-      @submit="handleSubmit"
+      @submit="onSubmit"
     >
       <UChatPromptSubmit />
     </UChatPrompt>
