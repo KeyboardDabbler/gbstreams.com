@@ -14,3 +14,13 @@ export const jellyfinUsers = sqliteTable('users', {
   isDisabled: integer('is_disabled', { mode: 'boolean' }).notNull().default(false),
   paymentRole: text('payment_role').notNull().default('Free')
 })
+
+export const messages = sqliteTable('messages', {
+  id: text('id').primaryKey(),
+  sender_id: text('sender_id').notNull(),
+  receiver_id: text('receiver_id').notNull(),
+  content: text('content').notNull(),
+  timestamp: text('timestamp').notNull(),
+  is_read: integer('is_read', { mode: 'boolean' }).notNull().default(false),
+  is_deleted: integer('is_deleted', { mode: 'boolean' }).notNull().default(false)
+})
