@@ -45,6 +45,20 @@ export const useInboxStore = defineStore('inbox', {
       }
     },
 
+    async adminSendMessage(content: string, receiver_id: string) {
+      try {
+        const { data } = await useFetch('/api/admin/send-message', {
+          method: 'POST',
+          body: { content, receiver_id }
+        })
+        if (data.value?.success) {
+          this.messages.push(data.value.message)
+        }
+      } catch (e) {
+        this.error = 'Failed to send message'
+      }
+    },
+
     async fetchMessagesForUser(userName: string) {
       this.loading = true
       try {
