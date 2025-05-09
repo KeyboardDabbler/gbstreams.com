@@ -72,6 +72,20 @@ export const useInboxStore = defineStore('inbox', {
       }
     },
 
+    async deleteMessage(id: string) {
+      try {
+        const { data } = await useFetch('/api/admin/delete-message', {
+          method: 'POST',
+          body: { id }
+        })
+        if (data.value?.success) {
+          this.messages = this.messages.filter(msg => msg.id !== id)
+        }
+      } catch (e) {
+        this.error = 'Failed to delete message'
+      }
+    },
+
     setMessages(messages: Message[]) {
       this.messages = messages
     },

@@ -1,16 +1,15 @@
 <script setup lang="ts">
-import { computed, ref, watch, watchEffect, onMounted, onUnmounted } from 'vue'
-import { breakpointsTailwind } from '@vueuse/core'
+import { ref, watch, onUnmounted } from 'vue'
 import { storeToRefs } from 'pinia'
 import { useInboxStore } from '~/stores/inbox'
+import { useToast } from '#imports'
 
 definePageMeta({
   layout: 'dashboard'
 })
 
 const inboxStore = useInboxStore()
-const userStore = useUserStore()
-const { messages, error } = storeToRefs(inboxStore)
+const { messages } = storeToRefs(inboxStore)
 const input = ref('')
 
 const { data: mails } = await useFetch('/api/admin/inbox-list', {
@@ -19,6 +18,7 @@ const { data: mails } = await useFetch('/api/admin/inbox-list', {
 
 const selectedMail = ref<null | any>(null)
 const isSlideoverOpen = ref(false)
+const toast = useToast()
 
 function startPollingForSelectedUser() {
   if (selectedMail.value?.userName) {
@@ -66,6 +66,18 @@ function onSubmit() {
   input.value = ''
 }
 
+function onDelete(e: MouseEvent, message: any) {
+  inboxStore.deleteMessage(message.id)
+  toast.add({
+    title: 'Message deleted',
+    description: `Message with ID ${message.id} was deleted`,
+    icon: 'i-lucide-trash',
+    color: 'error',
+    variant: 'subtle',
+    duration: 3000
+  })
+}
+
 function mapMessages() {
   return messages.value.map(msg => ({
     id: msg.id,
@@ -83,16 +95,32 @@ function mapMessages() {
         avatar: {
           src: selectedMail?.avatar,
           alt: selectedMail?.userName
-        }
+        },
+        actions: [
+          {
+            label: 'Delete',
+            icon: 'i-lucide-trash',
+            onClick: onDelete
+          }
+        ]
       }"
       :assistant="{
         avatar: {
           src: 'https://res.cloudinary.com/dpub6gcei/image/upload/v1678918296/GBstreams/branding/web/android-chrome-512x512_maskable_mteusr.png',
           alt: 'G Bstreams'
-        }
+        },
+        actions: [
+          {
+            label: 'Delete',
+            icon: 'i-lucide-trash',
+            onClick: onDelete
+          }
+        ]
       }"
-      auto-scroll-icon="i-lucide-chevron-down"
-      :should-scroll-to-bottom="false"
+      class="lg:pt-(--ui-header-height) pb-4 sm:pb-6"
+      :spacing-offset="160"
+      :should-scroll-to-bottom="true"
+      should-auto-scroll
       :messages="mapMessages()"
     />
     <UChatPrompt
