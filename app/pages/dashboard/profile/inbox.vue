@@ -51,8 +51,10 @@ function mapMessages() {
           alt: 'G Bstreams'
         }
       }"
-      auto-scroll-icon="i-lucide-chevron-down"
-      :should-scroll-to-bottom="false"
+      class="lg:pt-(--ui-header-height) pb-4 sm:pb-6"
+      :spacing-offset="160"
+      :should-scroll-to-bottom="true"
+      should-auto-scroll
       :messages="mapMessages()"
     />
 
