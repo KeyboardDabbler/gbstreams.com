@@ -6,15 +6,25 @@ export default defineEventHandler(async (event) => {
     throw createError({ statusCode: 403, message: 'Forbidden' })
   }
   const db = useDrizzle()
-  // Get all users except the system admin (e.g., userName 'appAdmin')
+
   const users = await db.select().from(tables.jellyfinUsers)
     .where(not(eq(tables.jellyfinUsers.userName, 'appAdmin')))
     .all()
 
   const adminId = 'appAdmin'
 
-  // For each user, get their latest message with appAdmin (if any)
   const result = await Promise.all(users.map(async (user) => {
+    // Count unread messages from this user to admin
+    const unreadCount = await db.select().from(tables.messages)
+      .where(
+        and(
+          eq(tables.messages.sender_id, user.userName),
+          eq(tables.messages.receiver_id, adminId),
+          eq(tables.messages.is_read, false)
+        )
+      )
+      .all()
+
     const latestMsg = await db.select().from(tables.messages)
       .where(or(
         and(eq(tables.messages.sender_id, user.userName), eq(tables.messages.receiver_id, adminId)),
@@ -29,11 +39,11 @@ export default defineEventHandler(async (event) => {
       userName: user.userName,
       avatar: user.avatar,
       latestMessage: latestMsg?.content || '',
-      unread: latestMsg ? !latestMsg.is_read && latestMsg.receiver_id === adminId : false,
+      unread: unreadCount.length > 0,
       date: latestMsg?.timestamp || null
     }
   }))
-  // Sort by latest message date descending, users with no messages at the bottom
+
   result.sort((a, b) => {
     if (!a.date && !b.date) return a.userName.localeCompare(b.userName)
     if (!a.date) return 1

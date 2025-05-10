@@ -2,6 +2,7 @@
 import { storeToRefs } from 'pinia'
 import { useInboxStore } from '~/stores/inbox'
 import { useUserStore } from '~/stores/user'
+import { onMounted, onUnmounted, ref } from 'vue'
 
 definePageMeta({
   layout: 'dashboard'
@@ -9,20 +10,33 @@ definePageMeta({
 
 const inboxStore = useInboxStore()
 const userStore = useUserStore()
-const { messages, error } = storeToRefs(inboxStore)
+const { messages } = storeToRefs(inboxStore)
 const input = ref('')
 
 onMounted(() => {
-  inboxStore.fetchMessages()
-  inboxStore.pollForNewMessages()
+  inboxStore.fetchMessages() // This will mark as read by default
+  inboxStore.initWebSocket() // No arguments
 })
+
 onUnmounted(() => {
-  inboxStore.stopPolling()
+  if (inboxStore.ws && inboxStore.wsStatus === 'OPEN') {
+    inboxStore.ws.close()
+  }
 })
 
 function onSubmit() {
+  console.log('[inbox.vue] onSubmit called, input:', input.value)
   if (!input.value.trim()) return
+  // Log ws and wsStatus for debugging
+  console.log('[inbox.vue] ws:', inboxStore.ws, 'wsStatus:', inboxStore.wsStatus)
   inboxStore.sendMessage(input.value, 'appAdmin')
+    .then(() => {
+      // Always re-fetch messages after sending, which will also mark as read
+      inboxStore.fetchMessages()
+    })
+    .catch((err) => {
+      console.error('[inbox.vue] sendMessage error:', err)
+    })
   input.value = ''
 }
 
@@ -32,7 +46,7 @@ function mapMessages() {
     role: msg.sender_id === userStore.userName ? 'user' : 'assistant',
     content: msg.content,
     createdAt: new Date(msg.timestamp)
-  }))
+  })) as any // Cast to any to satisfy UChatMessages type
 }
 </script>
 
@@ -60,7 +74,6 @@ function mapMessages() {
 
     <UChatPrompt
       v-model="input"
-      :error="error"
       class="sticky bottom-0 [view-transition-name:chat-prompt] rounded-b-none z-10"
       @submit="onSubmit"
     >
