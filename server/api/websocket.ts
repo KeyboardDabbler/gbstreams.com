@@ -68,8 +68,7 @@ export default defineWebSocketHandler({
         receiver_id,
         content,
         timestamp: new Date().toISOString(),
-        is_read: false,
-        is_deleted: false
+        is_read: false
       }
       console.log('[websocket.ts] Inserting message:', newMsg)
       await db.insert(tables.messages).values(newMsg)
@@ -89,8 +88,7 @@ export default defineWebSocketHandler({
         receiver_id,
         content,
         timestamp: new Date().toISOString(),
-        is_read: false,
-        is_deleted: false
+        is_read: false
       }
       console.log('[websocket.ts] Admin inserting message:', newMsg)
       await db.insert(tables.messages).values(newMsg)

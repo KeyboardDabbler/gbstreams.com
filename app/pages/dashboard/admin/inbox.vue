@@ -75,6 +75,7 @@ function onSubmit() {
 
 function onDelete(e: MouseEvent, message: any) {
   inboxStore.deleteMessage(message.id)
+  messages.value = messages.value.filter((msg: any) => msg.id !== message.id)
   toast.add({
     title: 'Message deleted',
     description: `Message with ID ${message.id} was deleted`,
@@ -90,7 +91,7 @@ function mapMessages() {
     role: msg.sender_id === selectedMail.value?.userName ? 'user' : 'assistant',
     content: msg.content,
     createdAt: new Date(msg.timestamp)
-  })) as any // Cast to any for UChatMessages
+  })) as any
 }
 </script>
 

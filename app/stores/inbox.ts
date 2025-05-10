@@ -9,7 +9,6 @@ export interface Message {
   content: string
   timestamp: string
   is_read: boolean
-  is_deleted: boolean
 }
 
 export const useInboxStore = defineStore('inbox', {
@@ -106,8 +105,7 @@ export const useInboxStore = defineStore('inbox', {
               receiver_id: String(data.message.receiver_id),
               content: String(data.message.content),
               timestamp: data.message.timestamp,
-              is_read: data.message.is_read,
-              is_deleted: data.message.is_deleted
+              is_read: data.message.is_read
             })
             console.debug('[inbox.ts] sendMessage: pushed new message from REST', data.message)
           } else {
@@ -137,8 +135,7 @@ export const useInboxStore = defineStore('inbox', {
               receiver_id: String(data.value.message.receiver_id),
               content: String(data.value.message.content),
               timestamp: data.value.message.timestamp,
-              is_read: data.value.message.is_read,
-              is_deleted: data.value.message.is_deleted
+              is_read: data.value.message.is_read
             })
             if (typeof window !== 'undefined') {
               const userStore = useUserStore()

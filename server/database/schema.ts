@@ -21,6 +21,5 @@ export const messages = sqliteTable('messages', {
   receiver_id: text('receiver_id').notNull(),
   content: text('content').notNull(),
   timestamp: text('timestamp').notNull(),
-  is_read: integer('is_read', { mode: 'boolean' }).notNull().default(false),
-  is_deleted: integer('is_deleted', { mode: 'boolean' }).notNull().default(false)
+  is_read: integer('is_read', { mode: 'boolean' }).notNull().default(false)
 })

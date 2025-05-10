@@ -18,8 +18,7 @@ export default defineEventHandler(async (event) => {
     receiver_id,
     content,
     timestamp: new Date().toISOString(),
-    is_read: false,
-    is_deleted: false
+    is_read: false
   }
   await db.insert(tables.messages).values(message)
   return { success: true, message }
